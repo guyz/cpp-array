@@ -1367,6 +1367,7 @@ inline std::ostream& print<BinExprOp< ExprLiteral<double>, Expr< BinExprOp< Arra
     for(size_t i=0; i<v.size(); ++i)
         os<<" "<<s*v[i];
     os<<endl;
+    return os;
 }
 
 __END_ARRAY_NAMESPACE__
