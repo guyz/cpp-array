@@ -63,7 +63,7 @@ public:
     
     value_type operator()(T x) const {
 #ifdef ARRAY_VERBOSE
-        cout<<"1 Inside "<<typeid(value_type).name()<<" ExprIdentity::operator()("<<typeid(T).name()<<"), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"1 Inside "<<typeid(value_type).name()<<" ExprIdentity::operator()("<<typeid(T).name()<<")"<<endl;
         cout<<"  value returned: "<<x<<endl;
 #endif
         return x;
@@ -84,7 +84,7 @@ public:
     template <typename... Args>
     value_type operator()(Args... params) const {
 #ifdef ARRAY_VERBOSE
-        cout<<"1 Inside "<<typeid(value_type).name()<<" ExprLiteral::operator()(Args...), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"1 Inside "<<typeid(value_type).name()<<" ExprLiteral::operator()(Args...)"<<endl;
         cout<<"  value returned: "<<value_<<endl;
 #endif
         return value_;
@@ -247,14 +247,14 @@ public:
     
     reference_type operator()() const { 
 #ifdef ARRAY_VERBOSE
-        cout<<"Inside RefBinExprOp::operator()(), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"Inside RefBinExprOp::operator()()"<<endl;
 #endif
         return Op::apply(a_, b_);
     }
     
     reference_type operator()(double x) const { 
 #ifdef ARRAY_VERBOSE
-        cout<<"Inside RefBinExprOp::operator()(double x), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"Inside RefBinExprOp::operator()(double x)"<<endl;
         cout<<"result: "<< Op::apply(a_(x), b_(x))<<endl;
 #endif
         return Op::apply(a_(x), b_(x));
@@ -421,7 +421,7 @@ public:
         
         cblas_axpy(a.size(), static_cast<T>(y.left()), b.data_, 1, a.data_, 1);
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApAdd::apply(array&, scalar*array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApAdd::apply(array&, scalar*array)"<<endl;
 #endif
         return a;
     }
@@ -437,7 +437,7 @@ public:
         Array<d,T> r(b);
         cblas_axpy(a.size(), T(1), a.data_, 1, r.data_, 1);
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApAdd::apply(array, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApAdd::apply(array, array)"<<endl;
 #endif
         return r;
     }
@@ -464,7 +464,7 @@ public:
                    a.data_, a.rows(), b.data_, b.rows(), 1.0, c.data_, c.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApAdd::apply(matrix&, scalar*matrix*matrix), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApAdd::apply(matrix&, scalar*matrix*matrix)"<<endl;
 #endif
         return c;
     }
@@ -474,7 +474,7 @@ public:
     static Array<d,T>& apply(Array<d,T>& a, const Expr<B>& b) {
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n*** INFO *** Applying general ApAdd::apply(array&, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n*** INFO *** Applying general ApAdd::apply(array&, expr)"<<endl;
         cout<<"               left: "<<typeid(a).name()<<endl;
         cout<<"               right: "<<typeid(b).name()<<endl;
 #endif
@@ -505,7 +505,7 @@ public:
         cblas_axpy(a.size(), static_cast<T>(y.left()), b.data_, 1, r.data_, 1);
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApAdd::apply(scalar*array, scalar*array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApAdd::apply(scalar*array, scalar*array)"<<endl;
 #endif
         return r;
     }
@@ -515,7 +515,7 @@ public:
     static typename Return_type<Expr<A>, Expr<B>, ApMul>::result_type
     apply(const Expr<A>& a, const Expr<B>& b) {
 #ifdef ARRAY_VERBOSE
-        cout<<"\n*** INFO *** Applying general ApAdd::apply(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n*** INFO *** Applying general ApAdd::apply(expr, expr)"<<endl;
         cout<<"               left: "<<typeid(a).name()<<endl;
         cout<<"               right: "<<typeid(b).name()<<endl;
 #endif
@@ -544,7 +544,7 @@ public:
     static typename Return_type<Expr<A>, Expr<B>, ApMul>::result_type
     apply(const Expr<A>& a, const Expr<B>& b) {
 #ifdef ARRAY_VERBOSE
-        cout<<"\n*** INFO *** Applying general ApSub::apply(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n*** INFO *** Applying general ApSub::apply(expr, expr)"<<endl;
         cout<<"               left: "<<typeid(a).name()<<endl;
         cout<<"               right: "<<typeid(b).name()<<endl;
 #endif
@@ -565,7 +565,7 @@ public:
         Array<d,T> r(b);
         cblas_scal(b.size(), static_cast<T>(a), r.data_, 1);
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar, array)"<<endl;
 #endif
         return r;
     }
@@ -575,7 +575,7 @@ public:
     static Array<d,T> apply(const ExprLiteral<T>& a, const Expr< BinExprOp<Array<d,T>, EmptyType, ApTr> >& b) {
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar, transposed array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar, transposed array)"<<endl;
 #endif
         return static_cast<T>(a) * b();
     }
@@ -591,7 +591,7 @@ public:
         assert(x.size() == y.size());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(transposed vector, scalar*vector), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(transposed vector, scalar*vector)"<<endl;
 #endif
         return static_cast<T>(b.left())*cblas_dot(x.size(), x.data_, 1, y.data_, 1);
     }
@@ -609,7 +609,7 @@ public:
         cblas_ger(x.size(), y.size(), static_cast<T>(a.left()), x.data_, 1, y.data_, 1, r.data_, r.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*vector, transposed vector), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*vector, transposed vector)"<<endl;
 #endif
         return r;
     }
@@ -625,7 +625,7 @@ public:
         assert(x.size() == y.size());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*transposed vector, scalar*vector), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*transposed vector, scalar*vector)"<<endl;
 #endif
         return static_cast<T>(b.left())*static_cast<T>(a.left())*cblas_dot(x.size(), x.data_, 1, y.data_, 1);
     }
@@ -643,7 +643,7 @@ public:
         cblas_ger(x.size(), y.size(), static_cast<T>(a.left())*static_cast<T>(b.left()), x.data_, 1, y.data_, 1, r.data_, r.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)"<<endl;
 #endif
         return r;
     }
@@ -667,7 +667,7 @@ public:
                    a.data_, a.rows(), b.data_, b.rows(), 1.0, r.data_, r.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*matrix), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*matrix)"<<endl;
 #endif
         return r;
     }
@@ -688,7 +688,7 @@ public:
         cblas_gemv(CblasNoTrans, a.rows(), a.columns(), static_cast<T>(x.left() * y.left()),
                    a.data_, a.rows(), b.data_, 1, 1., r.data_, 1);
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*vector), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*vector)"<<endl;
 #endif
         
         return r;
@@ -712,7 +712,7 @@ public:
                    a.data_, a.rows(), b.data_, b.rows(), 1.0, r.data_, r.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix)"<<endl;
 #endif
         return r;
     }
@@ -736,7 +736,7 @@ public:
                    a.data_, a.rows(), b.data_, b.rows(), 1.0, r.data_, r.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix)"<<endl;
 #endif
         return r;
     }
@@ -759,7 +759,7 @@ public:
                    a.data_, a.rows(), b.data_, b.rows(), 1.0, r.data_, r.rows());
         
 #ifdef ARRAY_VERBOSE
-        cout<<"\n      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix)"<<endl;
 #endif
         return r;
     }
@@ -769,7 +769,7 @@ public:
     static typename Return_type<Expr<A>, Expr<B>, ApMul>::result_type
     apply(const Expr<A>& a, const Expr<B>& b) {
 #ifdef ARRAY_VERBOSE
-        cout<<"\n*** INFO *** Applying general ApMul::apply(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n*** INFO *** Applying general ApMul::apply(expr, expr)"<<endl;
         cout<<"               left: "<<typeid(a).name()<<endl;
         cout<<"               right: "<<typeid(b).name()<<endl;
 #endif
@@ -787,7 +787,7 @@ public:
     static typename Return_type<Expr<A>, Expr<B>, ApMul>::result_type
     apply(const Expr<A>& a, const Expr<B>& b) {
 #ifdef ARRAY_VERBOSE
-        cout<<"\n*** INFO *** Applying general ApDiv::apply(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+        cout<<"\n*** INFO *** Applying general ApDiv::apply(expr, expr)"<<endl;
         cout<<"               left: "<<typeid(a).name()<<endl;
         cout<<"               right: "<<typeid(b).name()<<endl;
 #endif
@@ -802,7 +802,7 @@ struct ApTr {
     //    // this function should never be called
     //    template <typename T>
     //    static inline Array<1,T> apply(const Array<1,T>& a, EmptyType) {
-    //        cout<<"*** ERROR *** Cannot return the transpose of a vector, file "<<__FILE__<<", line "<<__LINE__<<endl;
+    //        cout<<"*** ERROR *** Cannot return the transpose of a vector"<<endl;
     //        exit(1);
     //    }
     
@@ -818,7 +818,7 @@ struct ApTr {
     
     //    static inline double apply(const M& A, size_t i, size_t j) {
     //#ifdef CPPUTILS_ARRAY_VERBOSE
-    //        cout<<"Inside TrOp::apply(M,i,j), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    //        cout<<"Inside TrOp::apply(M,i,j)"<<endl;
     //#endif
     //        
     //        return A(j,i);
@@ -846,7 +846,7 @@ typename enable_if<!is_arithmetic<A>::value, Expr<BinExprOp<ExprLiteral<int>, A,
 operator-(const A& a) {
     
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside unary operator-(any), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside unary operator-(any)"<<endl;
     typedef BinExprOp<ExprLiteral<int>, A, ApMul> ExprT;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
@@ -863,7 +863,7 @@ operator+(const Expr<A>& a, const Expr<B>& b) {
     
     typedef BinExprOp<Expr<A>, Expr<B>, ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator+(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator+(expr, expr)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b));
@@ -876,7 +876,7 @@ operator+(const Array<d,T>& a, const Array<d,T>& b) {
     
     typedef BinExprOp<Array<d,T>, Array<d,T>, ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator+(array, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator+(array, array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b));
@@ -895,7 +895,7 @@ operator+(const Expr<A>& a, const Array<d,T>& b) {
     Expr< BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> >, 
     ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator+(expr, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator+(expr, array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a, T(1)*b));
@@ -914,7 +914,7 @@ operator+(const Array<d,T>& a, const Expr<B>& b) {
     Expr<B>, 
     ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator+(array, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator+(array, expr)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(T(1)*a, b));
@@ -931,7 +931,7 @@ operator-(const Expr<A>& a, const Expr<B>& b) {
     
     typedef BinExprOp<Expr<A>, Expr<B>, ApSub> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator-(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator-(expr, expr)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b));
@@ -944,7 +944,7 @@ operator-(const Array<d,T>& a, const Array<d,T>& b) {
     
     typedef BinExprOp<Array<d,T>, Array<d,T>, ApSub> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator-(array, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator-(array, array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b));
@@ -963,7 +963,7 @@ operator-(const Expr<A>& a, const Array<d,T>& b) {
     Expr< BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> >, 
     ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator-(expr, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator-(expr, array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a, T(-1)*b));
@@ -984,7 +984,7 @@ operator-(const Array<d,T>& a, const Expr<BinExprOp< ExprLiteral<T>, Array<d,T>,
     
     typedef BinExprOp< inner_expression, inner_expression, ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator-(array, scalar*array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator-(array, scalar*array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     
@@ -1003,7 +1003,7 @@ operator*(const Expr<A>& a, const Expr<B>& b) {
     
     typedef BinExprOp<Expr<A>, Expr<B>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(expr, expr)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b));
@@ -1022,7 +1022,7 @@ operator*(const Array<d1,T>& a, const Array<d2,T>& b) {
     Expr< BinExprOp< ExprLiteral<T>, Array<d2,T>, ApMul> >, 
     ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(array, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(array, array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     
@@ -1037,7 +1037,7 @@ operator*(S a, const Expr<B>& b) {
     typedef typename Expr<B>::value_type value_type;
     typedef BinExprOp< ExprLiteral<value_type>, Expr<B>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar, expr), with scalar="<<a<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar, expr), with scalar="<<a<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
     cout<<"  value type: "<<typeid(value_type).name()<<endl;
 #endif
@@ -1052,7 +1052,7 @@ operator*(const Expr<A>& a, S b) {
     typedef typename Expr<A>::value_type value_type;
     typedef BinExprOp< ExprLiteral<value_type>, Expr<A>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(expr, scalar), with scalar="<<b<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(expr, scalar), with scalar="<<b<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
     cout<<"  value type: "<<typeid(value_type).name()<<endl;
 #endif
@@ -1066,7 +1066,7 @@ operator*(S a, const Expr<BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> >& b) {
     
     typedef BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar, scalar*expr), with scalar="<<a<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar, scalar*expr), with scalar="<<a<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(a*b.left()),b.right()));
@@ -1080,7 +1080,7 @@ operator*(S a, const Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >
     
     typedef BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar, scalar*expr*expr), with scalar="<<a<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar, scalar*expr*expr), with scalar="<<a<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     T scalar = a*b.left().left();
@@ -1098,7 +1098,7 @@ operator*(const Expr<BinExprOp< ExprLiteral<T>, Expr<A>, ApMul> >& a, S b) {
     
     typedef BinExprOp< ExprLiteral<T>, Expr<A>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar*expr, scalar), with scalar="<<b<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar*expr, scalar), with scalar="<<b<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(a.left()*b),a.right()));
@@ -1111,7 +1111,7 @@ operator*(S a, const Array<d,T>& b) {
     
     typedef BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar, array), with scalar="<<a<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar, array), with scalar="<<a<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(a),b));
@@ -1124,7 +1124,7 @@ operator*(const Array<d,T>& a, S b) {
     
     typedef BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(array, scalar), with scalar="<<b<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(array, scalar), with scalar="<<b<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(b),a));
@@ -1137,7 +1137,7 @@ operator*(const Expr<BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> >& a, S b) {
     
     typedef BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar*array, scalar), with scalar="<<b<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar*array, scalar), with scalar="<<b<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(a.left()*b),a.right()));
@@ -1150,7 +1150,7 @@ operator*(S a, const Expr<BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> >& b) {
     
     typedef BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar, scalar*array), with scalar="<<a<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar, scalar*array), with scalar="<<a<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(a*b.left()),b.right()));
@@ -1169,7 +1169,7 @@ operator*(const Expr<A>& a, const Array<d,T>& b) {
     Expr< BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> >, 
     ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(expr, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(expr, array)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a, T(1)*b));
@@ -1188,7 +1188,7 @@ operator*(const Array<d,T>& a, const Expr<B>& b) {
     Expr<B>,
     ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(array, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(array, expr)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(T(1)*a, b));
@@ -1209,7 +1209,7 @@ operator*(S a, const Expr<BinExprOp<Array<d,T>, EmptyType, ApTr> >& b) {
         
     typedef BinExprOp< ExprLiteral<T>, Expr<BinExprOp<Array<d,T>, EmptyType, ApTr> >, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator*(scalar, transposed object), with scalar="<<a<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator*(scalar, transposed object), with scalar="<<a<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(a),b));
@@ -1227,7 +1227,7 @@ operator/(const Expr<A>& a, const Expr<B>& b) {
     
     typedef BinExprOp<Expr<A>, Expr<B>, ApDiv> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator/(expr, expr), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator/(expr, expr)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b));
@@ -1241,7 +1241,7 @@ operator/(const Array<d,T>& a, S b) {
     
     typedef BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator/(array, scalar), with scalar="<<b<<", file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator/(array, scalar), with scalar="<<b<<""<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(ExprLiteral<T>(1/static_cast<T>(b)),a));
@@ -1259,7 +1259,7 @@ transpose(const A& a) {
     typedef BinExprOp<A, EmptyType, ApTr> TrExprT;
     typedef BinExprOp< ExprLiteral<value_type>, Expr< TrExprT>, ApMul> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside transpose(any), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside transpose(any)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(value_type(1), Expr<TrExprT>(TrExprT(a, EmptyType()))));
@@ -1273,7 +1273,7 @@ transpose(const Expr< BinExprOp< ExprLiteral<typename A::value_type>, Expr<BinEx
     typedef BinExprOp< ExprLiteral<typename A::value_type>, A, ApMul> ExprT;
 
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside transpose(scalar*transpose(any)), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside transpose(scalar*transpose(any))"<<endl;
 #endif
     
     return Expr<ExprT>(ExprT(a.left(), a.right().left()));
@@ -1288,7 +1288,7 @@ transpose(const Expr< BinExprOp< ExprLiteral<typename A::value_type>, Expr< BinE
     typedef BinExprOp< ExprLiteral<typename A::value_type>, A , ApMul> ExprT;
 
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside transpose(scalar*(scalar*transpose(any))), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside transpose(scalar*(scalar*transpose(any)))"<<endl;
 #endif
     value_type s = static_cast<value_type>(a.left()) * static_cast<value_type>(a.right().left().left());
     
@@ -1306,7 +1306,7 @@ Array<d,T>&
 operator+=(Array<d,T>& a, const Array<d,T>& b) {
     
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator+=(array, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator+=(array, array)"<<endl;
 #endif
     return a += T(1)*b;
 }
@@ -1317,7 +1317,7 @@ typename enable_if<!is_arithmetic<A>::value && !is_arithmetic<B>::value, A& >::t
 operator+=(A& a, const B& b) {
     typedef RefBinExprOp<A, B, ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator+=(any&, const any&), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator+=(any&, const any&)"<<endl;
     cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
     return Expr<ExprT>(ExprT(a,b))();
@@ -1333,7 +1333,7 @@ Array<d,T>&
 operator-=(Array<d,T>& a, const Array<d,T>& b) {
     
 #ifdef ARRAY_VERBOSE
-    cout<<"1 Inside operator-=(array, array), file "<<__FILE__<<", line "<<__LINE__<<endl;
+    cout<<"1 Inside operator-=(array, array)"<<endl;
 #endif
     return a += T(-1)*b;
 }
