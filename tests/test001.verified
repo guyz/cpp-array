@@ -10,20 +10,20 @@ Y -> Array<1> (3)
  2
  1
 
-1 Inside operator+(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 880
+1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
 X + Y = Inside constructor Array(const Array& a)
 
-      4 Inside ApAdd::apply(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 441
+      4 Inside ApAdd::apply(array, array)
 Array<1> (3)
  3
  3
  3
 
-1 Inside operator-(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 948
+1 Inside operator-(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApSubEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -34,27 +34,27 @@ Array<1> (3)
  -1
  1
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
 2.*X = Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
 Array<1> (3)
  0
  2
  4
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator+(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 899
+1 Inside operator+(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -68,31 +68,31 @@ Array<1> (3)
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<1> (3)
  3
  4
  5
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator+(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 918
+1 Inside operator+(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -106,31 +106,31 @@ X+(2*Y) =     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<1> (3)
  6
  5
  4
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator+(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 918
+1 Inside operator+(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -138,9 +138,9 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-1 Inside operator+(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 899
+1 Inside operator+(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS1_INS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEES8_S9_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -149,51 +149,51 @@ Array<1> (3)
     type of A: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
 (X+(2*Y))+Y = 
-*** INFO *** Applying general ApAdd::apply(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 519
+*** INFO *** Applying general ApAdd::apply(expr, expr)
                left: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
                right: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
-1 Inside operator+(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 880
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
+1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 
-      4 Inside ApAdd::apply(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 441
+      4 Inside ApAdd::apply(array, array)
 Array<1> (3)
  9
  7
  5
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator+(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 918
+1 Inside operator+(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -201,9 +201,9 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-1 Inside operator+(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 918
+1 Inside operator+(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS8_S8_NS_5ApAddEEEEES9_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -212,7 +212,7 @@ Array<1> (3)
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
 Y+(X+(2*Y)) = 
-*** INFO *** Applying general ApAdd::apply(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 519
+*** INFO *** Applying general ApAdd::apply(expr, expr)
                left: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
                right: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
     3 Inside BinExprOp::right()
@@ -221,45 +221,45 @@ Y+(X+(2*Y)) =
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
-1 Inside operator+(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 880
+      4 Inside ApMul::apply(scalar, array)
+1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 
-      4 Inside ApAdd::apply(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 441
+      4 Inside ApAdd::apply(array, array)
 Array<1> (3)
  9
  7
  5
 
-1 Inside operator*(scalar, array), with scalar=3, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=3
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator+(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 867
+1 Inside operator+(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
@@ -270,24 +270,24 @@ Array<1> (3)
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <3 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<1> (3)
  9
  8
  7
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -295,9 +295,9 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -312,13 +312,13 @@ Array<1> (3)
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
 
-      4 Inside ApMul::apply(scalar*transposed vector, scalar*vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 629
+      4 Inside ApMul::apply(scalar*transposed vector, scalar*vector)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 4
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -326,9 +326,9 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -348,13 +348,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 647
+      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)
 Array<2> (3x3)
  0 0 0
  3 2 1
  6 4 2
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -362,12 +362,12 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
@@ -384,13 +384,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 647
+      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)
 Array<2> (3x3)
  0 0 0
  6 4 2
  12 8 4
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -398,7 +398,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -407,9 +407,9 @@ Array<2> (3x3)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -429,13 +429,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 647
+      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)
 Array<2> (3x3)
  0 0 0
  6 4 2
  12 8 4
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -443,7 +443,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -452,7 +452,7 @@ Array<2> (3x3)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -461,9 +461,9 @@ Array<2> (3x3)
 <2 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -483,13 +483,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <4 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 647
+      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)
 Array<2> (3x3)
  0 0 0
  12 8 4
  24 16 8
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
@@ -497,7 +497,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar*expr, scalar), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1102
+1 Inside operator*(scalar*expr, scalar), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -506,7 +506,7 @@ Array<2> (3x3)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar*expr, scalar), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1102
+1 Inside operator*(scalar*expr, scalar), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -515,9 +515,9 @@ Array<2> (3x3)
 <2 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -537,7 +537,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <4 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 647
+      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)
 Array<2> (3x3)
  0 0 0
  12 8 4
@@ -550,7 +550,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
  4 5 6
  7 8 9
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -560,9 +560,9 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 inside template <class A> Array(const Expr<A>& expr)
 
-      4 Inside ApMul::apply(scalar, transposed array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 579
+      4 Inside ApMul::apply(scalar, transposed array)
 Inside constructor template <typename... Args> explicit Array(const Args&... args)
-<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -570,7 +570,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 inside template <class A> Array(const Expr<A>& expr)
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
 inside Array& operator=(const Array& a)
 inside Array& operator=(const Array& a)
  Atr = A' = Array<2> (3x3)
@@ -578,27 +578,27 @@ inside Array& operator=(const Array& a)
  2 5 8
  3 6 9
 
-1 Inside operator+(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 880
+1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi2EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
     type of B: N5array5ArrayILi2EdEE
 A+A: Inside constructor Array(const Array& a)
 
-      4 Inside ApAdd::apply(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 441
+      4 Inside ApAdd::apply(array, array)
 Array<2> (3x3)
  2 4 6
  8 10 12
  14 16 18
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 918
+1 Inside operator+(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -612,31 +612,31 @@ A+(2.*A):     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<2> (3x3)
  3 6 9
  12 15 18
  21 24 27
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 899
+1 Inside operator+(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -650,34 +650,34 @@ Array<2> (3x3)
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<2> (3x3)
  3 6 9
  12 15 18
  21 24 27
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 867
+1 Inside operator+(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
@@ -688,24 +688,24 @@ Array<2> (3x3)
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<2> (3x3)
  4 8 12
  16 20 24
  28 32 36
 
-1 Inside operator-(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 948
+1 Inside operator-(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi2EdEES2_NS_5ApSubEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -716,23 +716,23 @@ Array<2> (3x3)
  0 0 0
  0 0 0
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator-(array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 988
+1 Inside operator-(array, scalar*array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=-2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=-2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -746,31 +746,31 @@ A-(2.*A):     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<1 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
 Inside constructor Array(const Array& a)
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <-2 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<2> (3x3)
  -1 -2 -3
  -4 -5 -6
  -7 -8 -9
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator-(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 967
+1 Inside operator-(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
-1 Inside operator*(scalar, array), with scalar=-1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=-1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -784,49 +784,49 @@ Array<2> (3x3)
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <-1 imp conv to d>: 
-      4 Inside ApAdd::apply(scalar*array, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 509
+      4 Inside ApAdd::apply(scalar*array, scalar*array)
 Array<2> (3x3)
  1 2 3
  4 5 6
  7 8 9
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator-(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 935
+1 Inside operator-(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApSubEEE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
 (2.*A)-(2.*A): 
-*** INFO *** Applying general ApSub::apply(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 548
+*** INFO *** Applying general ApSub::apply(expr, expr)
                left: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
                right: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
+      4 Inside ApMul::apply(scalar, array)
 Inside constructor Array(const Array& a)
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 569
-1 Inside operator-(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 948
+      4 Inside ApMul::apply(scalar, array)
+1 Inside operator-(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi2EdEES2_NS_5ApSubEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -837,14 +837,14 @@ Array<2> (3x3)
  0 0 0
  0 0 0
 
-1 Inside operator*(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1026
+1 Inside operator*(array, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -862,20 +862,20 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 671
+      4 Inside ApMul::apply(scalar*matrix, scalar*matrix)
 Array<2> (3x3)
  30 36 42
  66 81 96
  102 126 150
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -893,20 +893,20 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 671
+      4 Inside ApMul::apply(scalar*matrix, scalar*matrix)
 Array<2> (3x3)
  60 72 84
  132 162 192
  204 252 300
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -924,23 +924,23 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 671
+      4 Inside ApMul::apply(scalar*matrix, scalar*matrix)
 Array<2> (3x3)
  60 72 84
  132 162 192
  204 252 300
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
@@ -955,20 +955,20 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 671
+      4 Inside ApMul::apply(scalar*matrix, scalar*matrix)
 Array<2> (3x3)
  120 144 168
  264 324 384
  408 504 600
 
-1 Inside operator*(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1026
+1 Inside operator*(array, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS4_ILi1EdEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -986,20 +986,20 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 692
+      4 Inside ApMul::apply(scalar*matrix, scalar*vector)
 Array<1> (3)
  8
  17
  26
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS4_ILi1EdEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1017,20 +1017,20 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 692
+      4 Inside ApMul::apply(scalar*matrix, scalar*vector)
 Array<1> (3)
  16
  34
  52
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS4_ILi1EdEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1048,23 +1048,23 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 692
+      4 Inside ApMul::apply(scalar*matrix, scalar*vector)
 Array<1> (3)
  16
  34
  52
 
-1 Inside operator*(scalar, array), with scalar=3, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=3
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS4_ILi1EdEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
@@ -1079,7 +1079,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <3 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*vector), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 692
+      4 Inside ApMul::apply(scalar*matrix, scalar*vector)
 Array<1> (3)
  48
  102
@@ -1101,59 +1101,59 @@ C: Array<2> (3x3)
  4 5 6
  7 8 9
 
-1 Inside operator+=(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1310
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator+=(array, array)
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+=(any&, const any&), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1321
+1 Inside operator+=(any&, const any&)
   expression type: N5array12RefBinExprOpINS_5ArrayILi2EdEENS_4ExprINS_9BinExprOpINS_11ExprLiteralIdEES2_NS_5ApMulEEEEENS_5ApAddEEE
 Inside RefBinExprOp constructor
 type of a:N5array5ArrayILi2EdEE
 type of b:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 251
+Inside RefBinExprOp::operator()()
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApAdd::apply(array&, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 425
+      4 Inside ApAdd::apply(array&, scalar*array)
 C += A = Array<2> (3x3)
  2 4 6
  8 10 12
  14 16 18
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+=(any&, const any&), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1321
+1 Inside operator+=(any&, const any&)
   expression type: N5array12RefBinExprOpINS_5ArrayILi2EdEENS_4ExprINS_9BinExprOpINS_11ExprLiteralIdEES2_NS_5ApMulEEEEENS_5ApAddEEE
 Inside RefBinExprOp constructor
 type of a:N5array5ArrayILi2EdEE
 type of b:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 251
+Inside RefBinExprOp::operator()()
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApAdd::apply(array&, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 425
+      4 Inside ApAdd::apply(array&, scalar*array)
 C += 2.*A = Array<2> (3x3)
  4 8 12
  16 20 24
  28 32 36
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1161,12 +1161,12 @@ C += 2.*A = Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-1 Inside operator+=(any&, const any&), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1321
+1 Inside operator+=(any&, const any&)
   expression type: N5array12RefBinExprOpINS_5ArrayILi2EdEENS_4ExprINS_9BinExprOpINS3_INS4_INS_11ExprLiteralIdEES2_NS_5ApMulEEEEES9_S7_EEEENS_5ApAddEEE
 Inside RefBinExprOp constructor
 type of a:N5array5ArrayILi2EdEE
 type of b:N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EEEE
-Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 251
+Inside RefBinExprOp::operator()()
     3 Inside BinExprOp::left()
       type of left:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     3 Inside BinExprOp::right()
@@ -1184,20 +1184,20 @@ Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApAdd::apply(matrix&, scalar*matrix*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 468
+      4 Inside ApAdd::apply(matrix&, scalar*matrix*matrix)
 C += 2.*A*B = Array<2> (3x3)
  -68 -76 -84
  -146 -172 -198
  -224 -268 -312
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1205,7 +1205,7 @@ C += 2.*A*B = Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-1 Inside operator*(scalar, scalar*expr*expr), with scalar=-1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1084
+1 Inside operator*(scalar, scalar*expr*expr), with scalar=-1
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
     3 Inside BinExprOp::left()
       type of left:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
@@ -1217,7 +1217,7 @@ C += 2.*A*B = Array<2> (3x3)
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-1 Inside operator*(scalar, array), with scalar=-2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=-2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1225,12 +1225,12 @@ C += 2.*A*B = Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-1 Inside operator+=(any&, const any&), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1321
+1 Inside operator+=(any&, const any&)
   expression type: N5array12RefBinExprOpINS_5ArrayILi2EdEENS_4ExprINS_9BinExprOpINS3_INS4_INS_11ExprLiteralIdEES2_NS_5ApMulEEEEES9_S7_EEEENS_5ApAddEEE
 Inside RefBinExprOp constructor
 type of a:N5array5ArrayILi2EdEE
 type of b:N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EEEE
-Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 251
+Inside RefBinExprOp::operator()()
     3 Inside BinExprOp::left()
       type of left:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     3 Inside BinExprOp::right()
@@ -1248,18 +1248,18 @@ Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApAdd::apply(matrix&, scalar*matrix*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 468
+      4 Inside ApAdd::apply(matrix&, scalar*matrix*matrix)
 C -= 2.*A*B = Array<2> (3x3)
  4 8 12
  16 20 24
  28 32 36
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, scalar*array), with scalar=-1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1154
+1 Inside operator*(scalar, scalar*array), with scalar=-1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
@@ -1268,41 +1268,41 @@ C -= 2.*A*B = Array<2> (3x3)
 <2 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+=(any&, const any&), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1321
+1 Inside operator+=(any&, const any&)
   expression type: N5array12RefBinExprOpINS_5ArrayILi2EdEENS_4ExprINS_9BinExprOpINS_11ExprLiteralIdEES2_NS_5ApMulEEEEENS_5ApAddEEE
 Inside RefBinExprOp constructor
 type of a:N5array5ArrayILi2EdEE
 type of b:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 251
+Inside RefBinExprOp::operator()()
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <-2 imp conv to d>: 
-      4 Inside ApAdd::apply(array&, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 425
+      4 Inside ApAdd::apply(array&, scalar*array)
 C -= 2*A = Array<2> (3x3)
  2 4 6
  8 10 12
  14 16 18
 
-1 Inside operator-=(array, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1337
-1 Inside operator*(scalar, array), with scalar=-1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator-=(array, array)
+1 Inside operator*(scalar, array), with scalar=-1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator+=(any&, const any&), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1321
+1 Inside operator+=(any&, const any&)
   expression type: N5array12RefBinExprOpINS_5ArrayILi2EdEENS_4ExprINS_9BinExprOpINS_11ExprLiteralIdEES2_NS_5ApMulEEEEENS_5ApAddEEE
 Inside RefBinExprOp constructor
 type of a:N5array5ArrayILi2EdEE
 type of b:N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-Inside RefBinExprOp::operator()(), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 251
+Inside RefBinExprOp::operator()()
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <-1 imp conv to d>: 
-      4 Inside ApAdd::apply(array&, scalar*array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 425
+      4 Inside ApAdd::apply(array&, scalar*array)
 C -= A = Array<2> (3x3)
  1 2 3
  4 5 6
@@ -1329,7 +1329,7 @@ C: Array<2> (3x3)
  4 5 6
  7 8 9
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1337,9 +1337,9 @@ C: Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1359,7 +1359,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 716
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix)
 Array<2> (5x3)
  -42 -51 -60
  -78 -96 -114
@@ -1367,7 +1367,7 @@ Array<2> (5x3)
  -150 -186 -222
  -186 -231 -276
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1375,7 +1375,7 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1384,9 +1384,9 @@ Array<2> (5x3)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, array), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1173
+1 Inside operator*(expr, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1406,7 +1406,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 716
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix)
 Array<2> (5x3)
  -84 -102 -120
  -156 -192 -228
@@ -1414,12 +1414,12 @@ Array<2> (5x3)
  -300 -372 -444
  -372 -462 -552
 
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1427,7 +1427,7 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
@@ -1444,7 +1444,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 716
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix)
 Array<2> (5x3)
  -84 -102 -120
  -156 -192 -228
@@ -1452,12 +1452,12 @@ Array<2> (5x3)
  -300 -372 -444
  -372 -462 -552
 
-1 Inside operator*(scalar, array), with scalar=0.5, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=0.5
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1465,7 +1465,7 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=4, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=4
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1474,7 +1474,7 @@ Array<2> (5x3)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
@@ -1491,7 +1491,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <4 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <0.5 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 716
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*matrix)
 Array<2> (5x3)
  -84 -102 -120
  -156 -192 -228
@@ -1499,7 +1499,7 @@ Array<2> (5x3)
  -300 -372 -444
  -372 -462 -552
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1507,9 +1507,9 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1529,13 +1529,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 740
+      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix)
 Array<2> (3x5)
  14 32 50 68 86
  32 77 122 167 212
  50 122 194 266 338
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1543,12 +1543,12 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, array), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
@@ -1565,13 +1565,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 740
+      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix)
 Array<2> (3x5)
  28 64 100 136 172
  64 154 244 334 424
  100 244 388 532 676
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1579,7 +1579,7 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1588,9 +1588,9 @@ Array<2> (3x5)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(array, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1192
+1 Inside operator*(array, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1610,13 +1610,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 740
+      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix)
 Array<2> (3x5)
  28 64 100 136 172
  64 154 244 334 424
  100 244 388 532 676
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1624,7 +1624,7 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=0.5, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=0.5
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1633,12 +1633,12 @@ Array<2> (3x5)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, array), with scalar=4, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1115
+1 Inside operator*(scalar, array), with scalar=4
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
@@ -1655,13 +1655,13 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <4 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <0.5 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 740
+      4 Inside ApMul::apply(scalar*matrix, scalar*transposed matrix)
 Array<2> (3x5)
  28 64 100 136 172
  64 154 244 334 424
  100 244 388 532 676
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1669,7 +1669,7 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1677,7 +1677,7 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEESC_SA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
@@ -1696,7 +1696,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 763
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix)
 Array<2> (5x5)
  -20 -47 -74 -101 -128
  -38 -92 -146 -200 -254
@@ -1704,7 +1704,7 @@ Array<2> (5x5)
  -74 -182 -290 -398 -506
  -92 -227 -362 -497 -632
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1712,7 +1712,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1720,7 +1720,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1729,7 +1729,7 @@ Array<2> (5x5)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEESC_SA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
@@ -1748,7 +1748,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <2 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 763
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix)
 Array<2> (5x5)
  -40 -94 -148 -202 -256
  -76 -184 -292 -400 -508
@@ -1756,7 +1756,7 @@ Array<2> (5x5)
  -148 -364 -580 -796 -1012
  -184 -454 -724 -994 -1264
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1764,7 +1764,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=2, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1773,7 +1773,7 @@ Array<2> (5x5)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1781,7 +1781,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEESC_SA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
@@ -1800,7 +1800,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <1 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 763
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix)
 Array<2> (5x5)
  -40 -94 -148 -202 -256
  -76 -184 -292 -400 -508
@@ -1808,7 +1808,7 @@ Array<2> (5x5)
  -148 -364 -580 -796 -1012
  -184 -454 -724 -994 -1264
 
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1816,7 +1816,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=0.5, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=0.5
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1825,7 +1825,7 @@ Array<2> (5x5)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1263
+1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1833,7 +1833,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=4, file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1070
+1 Inside operator*(scalar, scalar*expr), with scalar=4
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1842,7 +1842,7 @@ Array<2> (5x5)
 <1 imp conv to d>:   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(expr, expr), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 1007
+1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEESC_SA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
@@ -1861,7 +1861,7 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
 <4 imp conv to d>:     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <0.5 imp conv to d>: 
-      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix), file /Users/aragon/Local/array/ARRAY/expr.hpp, line 763
+      4 Inside ApMul::apply(scalar*transposed matrix, scalar*transposed matrix)
 Array<2> (5x5)
  -40 -94 -148 -202 -256
  -76 -184 -292 -400 -508
