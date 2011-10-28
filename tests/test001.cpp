@@ -18,12 +18,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "expr.hpp"
 #include <iostream>
+
+#include "array-config.hpp"
 
 #ifndef ARRAY_VERBOSE
 #define ARRAY_VERBOSE 1
 #endif
+
+#include "expr.hpp"
+
 
 using std::cout;
 using std::endl;
