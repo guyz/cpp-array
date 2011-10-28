@@ -56,6 +56,7 @@ namespace array {
             hours_ += t.hours_;
             days_ += t.days_;
             adjust();
+            return *this;
         }
         
         //! Increment time
