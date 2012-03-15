@@ -10,8 +10,10 @@ list(REMOVE_ITEM ARRAY_LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 
 # specify installation of the library and the header files
 #install (TARGETS array DESTINATION lib)
-#file(GLOB HEADER_FILES ${PROJECT_CURRENT_SOURCE_DIR} "*.hpp")
-#install (FILES  ${HEADER_FILES} DESTINATION include/array)
+
+# header files to install
+file(GLOB HEADER_FILES ${PROJECT_CURRENT_SOURCE_DIR} "*.hpp")
+install (FILES  ${HEADER_FILES} DESTINATION include/array)
 
 # add executable
 add_executable(a.out main.cpp)
