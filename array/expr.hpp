@@ -125,7 +125,11 @@ public:
     Expr() : a_() {}
     
     Expr(const A& x) : a_(x) {}
-    
+
+  operator result_type() {
+    return a_();
+  }
+  
     result_type operator()() const {
         return a_();
     }
@@ -277,51 +281,66 @@ public:
 
 // level 1 blas xSCAL function: x <- alpha*x
 
-static void cblas_scal(const int N, const double alpha, double *X, const int incX) {
-    cblas_dscal(N, alpha, X, incX);
-}
+static void cblas_scal(const int N, const double alpha, double *X, const int incX) __attribute__((__unused__));
+static void cblas_sscal(const int N, const float alpha, float *X, const int incX) __attribute__((unused));
 
-static void cblas_sscal(const int N, const float alpha, float *X, const int incX) {
-    cblas_sscal(N, alpha, X, incX);
-}
+
+static void cblas_scal(const int N, const double alpha, double *X, const int incX)
+{ cblas_dscal(N, alpha, X, incX); }
+
+static void cblas_sscal(const int N, const float alpha, float *X, const int incX)
+{ cblas_sscal(N, alpha, X, incX); }
 
 
 // level 1 blas xAXPY function: y <- alpha*x + y
 static void cblas_axpy(const int N, const double alpha, const double *X,
-                       const int incX, double *Y, const int incY) {
-    cblas_daxpy(N, alpha, X, incX, Y, incY);
-}
+                       const int incX, double *Y, const int incY) __attribute__((unused));
+static void cblas_axpy(const int N, const float alpha, const float *X,
+                       const int incX, float *Y, const int incY) __attribute__((unused));
+
+
+static void cblas_axpy(const int N, const double alpha, const double *X,
+                       const int incX, double *Y, const int incY)
+{ cblas_daxpy(N, alpha, X, incX, Y, incY); }
 
 static void cblas_axpy(const int N, const float alpha, const float *X,
-                       const int incX, float *Y, const int incY) {
-    cblas_saxpy(N, alpha, X, incX, Y, incY);
-}
+                       const int incX, float *Y, const int incY)
+{ cblas_saxpy(N, alpha, X, incX, Y, incY); }
 
 // level 1 blas xDOT function: dot <- x'*y
 static float cblas_dot(const int N, const float  *X, const int incX,
-                       const float  *Y, const int incY) {
-    return cblas_sdot(N, X, incX, Y, incY);
-}
+                       const float  *Y, const int incY) __attribute__((unused));
+static double cblas_dot(const int N, const double *X, const int incX,
+                        const double *Y, const int incY) __attribute__((unused));
+
+
+static float cblas_dot(const int N, const float  *X, const int incX,
+                       const float  *Y, const int incY)
+{ return cblas_sdot(N, X, incX, Y, incY); }
 
 static double cblas_dot(const int N, const double *X, const int incX,
-                        const double *Y, const int incY) {
-    return cblas_ddot(N, X, incX, Y, incY);
-}
+                        const double *Y, const int incY)
+{ return cblas_ddot(N, X, incX, Y, incY); }
+
 
 // level 2 blas xGER function: A <- alpha*x*y' + A
 static void cblas_ger(const int M, const int N,
                       const double alpha, const double *X, const int incX,
-                      const double *Y, const int incY, double *A, const int lda) {
-    cblas_dger(CblasColMajor, M, N, alpha, X, incX,
-               Y, incY, A, lda);
-}
+                      const double *Y, const int incY, double *A, const int lda) __attribute__((unused));
+static void cblas_ger(const int M, const int N,
+                      const float alpha, const float *X, const int incX,
+                      const float *Y, const int incY, float *A, const int lda) __attribute__((unused));
+
+
+static void cblas_ger(const int M, const int N,
+                      const double alpha, const double *X, const int incX,
+                      const double *Y, const int incY, double *A, const int lda)
+{ cblas_dger(CblasColMajor, M, N, alpha, X, incX, Y, incY, A, lda); }
 
 static void cblas_ger(const int M, const int N,
                       const float alpha, const float *X, const int incX,
-                      const float *Y, const int incY, float *A, const int lda) {
-    cblas_sger(CblasColMajor, M, N, alpha, X, incX,
-               Y, incY, A, lda);
-}
+                      const float *Y, const int incY, float *A, const int lda)
+{ cblas_sger(CblasColMajor, M, N, alpha, X, incX, Y, incY, A, lda); }
 
 
 // level 2 blas xGEMV function: Y <- alpha*A*x + beta*y
@@ -334,11 +353,31 @@ static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
                        const int incX,
                        const double beta,
                        double *Y,
-                       const int incY) {
-    
-    cblas_dgemv(CblasColMajor, TransA, M, N,
-                alpha, A, lda, X, incX, beta, Y, incY);
-}
+                       const int incY) __attribute__((unused));
+static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
+                       const int M,
+                       const int N,
+                       const float alpha,
+                       const float *A,
+                       const int lda,
+                       const float *X,
+                       const int incX,
+                       const float beta,
+                       float *Y,
+                       const int incY) __attribute__((unused));
+
+static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
+                       const int M, const int N,
+                       const double alpha,
+                       const double *A,
+                       const int lda,
+                       const double *X,
+                       const int incX,
+                       const double beta,
+                       double *Y,
+                       const int incY)
+{ cblas_dgemv(CblasColMajor, TransA, M, N,
+                alpha, A, lda, X, incX, beta, Y, incY); }
 
 static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
                        const int M,
@@ -350,11 +389,9 @@ static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
                        const int incX,
                        const float beta,
                        float *Y,
-                       const int incY) {
-    
-    cblas_sgemv(CblasColMajor, TransA, M, N,
-                alpha, A, lda, X, incX, beta, Y, incY);
-}
+                       const int incY)
+{ cblas_sgemv(CblasColMajor, TransA, M, N,
+                alpha, A, lda, X, incX, beta, Y, incY); }
 
 
 // level 3 blas xGEMM function: C <- alpha*op(A)*op(B) = beta*C, op(X) = X, X'
