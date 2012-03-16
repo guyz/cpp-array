@@ -157,10 +157,8 @@ struct Array : public Array_base <d,T>  {
     cout<<"Inside constructor Array(const Array& a)"<<endl;
 #endif
     
-    for (size_t i=0; i<d; ++i) {
+    for (size_t i=0; i<d; ++i)
       n_[i] = a.n_[i];
-      assert(n_[i] != 0);
-    }
     
     if(a.data_) {
       size_t s = size();
