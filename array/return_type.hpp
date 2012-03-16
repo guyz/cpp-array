@@ -39,18 +39,18 @@ struct select_primitive;
 
 template <typename S, typename T>
 struct select_primitive<S,T,true> {
-    typedef S result;  
+  typedef S result;  
 };
 
 template <typename S, typename T>
 struct select_primitive<S,T,false> {
-    typedef T result;  
+  typedef T result;  
 };
 
 template <typename S, typename T>
 struct primitive {
-    
-    typedef typename select_primitive<S,T, ((int)typelist::IndexOf<primitive_types, S>::value > (int)typelist::IndexOf<primitive_types, T>::value) >::result result; 
+  
+  typedef typename select_primitive<S,T, ((int)typelist::IndexOf<primitive_types, S>::value > (int)typelist::IndexOf<primitive_types, T>::value) >::result result; 
 };
 
 
@@ -84,7 +84,7 @@ class ApTr;
 
 
 struct EmptyType {
-    typedef void value_type;
+  typedef void value_type;
 };
 
 
@@ -94,89 +94,105 @@ struct Return_type;
 // return type for an arbitrary binary expression with arbitrary operation
 template <typename A, typename B, class Op>
 struct Return_type < Expr < BinExprOp <A, B, Op > > > {
-    typedef typename Return_type<A>::result_type left_result;
-    typedef typename Return_type<B>::result_type right_result;
-    typedef typename Return_type<left_result, right_result, Op >::result_type result_type;
+  typedef typename Return_type<A>::result_type left_result;
+  typedef typename Return_type<B>::result_type right_result;
+  typedef typename Return_type<left_result, right_result, Op >::result_type result_type;
 };
 
 // return type for the operation of an arbitrary object with an arbitrary expression
 template <typename A, typename B, class Op>
 struct Return_type < A, Expr < B >, Op > {
-    typedef typename Return_type<typename B::left_type,
-    typename B::right_type, typename B::operator_type>::result_type right_result;
-    typedef typename Return_type<A, right_result, Op >::result_type result_type;
+  typedef typename Return_type<typename B::left_type,
+  typename B::right_type, typename B::operator_type>::result_type right_result;
+  typedef typename Return_type<A, right_result, Op >::result_type result_type;
 };
 
 // return type for the operation of an arbitrary expression with an arbitrary object 
 template <typename A, typename B, class Op>
 struct Return_type < Expr<A>, B, Op > {
-    typedef typename Return_type<typename A::left_type,
-    typename A::right_type, typename A::operator_type>::result_type left_result;
-    typedef typename Return_type<left_result, B, Op >::result_type result_type;
+  typedef typename Return_type<typename A::left_type,
+  typename A::right_type, typename A::operator_type>::result_type left_result;
+  typedef typename Return_type<left_result, B, Op >::result_type result_type;
 };
 
 // return type for the operation between two arbitrary expressions 
 template <typename A, typename B, class Op>
 struct Return_type < Expr<A>, Expr<B>, Op > {
-    typedef typename Return_type<typename A::left_type,
-    typename A::right_type, typename A::operator_type>::result_type left_result;
-    typedef typename Return_type<typename B::left_type,
-    typename B::right_type, typename B::operator_type>::result_type right_result;
-    typedef typename Return_type<left_result, right_result, Op >::result_type result_type;
+  typedef typename Return_type<typename A::left_type,
+  typename A::right_type, typename A::operator_type>::result_type left_result;
+  typedef typename Return_type<typename B::left_type,
+  typename B::right_type, typename B::operator_type>::result_type right_result;
+  typedef typename Return_type<left_result, right_result, Op >::result_type result_type;
 };
 
 // partial template specializations for individual cases
+template <typename S, class Op>
+struct Return_type<S, ExprLiteral<S>, Op> {
+  typedef S result_type;
+};
+
+template <typename S, class Op>
+struct Return_type<ExprLiteral<S>, S, Op> {
+  typedef S result_type;
+};
+
 template <typename S, typename T, class Op>
 struct Return_type<ExprLiteral<S>, ExprLiteral<T>, Op> {
-    typedef typename primitive<S,T>::result result_type;
+  typedef typename primitive<S,T>::result result_type;
 };
 
 // scalar - matrix operation
 template <int d, typename T, class Op>
 struct Return_type<ExprLiteral<T>, Array<d, T>, Op> {
-    typedef Array<d, T> result_type;
+  typedef Array<d, T> result_type;
 };
 
 // vector transposition
 template <typename T>
 struct Return_type<Array<1,T>, EmptyType, ApTr> {
-    typedef BinExprOp<Array<1, T>, EmptyType, ApTr>  result_type;
+  typedef BinExprOp<Array<1, T>, EmptyType, ApTr>  result_type;
 };
 
 // matrix transposition
 template <int d, typename T>
 struct Return_type<Array<d,T>, EmptyType, ApTr> {
-    typedef Array<d,T>  result_type;
+  typedef Array<d,T>  result_type;
 };
 
 // transposed vector - vector multiplication
 template <typename T>
 struct Return_type<BinExprOp<Array<1,T>, EmptyType, ApTr>, Array<1,T>, ApMul> {
-    typedef T result_type;
+  typedef T result_type;
 };
 
 // vector - transposed vector multiplication
 template <typename T>
 struct Return_type<Array<1,T>, BinExprOp<Array<1,T>, EmptyType, ApTr>, ApMul> {
-    typedef Array<2,T> result_type;
+  typedef Array<2,T> result_type;
 };
 
 // scalar transposed vector multiplication
 template <typename T>
 struct Return_type<ExprLiteral<T>, BinExprOp<Array<1,T>, EmptyType, ApTr>, ApMul> {
-    typedef BinExprOp<Array<1, T>, EmptyType, ApTr> result_type;
+  typedef BinExprOp<Array<1, T>, EmptyType, ApTr> result_type;
 };
 
 // matrix - vector multiplication
 template <typename T>
 struct Return_type<Array<2,T>, Array<1,T>, ApMul> {
-    typedef Array<1,T> result_type;
+  typedef Array<1,T> result_type;
 };
 
 // operation between matrices of the same dimension
 template <int d, typename T, class Op>
 struct Return_type<Array<d, T>, Array<d, T>, Op> {
-    typedef Array<d, T> result_type;
+  typedef Array<d, T> result_type;
+};
+
+
+template <typename S, typename T, class Op>
+struct Return_type<S, T, Op> {
+  typedef typename primitive<S,T>::result result_type;
 };
 
 __END_ARRAY_NAMESPACE__
