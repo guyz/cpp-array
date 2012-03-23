@@ -58,7 +58,17 @@ struct disable_if { typedef T type; };
 template <class T>
 struct disable_if<true, T> {};
 
+// int 2 type construct
+template <int d>
+struct Int2Type {
+  enum { result = d };
+};
 
+// type 2 type construct
+template <class T>
+class Type2Type {
+  typedef T OriginalType;
+};
 
 
 
@@ -75,6 +85,45 @@ protected:
   size_t n_[d];
   value_type* data_;
 };
+
+template <typename T>
+class Array_base<1,T> {
+  
+public:
+  typedef T value_type;
+  
+  Array_base() : n_(), data_(0) {}
+  
+  size_t size() const
+  { return n_[0]; }
+  
+  value_type norm() const {
+    assert(n_[0] > 0);
+    return norm(Type2Type<value_type>());
+  }
+  
+private:
+  
+  template <class U> 
+  inline U norm(Type2Type<U>) const {
+    U norm = U();
+    for (size_t i=0; i<size(); ++i) 
+      norm += pow(data_[i],2);
+    norm = sqrt(norm);
+    return norm;
+  }
+  
+  // norm function
+  inline double norm(Type2Type<double>) const {
+    // call to blas routine
+    return cblas_dnrm2(n_[0], data_, 1);
+  }
+  
+protected:
+  size_t n_[1];
+  value_type* data_;
+};
+
 
 template <typename T>
 class Array_base<2,T> {
@@ -334,6 +383,41 @@ struct Array : public Array_base <d,T>  {
     return data_[index(indices)];
   }
   
+  // support compound assignment operators for mathematical operations on arrays
+  Array& operator*=(const value_type s) {
+    cblas_dscal(size(), s, data_, 1);
+    return *this;
+  }
+  
+  Array& operator/=(const value_type s) {
+    cblas_dscal(size(), value_type(1)/s, data_, 1);
+    return *this;
+  }
+  
+  Array& operator+=(const Array& b) {
+    
+    // check dimensions
+    for (int i=0; i<d; ++i)
+      assert(n_[i] = b.n_[i]);
+    
+    // call blas routine to add the arrays
+    cblas_daxpy(size(), 1.0, b.data_, 1, data_, 1);
+    // NOTE: the 1.0 is the factor by which v is scaled
+    return *this;
+  }
+  
+  Array& operator-=(const Array& b) {
+    
+    // check dimensions
+    for (int i=0; i<d; ++i)
+      assert(n_[i] = b.n_[i]);
+    
+    // call blas routine to add the arrays
+    cblas_daxpy(size(), -1.0, b.data_, 1, data_, 1);
+    return *this;
+  }  
+  
+  
   friend std::ostream& operator<<(std::ostream& os, const Array& a) {
     Print<Array::d_>::print(os, a.n_, a.data_);
     return os;
@@ -347,7 +431,7 @@ struct Array : public Array_base <d,T>  {
   
   proxy_value_type operator[](size_t i) const
   { return proxy_value_type(const_cast<Array&>(*this), i); }
-
+  
   
 private:
   
@@ -385,7 +469,7 @@ struct Array_proxy {
       s *= a_.n_[j];
     i_ += i*s;
   }
-
+  
   reference_type operator[](size_t i)
   { return reference_type(*this, i); }
   
