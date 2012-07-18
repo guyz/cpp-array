@@ -27,8 +27,13 @@
 using std::cout;
 using std::endl;
 
+using array::vector_type;
+using array::matrix_type;
+using array::tensor_type;
+
 
 int main() {
+  
   
   //    array::ExprIdentity<double> aa;
   //    array::ExprIdentity<double> bb;
@@ -58,18 +63,15 @@ int main() {
   cout<<"yy/2 = "<<(yy/2)<<endl;
   cout<<"xx(2)/2 = "<<(xx(2)/2)<<endl;
   
-  typedef array::Array<1> vector_type;
-  typedef array::Array<2> matrix_type;
-  
   size_t m = 3, n = 3;
   
-  vector_type X(m), Y(m);
+  vector_type<double> X(m), Y(m);
   
   for (int i=0; i<m; ++i) {
     X(i) = i;
     Y(i) = m-i;
   }
-  
+    
   cout<<"X -> "<<X<<endl;
   cout<<"Y -> "<<Y<<endl;
   
@@ -92,8 +94,8 @@ int main() {
   cout<<(X*(2.*(2.*transpose(Y))))<<endl;
   cout<<(X*((transpose(Y)*2.)*2.))<<endl;
   
-  matrix_type A(m,m);
-  matrix_type B(m,m);
+  matrix_type<double> A(m,m);
+  matrix_type<double> B(m,m);
   
   int k=0;
   int l=-1;
@@ -102,9 +104,12 @@ int main() {
       A(i,j) = ++k;
       B(i,j) = --l;
     }
-    
+  
+  
+  (A - (X * transpose(Y)));
+  
   cout<<" A "<<A<<endl;
-  matrix_type Atr = transpose(A);
+  matrix_type<double> Atr = transpose(A);
   cout<<" Atr = A' = "<<Atr<<endl;
   
   // matrix addition
@@ -132,7 +137,7 @@ int main() {
   cout<<"(2.*A)*(3.*X): "<<(2.*A)*(3.*X)<<endl;
   
   // support for reference operators
-  matrix_type C = A;
+  matrix_type<double> C = A;
   
   cout<<"A: "<<A<<endl;
   cout<<"B: "<<B<<endl;
@@ -155,8 +160,8 @@ int main() {
   
   m = 5;
   n = 3;
-  A = matrix_type(m,n);
-  B = matrix_type(n,m);
+  A = matrix_type<double>(m,n);
+  B = matrix_type<double>(n,m);
   k=0;
   l=-1;
   for (int i=0; i<m; ++i)
@@ -168,7 +173,7 @@ int main() {
   cout<<"A: "<<A<<endl;
   cout<<"B: "<<B<<endl;
   cout<<"C: "<<C<<endl;
-    
+  
   cout<<"transpose(B)*C: "<<(transpose(B)*C)<<endl;
   cout<<"(2.*transpose(B))*C: "<<(2.*transpose(B)*C)<<endl;
   cout<<"transpose(B)*(2.*C): "<<(transpose(B)*(2.*C))<<endl;
@@ -184,10 +189,7 @@ int main() {
   cout<<"transpose(B)*(2.*transpose(A)): "<<(transpose(B)*(2.*transpose(A)))<<endl;
   cout<<"(4.*transpose(B))*(0.5*transpose(A)): "<<((4.*transpose(B))*(0.5*transpose(A)))<<endl;
   
-  // support for tensors
-  typedef array::Array<4> tensor_type;
-  
-  tensor_type AA(m,m,m,m);
+  tensor_type<double> AA(m,m,m,m);
   for (size_t i=0; i<m; ++i)
     for (size_t j=0; j<m; ++j)
       for (size_t k=0; k<m; ++k)
