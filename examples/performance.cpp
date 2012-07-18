@@ -40,15 +40,12 @@ using std::endl;
 
 int main() {
     
-    size_t m = 100;
-    size_t n = 100;
-    size_t iter = 10;
+    size_t m = 250;
+    size_t n = 250;
+    size_t iter = 1;
     
-    typedef array::Array<1> vector_type;
-    typedef array::Array<2> matrix_type;
-    
-    matrix_type A(m,m);
-    matrix_type B(m,m);
+    array::matrix_type<double> A(m,m);
+    array::matrix_type<double> B(m,m);
     
     int k = 0;
     int l = 0;
@@ -60,13 +57,14 @@ int main() {
     
     array::ctimer t;
     
+    
     for (size_t i=0; i<iter; ++i) {
         
-        matrix_type C = A*B;
+//    array::matrix_type<double> C = A*B;
         
-        //        matrix_type C(A.rows(), B.columns());
-        //        array::cblas_gemm(CblasNoTrans, CblasNoTrans, C.rows(), C.columns(),
-        //                          A.columns(), 1., A.data_, A.rows(), B.data_, B.rows(), 1.0, C.data_, C.rows());
+        array::matrix_type<double> C(A.rows(), B.columns());
+        array::cblas_gemm(CblasNoTrans, CblasNoTrans, C.rows(), C.columns(),
+                          A.columns(), 1., A.data_, A.rows(), B.data_, B.rows(), 1.0, C.data_, C.rows());
     }
     
     cout<<t<<endl;
