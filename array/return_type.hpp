@@ -28,7 +28,6 @@
 #define ARRAY_RETURN_TYPE_HPP
 
 #include "array-config.hpp"
-#include "typelist.hpp"
 
 __BEGIN_ARRAY_NAMESPACE__
 
