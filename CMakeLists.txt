@@ -14,10 +14,10 @@ include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag (-std=c++0x HAVE_NEW_STD)
 
 if (HAVE_NEW_STD)
-  message (STATUS "Building shared library")
+  message (STATUS "Compiler supports C++11 set of requirements.")
   add_definitions(-std=c++0x)
 else()
-  message(FATAL_ERROR "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
+  message(WARNING "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
 endif()
 
 find_package (Boost)
