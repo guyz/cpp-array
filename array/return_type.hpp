@@ -30,31 +30,6 @@
 #include "array-config.hpp"
 #include "typelist.hpp"
 
-
-// typelist of fundamental types
-typedef typelist::MakeTypeList<short, int, long, long long, float, double, long double>::result primitive_types;
-
-template <typename S, typename T, bool>
-struct select_primitive;
-
-template <typename S, typename T>
-struct select_primitive<S,T,true> {
-  typedef S result;  
-};
-
-template <typename S, typename T>
-struct select_primitive<S,T,false> {
-  typedef T result;  
-};
-
-template <typename S, typename T>
-struct primitive {
-  
-  typedef typename select_primitive<S,T, ((int)typelist::IndexOf<primitive_types, S>::value > (int)typelist::IndexOf<primitive_types, T>::value) >::result result; 
-};
-
-
-
 __BEGIN_ARRAY_NAMESPACE__
 
 // forward declarations
@@ -64,7 +39,7 @@ class Expr;
 template<class A, class B, class Op>
 class BinExprOp;
 
-template <int, typename = double>
+template <int, typename>
 class Array;
 
 template <class A>
@@ -136,11 +111,6 @@ struct Return_type<ExprLiteral<S>, S, Op> {
   typedef S result_type;
 };
 
-template <typename S, typename T, class Op>
-struct Return_type<ExprLiteral<S>, ExprLiteral<T>, Op> {
-  typedef typename primitive<S,T>::result result_type;
-};
-
 // scalar - matrix operation
 template <int d, typename T, class Op>
 struct Return_type<ExprLiteral<T>, Array<d, T>, Op> {
@@ -177,6 +147,7 @@ struct Return_type<ExprLiteral<T>, BinExprOp<Array<1,T>, EmptyType, ApTr>, ApMul
   typedef BinExprOp<Array<1, T>, EmptyType, ApTr> result_type;
 };
 
+
 // matrix - vector multiplication
 template <typename T>
 struct Return_type<Array<2,T>, Array<1,T>, ApMul> {
@@ -189,11 +160,6 @@ struct Return_type<Array<d, T>, Array<d, T>, Op> {
   typedef Array<d, T> result_type;
 };
 
-
-template <typename S, typename T, class Op>
-struct Return_type<S, T, Op> {
-  typedef typename primitive<S,T>::result result_type;
-};
 
 __END_ARRAY_NAMESPACE__
 
