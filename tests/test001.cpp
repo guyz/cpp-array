@@ -34,9 +34,9 @@ using std::endl;
 
 int main() {
         
-    typedef array::Array<1> vector_type;
-    typedef array::Array<2> matrix_type;
-    typedef array::Array<4> tensor_type;
+    typedef array::vector_type<double> vector_type;
+    typedef array::matrix_type<double> matrix_type;
+    typedef array::tensor_type<double> tensor_type;
     
     size_t m = 3, n = 3;
     
