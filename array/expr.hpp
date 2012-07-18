@@ -46,11 +46,11 @@ extern "C"  {
 
 __BEGIN_ARRAY_NAMESPACE__
 
+
 using std::cout;
 using std::endl;
 using boost::is_arithmetic;
 
-using typelist::NullType;
 
 
 //! Expression identity, placeholder for a variable
