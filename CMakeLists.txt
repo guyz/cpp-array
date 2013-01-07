@@ -20,6 +20,21 @@ else()
   message(WARNING "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
 endif()
 
+
+# add definitions if clang compiler
+if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
+  message (STATUS "*** INFO *** Adding -stdlib=libc++ to Clang compiler")
+  add_definitions(-stdlib=libc++)
+  set(CMAKE_EXE_LINKER_FLAGS "-stdlib=libc++")
+  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-stdlib=libc++")
+  set(CMAKE_EXE_LINKER_FLAGS_MINSIZE "-stdlib=libc++")
+  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-stdlib=libc++")
+  set(CMAKE_EXE_LINKER_FLAGS_RELWITH "-stdlib=libc++")
+  set(CMAKE_REQUIRED_FLAGS "-stdlib=libc++") # added to search for unordered set and map
+endif()
+
+
+
 find_package (Boost)
 
 if(Boost_FOUND)

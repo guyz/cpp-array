@@ -33,109 +33,109 @@
 #include <sys/time.h>
 
 namespace array {
-    
+  
 	class time {
-        
-        typedef size_t time_unit;
-        
-        double seconds_;
-        time_unit minutes_;
-        time_unit hours_;
-        time_unit days_;
-        
-    public:
-        
-        time(double s = 0, time_unit min = 0, time_unit h = 0, time_unit d = 0)
+    
+    typedef size_t time_unit;
+    
+    double seconds_;
+    time_unit minutes_;
+    time_unit hours_;
+    time_unit days_;
+    
+  public:
+    
+    time(double s = 0, time_unit min = 0, time_unit h = 0, time_unit d = 0)
 		: seconds_(s), minutes_(min), hours_(h), days_(d) {
-            adjust();
-        }
-        
-        time& operator+=(const time& t) {
-            seconds_ += t.seconds_;
-            minutes_ += t.minutes_;
-            hours_ += t.hours_;
-            days_ += t.days_;
-            adjust();
-            return *this;
-        }
-        
-        //! Increment time
-        /*! \param s - Time in seconds to be added to the time object.
-         */
-        time& operator+=(double s) {
-            seconds_ += s;
-            adjust();
-            return *this;
-        }
-        
-        time operator+(const time& t2) {
-            time t(*this);
-            t += t2;
-            return t;
-        }
-        
-        friend std::ostream& operator<<(std::ostream& os, const time& t) {
+      adjust();
+    }
+    
+    time& operator+=(const time& t) {
+      seconds_ += t.seconds_;
+      minutes_ += t.minutes_;
+      hours_ += t.hours_;
+      days_ += t.days_;
+      adjust();
+      return *this;
+    }
+    
+    //! Increment time
+    /*! \param s - Time in seconds to be added to the time object.
+     */
+    time& operator+=(double s) {
+      seconds_ += s;
+      adjust();
+      return *this;
+    }
+    
+    time operator+(const time& t2) {
+      time t(*this);
+      t += t2;
+      return t;
+    }
+    
+    friend std::ostream& operator<<(std::ostream& os, const time& t) {
 			if (t.days_ != 0)
 				os<<t.days_<<" d ";
 			if (t.hours_ != 0)
 				os<<t.hours_<<" h ";
 			if (t.minutes_ != 0)
 				os<<t.minutes_<<" m ";
-            os<<t.seconds_<<" s";
+      os<<t.seconds_<<" s";
 			return os;
-        }
-        
-    private:
-        
-        void adjust() {
-            if (seconds_ >= 60.) {
-                minutes_ += static_cast<time_unit>(seconds_ / 60.);
-                seconds_ = fmod(seconds_, 60.);
-            }
-            if (minutes_ >= 60) {
-                hours_ += minutes_ / 60;
-                minutes_ = minutes_ % 60;
-            }
-            if (hours_ >= 24) {
-                days_ += hours_ / 24;
-                hours_ = hours_ % 24;
-            }
-        }
-    };
-	
+    }
     
+  private:
+    
+    void adjust() {
+      if (seconds_ >= 60.) {
+        minutes_ += static_cast<time_unit>(seconds_ / 60.);
+        seconds_ = fmod(seconds_, 60.);
+      }
+      if (minutes_ >= 60) {
+        hours_ += minutes_ / 60;
+        minutes_ = minutes_ % 60;
+      }
+      if (hours_ >= 24) {
+        days_ += hours_ / 24;
+        hours_ = hours_ % 24;
+      }
+    }
+  };
+	
+  
 	///////////////////////////////////////////////////////////////////////////////
 	// timer class
 	
 	class timer {
 		
-        std::clock_t t1_;
+    std::clock_t t1_;
 		
 	public:
 		timer() : t1_(std::clock()) {}
-        
+    
 		
 		double tac() const {
-            return static_cast<double>(std::clock() - t1_)/CLOCKS_PER_SEC;
+      return static_cast<double>(std::clock() - t1_)/CLOCKS_PER_SEC;
 		}
-        
-        double max() const {
-            return static_cast<double>(std::numeric_limits<std::clock_t>::max()
-                                       - t1_) / CLOCKS_PER_SEC;
-        }
-        
-        double min() const
-        { return 1./CLOCKS_PER_SEC; }
-        
+    
+    double max() const {
+      return static_cast<double>(std::numeric_limits<std::clock_t>::max()
+                                 - t1_) / CLOCKS_PER_SEC;
+    }
+    
+    double min() const
+    { return 1./CLOCKS_PER_SEC; }
+    
 		inline void reset() { t1_ = std::clock(); }
 		
 		friend std::ostream& operator<<(std::ostream& os, const timer& timer) {
 			time t(timer.tac());
 			os<<t;
 			return os;
-        }
+    }
 	};
-    
+  
 	class ctimer {
 		
 		double t1_;
@@ -151,7 +151,7 @@ namespace array {
 			double t2 = end.tv_sec + end.tv_usec/1000000.0;
 			return t2 - t1_;
 		}
-        
+    
 		inline void reset() {
 			timeval start;
 			gettimeofday(&start, NULL);
@@ -163,10 +163,10 @@ namespace array {
 			time t(timer.tac());
 			os<<t;
 			return os;
-        }
+    }
 		
 	};
-    
+  
 	
 } /* namespace array */
 
