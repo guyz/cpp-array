@@ -30,10 +30,12 @@
 #include <cassert>
 #include <iomanip>
 #include <initializer_list>
+#include <cmath>
+#include <algorithm>
+
 
 #include "return_type.hpp"
 
-#define ARRAY_VERBOSE 1
 
 __BEGIN_ARRAY_NAMESPACE__
 
@@ -75,56 +77,130 @@ class Type2Type {
 
 
 
+template <typename first_type, typename... Rest>
+class Check_first {
+  
+public:
+  
+  typedef first_type pack_type;
+  enum { value = std::is_integral<first_type>::value};
+};
+
+
+template <typename last_type>
+struct Check_first<last_type> {
+  
+  typedef last_type pack_type;
+  enum { value = std::is_integral<last_type>::value };
+};
+
+
+
+template <typename first_type, typename... Rest>
+class Check_integral {
+  
+  enum { tmp = std::is_integral<first_type>::value };
+  
+public:
+  
+  typedef first_type pack_type;
+  enum { value = tmp && Check_integral<Rest...>::value };
+//  static_assert (value ,"*** ERROR *** Non-integral type parameter found.");
+};
+
+template <typename last_type>
+struct Check_integral<last_type> {
+  
+  typedef last_type pack_type;
+  enum { value = std::is_integral<last_type>::value };
+};
+
 
 template <int d, typename T>
 class Array_base {
   
 public:
+  
   typedef T value_type;
   
-  Array_base() : n_(), data_(0) {}
-  
+  Array_base() : n_(), data_(NULL), wrapped_() {}
+    
   // move constructor
-  Array_base(Array_base&& src) : data_(src.data_) {
+  Array_base(Array_base&& src) : data_(src.data_), wrapped_() {
     
 #ifdef ARRAY_VERBOSE
     cout<<"inside Array_base(Array&&)"<<endl;
 #endif
-    for (int i=0; i<d; ++i)
-      n_[i] = src.n_[i];
+    std::copy_n(src.n_, d, n_);
     src.data_ = NULL;
   }
   
+  // move constructor
+  Array_base(const Array_base& a) : data_(NULL), wrapped_(a.wrapped_) {
+    
+#ifdef ARRAY_VERBOSE
+    cout<<"inside Array_base(const Array_base&)"<<endl;
+#endif
+
+    std::copy_n(a.n_, d, n_);
+
+    if (!wrapped_) {
+      size_t s = size();
+      assert((a.data_ && s > 0) || (!a.data_ && s == 0));
+
+      if (a.data_) {
+        data_ = new value_type[s];
+        std::copy_n(a.data_, s, data_);
+      } else
+        data_ = NULL;
+    } else
+      data_ = a.data_;
+  }
+
+  size_t size() const {
+    size_t n = 1;
+    for (size_t i=0; i<d; ++i)
+      n *= n_[i];
+    return n;
+  }
+
 protected:
+  
+  ~Array_base() { if (!wrapped_) delete data_; }
+
   size_t n_[d];
   value_type* data_;
+  bool wrapped_;
 };
 
+
+
+template <int d, typename T>
+class Array_traits : public Array_base<d,T> {
+  
+  typedef Array_base<d,T> base_type;
+  
+};
+
+
 template <typename T>
-class Array_base<1,T> {
+class Array_traits<1,T> : public Array_base<1,T> {
+  
+protected:
+  
+  typedef T value_type;
+  typedef Array_base<1,T> base_type;
+  
+  using base_type::n_;
+  using base_type::data_;
+  using base_type::size;
   
 public:
-  typedef T value_type;
-  
-  Array_base() : n_(), data_(0) {}
-  
-  size_t size() const
-  { return n_[0]; }
   
   value_type norm() const {
     assert(n_[0] > 0);
     return norm(Type2Type<value_type>());
   }
-  
-  //    // move constructor
-  //    Array_base(Array_base&& src) : data_(src.data_) {
-  //
-  //#ifdef ARRAY_VERBOSE
-  //        cout<<"inside Array_base(Array&&)"<<endl;
-  //#endif
-  //        n_[0] = src.n_[0];
-  //        src.data_ = NULL;
-  //    }
   
 private:
   
@@ -132,8 +208,8 @@ private:
   inline U norm(Type2Type<U>) const {
     U norm = U();
     for (size_t i=0; i<size(); ++i)
-      norm += pow(data_[i],2);
-    norm = sqrt(norm);
+      norm += std::pow(data_[i],2);
+    norm = std::sqrt(norm);
     return norm;
   }
   
@@ -142,45 +218,30 @@ private:
     // call to blas routine
     return cblas_dnrm2(n_[0], data_, 1);
   }
-  
-public:
-  //protected:
-  size_t n_[1];
-  value_type* data_;
 };
 
 
 template <typename T>
-class Array_base<2,T> {
+class Array_traits<2,T> : public Array_base<2,T> {
   
-public:
+protected:
+  
   typedef T value_type;
-  
-  Array_base() : n_(), data_(0) {}
+  typedef Array_base<2,T> base_type;
+
+  using base_type::n_;
+
+public:
   
   size_t rows() const
   { return n_[0]; }
   
   size_t columns() const
   { return n_[1]; }
-  
-  
-  //    // move constructor
-  //    Array_base(Array_base&& src) : data_(src.data_) {
-  //
-  //#ifdef ARRAY_VERBOSE
-  //        cout<<"inside Array_base(Array&&)"<<endl;
-  //#endif
-  //        for (int i=0; i<2; ++i)
-  //            n_[i] = src.n_[i];
-  //        src.data_ = NULL;
-  //    }
-  
-  
-protected:
-  size_t n_[2];
-  value_type* data_;
 };
+
+
+
 
 template <class A, class B>
 struct SameClass {
@@ -267,7 +328,7 @@ struct Array_proxy_traits<1,Array> {
 /*! \tparam n - Dimension of array
  */
 template <int d, typename T>
-struct Array : public Array_base <d,T>  {
+struct Array : public Array_traits<d,T>  {
   
   typedef T* pointer_type;
   typedef T& reference_type;
@@ -278,10 +339,12 @@ struct Array : public Array_base <d,T>  {
   
   static const int d_ = d;
   
-  typedef Array_base <d,T> base_type;
+  typedef Array_traits <d,T> base_type;
   
+  using base_type::size;
   using base_type::n_;
   using base_type::data_;
+  using base_type::wrapped_;
   
   // default constructor
   Array() : base_type() {
@@ -290,9 +353,35 @@ struct Array : public Array_base <d,T>  {
 #endif
   }
   
-  
   template <int dim>
-  void init() {
+  void init_l(Int2Type<0>) {    
+    for (size_t i=1; i<d; ++i)
+      if (n_[i] == 0)
+        n_[i] = n_[i-1];
+  }
+  
+  template <int dim, typename U, typename... Args>
+  void init_l(Int2Type<0> t, U&& i, Args&&... args) {
+#ifdef ARRAY_VERBOSE
+    cout<<"Inside init(U&& i, Args&&... args) with index "<<i<<" at position "<<dim<<endl;
+#endif
+    
+    n_[dim] = i;
+    init_l<dim+1>(t, args...);
+  }
+  
+  
+  template <int dim, typename... Args>
+  void init(Int2Type<0> t, const value_type* pt, Args&&... args) {
+
+    data_ = const_cast<value_type*>(pt);
+    wrapped_ = true;
+    init_l<0>(t,args...);
+  }
+
+
+  template <int dim>
+  void init(Int2Type<1>) {
     
 #ifdef ARRAY_VERBOSE
     cout<<"Inside init(), initializing memory"<<dim<<endl;
@@ -312,14 +401,14 @@ struct Array : public Array_base <d,T>  {
   }
   
   template <int dim, typename U, typename... Args>
-  void init(U&& i, Args&&... args) {
+  void init(Int2Type<1> t, U&& i, Args&&... args) {
 #ifdef ARRAY_VERBOSE
     cout<<"Inside init(U&& i, Args&&... args) with index "<<i<<" at position "<<dim<<endl;
 #endif
     n_[dim] = i;
-    init<dim+1>(args...);
+    init<dim+1>(t, args...);
   }
-  
+      
   // parameter constructor
   template <typename... Args>
   explicit Array(const Args&... args) : base_type() {
@@ -327,28 +416,9 @@ struct Array : public Array_base <d,T>  {
 #ifdef ARRAY_VERBOSE
     cout<<"Inside constructor template <typename... Args> explicit Array(const Args&... args)"<<endl;
 #endif
-    static_assert(sizeof...(Args) == d || sizeof...(Args) == 1 , "*** ERROR *** Wrong number of arguments for array");
+//    static_assert(sizeof...(Args) == d || sizeof...(Args) == 1 , "*** ERROR *** Wrong number of arguments for array");
     
-    init<0>(args...);
-  }
-  
-  
-  Array(const Array& a) : base_type() {
-    
-#ifdef ARRAY_VERBOSE
-    cout<<"Inside constructor Array(const Array& a)"<<endl;
-#endif
-    
-    for (size_t i=0; i<d; ++i)
-      n_[i] = a.n_[i];
-    
-    if(a.data_) {
-      size_t s = size();
-      data_ = new value_type[s];
-      for(size_t i=0; i<s; ++i)
-        data_[i] = a.data_[i];
-    } else
-      data_ = 0;
+    init<0>(Int2Type<Check_first<Args...>::value>(), args...);
   }
   
   
@@ -490,9 +560,7 @@ struct Array : public Array_base <d,T>  {
   //#endif
   //        return (-1 *a);
   //    }
-  
-  ~Array() { delete data_; }
-  
+    
   // iterators
   iterator begin()
   { return iterator(data_); }
@@ -518,33 +586,6 @@ struct Array : public Array_base <d,T>  {
   //  const_reverse_iterator rend() const
   //  { return const_reverse_iterator(begin()); }
   
-  size_t size() const {
-    size_t n = 1;
-    for (size_t i=0; i<d; ++i)
-      n *= n_[i];
-    return n;
-  }
-  
-private:
-  
-  template <typename first_type, typename... Rest>
-  class Check_integral {
-
-    enum { tmp = std::is_integral<first_type>::value };
-
-  public:
-
-    typedef first_type pack_type;
-    enum { value = tmp && Check_integral<Rest...>::value };
-    static_assert (value ,"*** ERROR *** Non-integral type parameter found.");
-  };
-  
-  template <typename last_type>
-  struct Check_integral<last_type> {
-    
-    typedef last_type pack_type;
-    enum { value = std::is_integral<last_type>::value };
-  };
 
 public:
   
@@ -636,7 +677,7 @@ private:
     
     pack_type i = indices[0], s = 1;
     for (int j=1; j<d_; ++j) {
-      assert(indices[j] > 0);
+      assert(indices[j] >= 0);
       assert(static_cast<size_t>(indices[j]) < n_[j]);
       // static cast to avoid compiler warning about comparison between signed and unsigned integers
       s *= n_[j-1];

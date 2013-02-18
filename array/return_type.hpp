@@ -160,6 +160,14 @@ struct Return_type<Array<d, T>, Array<d, T>, Op> {
 };
 
 
+// transposed vector - matrix multiplication
+template <typename T>
+struct Return_type<BinExprOp<Array<1,T>, EmptyType, ApTr>, Array<2, T>, ApMul> {
+  typedef BinExprOp<Array<1, T>, EmptyType, ApTr> result_type;
+};
+
+
+
 __END_ARRAY_NAMESPACE__
 
 #endif /* ARRAY_RETURN_TYPE_HPP */

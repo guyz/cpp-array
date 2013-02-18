@@ -289,8 +289,6 @@ public:
 #endif
         return b_; }
       
-      
-      
       reference_type operator()() const { 
 #ifdef ARRAY_VERBOSE
         cout<<"Inside RefBinExprOp::operator()()"<<endl;
@@ -358,6 +356,10 @@ public:
     template <typename T>
     using SMtm = Expr< BinExprOp< ExprLiteral<T>, Expr< BinExprOp< matrix_type<T>, EmptyType, ApTr> >, ApMul> >;
     
+    
+    // scalar*transposed vector - scalar matrix multiplication
+    template <typename T>
+    using SVtmSMmm = Expr<BinExprOp< SVtm<T>, SMm<T>, ApMul> >;
     
     
     ////////////////////////////////////////////////////////////////////////////////
@@ -893,6 +895,38 @@ public:
 #endif
         return r;
       }
+            
+      // transposed vector - expr multiplication
+      template<typename T, class B>
+      static typename Return_type<SVtm<T>, Expr<B>, ApMul>::result_type
+      apply(const SVtm<T>& a, const Expr<B>& b) {
+#ifdef ARRAY_VERBOSE
+        cout<<"\n*** INFO *** Applying general ApMul::apply(transposed vector, expr)"<<endl;
+        cout<<"               left: "<<typeid(a).name()<<endl;
+        cout<<"               right: "<<typeid(b).name()<<endl;
+#endif
+        return a*b();
+      }
+      
+
+      // transposed vector - matrix multiplication -- expression multiplication
+      template<typename T, class B>
+      static typename Return_type<SVtm<T>, Expr<B>, ApMul>::result_type
+      apply(const SVtmSMmm<T>& a, const Expr<B>& b) {
+        
+        T s = a.left().left() * a.right().left();
+        const vector_type<T>& v = a.left().right().left();
+        const matrix_type<T>& m = a.right().right();
+
+        assert(v.size() == m.rows());
+        vector_type<T> r(m.columns());
+        
+        cblas_gemm(CblasNoTrans,CblasNoTrans, 1, m.columns(),
+                   v.size(), s, v.data_, 1, m.data_, m.rows(),
+                   1.0, r.data_, 1);
+
+        return transpose(r)*b;
+      }
       
       // expr - expr multiplication
       template<class A, class B>
@@ -968,25 +1002,24 @@ public:
     // unary operator+(any)
     template <class A>
     typename enable_if<!is_arithmetic<A>::value, A>::type
-    operator+(const A& a) {
-      cout<<"copy!"<<endl;
-      return a;
-    }
+    operator+(const A& a)
+    { return a; }
     
     ////////////////////////////////////////////////////////////////////////////////
     // unary operator-
     
     // unary operator-(any)
     template <class A>
-    typename enable_if<!is_arithmetic<A>::value, Expr<BinExprOp<ExprLiteral<int>, A, ApMul> > >::type
+    typename enable_if<!is_arithmetic<A>::value, Expr<BinExprOp<ExprLiteral<typename A::value_type>, A, ApMul> > >::type
     operator-(const A& a) {
       
+      typedef typename A::value_type value_type;
 #ifdef ARRAY_VERBOSE
       cout<<"1 Inside unary operator-(any)"<<endl;
-      typedef BinExprOp<ExprLiteral<int>, A, ApMul> ExprT;
+      typedef BinExprOp<ExprLiteral<value_type>, A, ApMul> ExprT;
       cout<<"  expression type: "<<typeid(ExprT).name()<<endl;
 #endif
-      return (-1 *a);
+      return value_type(-1) * a;
     }
     
     ////////////////////////////////////////////////////////////////////////////////
@@ -1410,6 +1443,10 @@ public:
 #endif
       return Expr<ExprT>(ExprT(ExprLiteral<T>(a),b));
     }
+    
+    
+    
+      
     // \todo // operator*(transposed object, scalar)
     
     
