@@ -178,5 +178,5 @@ INCLUDE(CPack)
 # to the source code
 configure_file (
   ${ARRAY_SOURCE_DIR}/cmake/array-config.hpp.in
-  ${ARRAY_SOURCE_DIR}/ARRAY/array-config.hpp
+  ${ARRAY_SOURCE_DIR}/array/array-config.hpp
   )
