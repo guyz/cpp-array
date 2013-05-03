@@ -18,6 +18,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+
+/* This function tests indexed access through operator() and operator[].
+ */
+
+#include "array-config.hpp"
+
+#ifndef ARRAY_VERBOSE
+#define ARRAY_VERBOSE 1
+#endif
+
 #include "array.hpp"
 
 using std::cout;
@@ -28,47 +38,53 @@ using array::matrix_type;
 using array::tensor_type;
 
 int main() {
+  
+  size_t m = 16, n = 8, o = 4, p = 2;
+  
+  
+  double *xdata = new double[m];
+  for (size_t i=0; i<m; ++i)
+    xdata[i] = i;
+  vector_type<double> x(m, xdata);
+  
+  
+  double *Adata = new double[m*n];
+  for (size_t i=0; i<m*n; ++i)
+    Adata[i] = i;
+  matrix_type<double> A(m,n,Adata);
+  
+  
+  double *TTdata = new double[m*n*o*p];
+  for (size_t i=0; i<m*n*o*p; ++i)
+    TTdata[i] = i;
+  tensor_type<double> TT(m,n,o,p,TTdata);
+  
+  
+  cout<<"Testing array access...";
+  
+  for (size_t i=0; i<m; ++i) {
     
-    size_t m = 16, n = 8, o = 4, p = 2;
+    // test vector
+    assert(x(i) == x[i]);
+    assert(x(i) == i);
     
-    vector_type<double> x(m);
-    matrix_type<double> A(m,n);
-    tensor_type<double> TT(m,n,o,p);
-    
-    for (size_t i=0; i<m; ++i)
-        x.data_[i] = i;
-    
-    for (size_t i=0; i<m*n; ++i)
-        A.data_[i] = i;
-    
-    for (size_t i=0; i<m*n*o*p; ++i)
-        TT.data_[i] = i;
-    
-    cout<<"Testing array access...";
-    
-    for (size_t i=0; i<m; ++i) {
-        
-        // test vector
-        assert(x(i) == x[i]);
-        assert(x(i) == i);
-        
-        for (size_t j=0; j<n; ++j) {
-            
-            // test matrix
-            assert(A(i,j) == A[i][j]);
-            assert(A(i,j) == i + m*j);
-            
-            for (size_t k=0; k<o; ++k)
-                for (size_t l=0; l<p; ++l) {
-                    
-                    // test tensor
-                    assert(TT(i,j,k,l) == TT[i][j][k][l]);
-                    assert(TT(i,j,k,l) == i + m*j + m*n*k + m*n*o*l);
-                }
+    for (size_t j=0; j<n; ++j) {
+      
+      // test matrix
+      assert(A(i,j) == A[i][j]);
+      assert(A(i,j) == i + m*j);
+      
+      for (size_t k=0; k<o; ++k)
+        for (size_t l=0; l<p; ++l) {
+          
+          // test tensor
+          assert(TT(i,j,k,l) == TT[i][j][k][l]);
+          assert(TT(i,j,k,l) == i + m*j + m*n*k + m*n*o*l);
         }
     }
-    
-    cout<<"Ok!"<<endl;
-    
-    return 0;
-}  
+  }
+  
+  cout<<"Ok!"<<endl;
+  
+  return 0;
+}

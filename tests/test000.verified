@@ -1,1 +1,17 @@
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 16
+Inside Array::init(U* p, Args&&... args) for pointer
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 16
+Inside Array::init(int i, Args&&... args) with index n[1] = 8
+Inside Array::init(U* p, Args&&... args) for pointer
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 16
+Inside Array::init(int i, Args&&... args) with index n[1] = 8
+Inside Array::init(int i, Args&&... args) with index n[2] = 4
+Inside Array::init(int i, Args&&... args) with index n[3] = 2
+Inside Array::init(U* p, Args&&... args) for pointer
 Testing array access...Ok!
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()

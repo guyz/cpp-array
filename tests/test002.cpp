@@ -18,34 +18,101 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <iostream>
 
+/* This function tests array iterators.
+ */
+
+
+#include <iostream>
 #include <vector>
 
-#include "expr.hpp"
+#include "array-config.hpp"
+
+#ifndef ARRAY_VERBOSE
+#define ARRAY_VERBOSE 1
+#endif
+
+#include "array.hpp"
 
 using std::cout;
 using std::endl;
 
 int main() {
   
-  typedef array::vector_type<double> vector_type;
-  typedef array::matrix_type<double> matrix_type;
-  typedef array::tensor_type<double> tensor_type;
+  using array::matrix_type;
 
-  // initialize vector
-  std::vector<double> v(16,1.);
-  for (size_t i=0; i<v.size(); ++i)
-    v[i] = i;
+  size_t m = 5;
+  matrix_type<double> A(m,m);
   
-  array::vector_type<double> x(&v[0], 16);
-  cout<<"x -> "<<x<<endl;
+  int k=0;
+  int l=-1;
+  for (int i=0; i<m; ++i)
+    for (int j=0; j<m; ++j)
+      A(i,j) = ++k;
+  
+  cout<<" A "<<A<<endl;
 
-  array::matrix_type<double> X(&v[0], 4);
-  cout<<"X -> "<<X<<endl;
+  // iterator for non-constant objects
+  
+  for (matrix_type<double>::iterator it = A.begin(); it != A.end(); ++it)
+    cout<<" "<<*it;
+  cout<<endl;
 
-  array::tensor_type<double> XX(&v[0], 2);
-  cout<<"XX -> "<<XX<<endl;
+  for (matrix_type<double>::reverse_iterator it = A.rbegin(); it != A.rend(); ++it)
+    cout<<" "<<*it;
+  cout<<endl;
+  
+  const matrix_type<double> C = A;
 
+  // iterator for constant objects
+  
+  for (matrix_type<double>::const_iterator it = C.begin(); it != C.end(); ++it)
+    cout<<" "<<*it;
+  cout<<endl;
+  
+  for (matrix_type<double>::const_reverse_iterator it = C.rbegin(); it != C.rend(); ++it)
+    cout<<" "<<*it;
+  cout<<endl;
+  
+  
+  // dimensional iterators
+  
+  cout<<"\nrow iteration"<<endl;
+  for (matrix_type<double>::diterator<0> it = A.dbegin<0>(); it != A.dend<0>(); ++it)
+    cout<<' '<<*it<<endl;
+  
+  cout<<"\ncolumn iteration"<<endl;
+  for (matrix_type<double>::diterator<1> it = A.dbegin<1>(); it != A.dend<1>(); ++it)
+    cout<<' '<<*it;
+  cout<<"\n\n";
+  
+  k = 0;
+  for (matrix_type<double>::diterator<0> it1 = A.dbegin<0>(); it1 != A.dend<0>(); ++it1) {
+    cout<<"row "<<k++<<":";
+    for (matrix_type<double>::diterator<1> it2 = A.dbegin<1>(it1); it2 != A.dend<1>(it1); ++it2)
+      cout<<" "<<*it2;
+    cout<<'\n';
+  }
+  
+  // over constant object
+  
+  cout<<"\nrow iteration"<<endl;
+  for (matrix_type<double>::diterator<0> it = C.dbegin<0>(); it != C.dend<0>(); ++it)
+    cout<<' '<<*it<<endl;
+  
+  cout<<"\ncolumn iteration"<<endl;
+  for (matrix_type<double>::diterator<1> it = C.dbegin<1>(); it != C.dend<1>(); ++it)
+    cout<<' '<<*it;
+  cout<<"\n\n";
+  
+  k = 0;
+  for (matrix_type<double>::diterator<0> it1 = C.dbegin<0>(); it1 != C.dend<0>(); ++it1) {
+    cout<<"row "<<k++<<":";
+    for (matrix_type<double>::diterator<1> it2 = C.dbegin<1>(it1); it2 != C.dend<1>(it1); ++it2)
+      cout<<" "<<*it2;
+    cout<<'\n';
+  }
+  
+  
   return 0;
 }

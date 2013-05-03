@@ -660,7 +660,7 @@ public:
       
       //  // scalar types
       //  template <typename S, typename T>
-      //  static typename enable_if<is_arithmetic<S>::value && is_arithmetic<T>::value, decltype(S()-T()) >::type apply(S a, T b)
+      //  static typename std::enable_if<is_arithmetic<S>::value && is_arithmetic<T>::value, decltype(S()-T()) >::type apply(S a, T b)
       //  { return a-b; }
       
       // array - array addition
@@ -778,7 +778,7 @@ public:
         
         matrix_type<T> r(x.size(), y.size());
         
-        cblas_ger(x.size(), y.size(), a.left()*b.left(), x.data_, 1, y.data_, 1, r.data_, r.rows());
+        cblas_ger(x.size(), y.size(), a.left()*b.left(), x.data_, 1, y.data_, 1, r.data_, r.n_[0]);
         
 #ifdef ARRAY_VERBOSE
         cout<<"\n      4 Inside ApMul::apply(scalar*vector, scalar*transposed vector)"<<endl;
@@ -815,7 +815,7 @@ public:
         // get matrix refernces
         const matrix_type<T>& a = x.right();
         const vector_type<T>& b = y.right();
-        
+                
         // check size
         assert(a.columns() == b.size());
         
@@ -825,7 +825,6 @@ public:
 #ifdef ARRAY_VERBOSE
         cout<<"\n      4 Inside ApMul::apply(scalar*matrix, scalar*vector)"<<endl;
 #endif
-        
         return r;
       }
       
@@ -1001,7 +1000,7 @@ public:
     
     // unary operator+(any)
     template <class A>
-    typename enable_if<!is_arithmetic<A>::value, A>::type
+    typename std::enable_if<!is_arithmetic<A>::value, A>::type
     operator+(const A& a)
     { return a; }
     
@@ -1010,7 +1009,7 @@ public:
     
     // unary operator-(any)
     template <class A>
-    typename enable_if<!is_arithmetic<A>::value, Expr<BinExprOp<ExprLiteral<typename A::value_type>, A, ApMul> > >::type
+    typename std::enable_if<!is_arithmetic<A>::value, Expr<BinExprOp<ExprLiteral<typename A::value_type>, A, ApMul> > >::type
     operator-(const A& a) {
       
       typedef typename A::value_type value_type;
@@ -1214,7 +1213,7 @@ public:
     
     // operator*(scalar, expr)
     template <typename S, class B>
-    typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<typename Expr<B>::value_type >, Expr<B>, ApMul> > >::type
+    typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<typename Expr<B>::value_type >, Expr<B>, ApMul> > >::type
     operator*(S a, const Expr<B>& b) {
       
       typedef typename Expr<B>::value_type value_type;
@@ -1229,7 +1228,7 @@ public:
     
     // operator*(expr, scalar)
     template <typename S, class B>
-    typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<typename Expr<B>::value_type >, Expr<B>, ApMul> > >::type
+    typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<typename Expr<B>::value_type >, Expr<B>, ApMul> > >::type
     operator*(const Expr<B>& b, S a) {
       
       typedef typename Expr<B>::value_type value_type;
@@ -1244,7 +1243,7 @@ public:
     
     // operator*(scalar, scalar*expr)
     template <typename S, class T, class B>
-    typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> > >::type
+    typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> > >::type
     operator*(S a, const Expr<BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> >& b) {
       
       typedef BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> ExprT;
@@ -1258,7 +1257,7 @@ public:
     
     // operator*(scalar, scalar*expr*expr)
     template <typename S, class T, class A, class B>
-    typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> > >::type
+    typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> > >::type
     operator*(S a, const Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> >& b) {
       
       typedef BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> ExprT;
@@ -1275,7 +1274,7 @@ public:
     
     // operator*(scalar*expr*expr, scalar)
     template <typename S, class T, class A, class B>
-    typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> > >::type
+    typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> > >::type
     operator*(const Expr<BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> >& b, S a) {
       
       typedef BinExprOp< Expr<BinExprOp<ExprLiteral<T>, A , ApMul> >, Expr<B>, ApMul> ExprT;
@@ -1292,7 +1291,7 @@ public:
     
     // operator*(scalar*expr, scalar)
     template <typename S, class T, class A>
-    typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<T>, Expr<A>, ApMul> > >::type
+    typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<T>, Expr<A>, ApMul> > >::type
     operator*(const Expr<BinExprOp< ExprLiteral<T>, Expr<A>, ApMul> >& a, S b) {
       
       typedef BinExprOp< ExprLiteral<T>, Expr<A>, ApMul> ExprT;
@@ -1305,7 +1304,7 @@ public:
     
     // operator*(scalar, array)
     template <int d, typename S, typename T>
-    typename enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
+    typename std::enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
     operator*(S a, const Array<d,T>& b) {
       
       typedef typename SAm<d,T>::expression_type ExprT;
@@ -1320,7 +1319,7 @@ public:
     
     //// operator*(scalar, array)
     //template <int d, typename S, typename T>
-    //typename enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> > >::type
+    //typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> > >::type
     //operator*(S a, const Array<d,T>& b) {
     //  
     //  typedef BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> ExprT;
@@ -1333,7 +1332,7 @@ public:
     
     // operator*(array, scalar)
     template <int d, typename S, typename T>
-    typename enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
+    typename std::enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
     operator*(const Array<d,T>& a, S b) {
       
       typedef typename SAm<d,T>::expression_type ExprT;
@@ -1346,7 +1345,7 @@ public:
     
     // operator*(scalar*array, scalar)
     template <int d, typename S, typename T>
-    typename enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
+    typename std::enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
     operator*(const SAm<d,T>& a, S b) {
       
       typedef typename SAm<d,T>::expression_type ExprT;
@@ -1359,7 +1358,7 @@ public:
     
     // operator*(scalar, scalar*array)
     template <int d, typename S, typename T>
-    typename enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
+    typename std::enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
     operator*(S a, const SAm<d,T>& b) {
       
       typedef typename SAm<d,T>::expression_type ExprT;
@@ -1426,7 +1425,7 @@ public:
     
     // operator*(scalar, transposed object)
     template <int d, typename S, typename T>
-    typename enable_if<is_arithmetic<S>::value, 
+    typename std::enable_if<is_arithmetic<S>::value, 
     Expr<
     BinExprOp< 
     ExprLiteral<T>,
@@ -1469,7 +1468,7 @@ public:
     
     // operator/(array, scalar)
     template <int d, typename S, typename T>
-    typename enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
+    typename std::enable_if<is_arithmetic<S>::value, SAm<d,T> >::type
     operator/(const Array<d,T>& a, S b) {
       
       typedef typename SAm<d,T>::expression_type ExprT;
@@ -1546,7 +1545,7 @@ public:
     
     // operator+=(any, any)
     template <class A, class B>
-    typename enable_if<!is_arithmetic<A>::value && !is_arithmetic<B>::value, A& >::type
+    typename std::enable_if<!is_arithmetic<A>::value && !is_arithmetic<B>::value, A& >::type
     operator+=(A& a, const B& b) {
       typedef RefBinExprOp<A, B, ApAdd> ExprT;
 #ifdef ARRAY_VERBOSE
@@ -1585,6 +1584,7 @@ public:
     
     template <class A>
     inline std::ostream& print(std::ostream& os, const Expr<A>& e) {
+      
       os<<e();
       return os;
     }

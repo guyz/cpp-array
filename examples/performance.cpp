@@ -40,8 +40,7 @@ using std::endl;
 
 int main() {
     
-    size_t m = 250;
-    size_t n = 250;
+    size_t m = 16000;
     size_t iter = 1;
     
     array::matrix_type<double> A(m,m);
@@ -59,16 +58,16 @@ int main() {
     
     
     for (size_t i=0; i<iter; ++i) {
-        
-//    array::matrix_type<double> C = A*B;
-        
-        array::matrix_type<double> C(A.rows(), B.columns());
-        array::cblas_gemm(CblasNoTrans, CblasNoTrans, C.rows(), C.columns(),
-                          A.columns(), 1., A.data_, A.rows(), B.data_, B.rows(), 1.0, C.data_, C.rows());
+      
+    array::matrix_type<double> C = A*B;
+      
+//        array::matrix_type<double> C(A.rows(), B.columns());
+//        array::cblas_gemm(CblasNoTrans, CblasNoTrans, C.rows(), C.columns(),
+//                          A.columns(), 1., A.data_, A.rows(), B.data_, B.rows(), 1.0, C.data_, C.rows());
     }
     
     cout<<t<<endl;
     
-    
+  
     return 0;
 }

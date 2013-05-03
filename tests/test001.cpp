@@ -18,6 +18,11 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+
+/* This function tests some operations with the algebraic objects.
+ */
+
+
 #include <iostream>
 
 #include "array-config.hpp"

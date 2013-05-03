@@ -1,0 +1,49 @@
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 2
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 1
+a -> Array<2> (2x3)
+ 1 1 1
+ 1 1 1
+
+Inside Array(const Array&)
+b -> Array<2> (2x3)
+ 1 1 1
+ 1 1 1
+
+Inside Array()
+Inside operator=(const Array& src)
+c -> Array<2> (2x3)
+ 1 1 1
+ 1 1 1
+
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 2
+Inside Array::init(value_type), with value: 0
+Inside Array(Array&&)
+Inside ~Array()
+d -> Array<2> (2x2)
+ 0 0
+ 0 0
+
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 2
+Inside Array::init(value_type), with value: 0
+Inside operator=(Array&& src)
+Inside ~Array()
+moved c -> Array<2> (2x2)
+ 0 0
+ 0 0
+
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 2
+Inside Array::init(U* p, Args&&... args) for pointer
+e -> Wrapped Array<2> (2x2)
+ 10 10
+ 10 10
+
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()

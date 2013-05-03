@@ -1,5 +1,9 @@
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(value_type), with value: 0
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(value_type), with value: 0
 X -> Array<1> (3)
  0
  1
@@ -10,44 +14,47 @@ Y -> Array<1> (3)
  2
  1
 
-1 Inside operator+(array, array)
+X + Y = 1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
-X + Y = Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 
       4 Inside ApAdd::apply(array, array)
 Array<1> (3)
  3
  3
  3
+Inside ~Array()
 
-1 Inside operator-(array, array)
+X - Y = 1 Inside operator-(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApSubEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
-X - Y = Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 Array<1> (3)
  -3
  -1
  1
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+2.*X = 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-2.*X = Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
 Array<1> (3)
  0
  2
  4
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*X)+Y = 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -62,7 +69,7 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-(2.*X)+Y =     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
@@ -73,7 +80,7 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -84,8 +91,9 @@ Array<1> (3)
  3
  4
  5
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+X+(2*Y) = 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -100,7 +108,7 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-X+(2*Y) =     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
@@ -111,7 +119,7 @@ X+(2*Y) =     3 Inside BinExprOp::right()
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <1 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -122,8 +130,9 @@ Array<1> (3)
  6
  5
  4
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(X+(2*Y))+Y = 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -148,13 +157,10 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-(X+(2*Y))+Y = 
+
 *** INFO *** Applying general ApAdd::apply(expr, expr)
                left: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
                right: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-Inside constructor Array(const Array& a)
-<1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::right()
@@ -166,27 +172,33 @@ Inside constructor Array(const Array& a)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <1 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
       4 Inside ApAdd::apply(scalar*array, scalar*array)
+Inside Array(const Array&)
+<1 imp conv to d>: 
+      4 Inside ApMul::apply(scalar, array)
 1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 
       4 Inside ApAdd::apply(array, array)
+Inside ~Array()
+Inside ~Array()
 Array<1> (3)
  9
  7
  5
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+Y+(X+(2*Y)) = 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -211,10 +223,13 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
-Y+(X+(2*Y)) = 
+
 *** INFO *** Applying general ApAdd::apply(expr, expr)
                left: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
                right: N5array4ExprINS_9BinExprOpINS0_INS1_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEES8_NS_5ApAddEEEEE
+Inside Array(const Array&)
+<1 imp conv to d>: 
+      4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::right()
@@ -226,35 +241,35 @@ Y+(X+(2*Y)) =
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <1 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>: 
       4 Inside ApAdd::apply(scalar*array, scalar*array)
-Inside constructor Array(const Array& a)
-<1 imp conv to d>: 
-      4 Inside ApMul::apply(scalar, array)
 1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi1EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi1EdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 
       4 Inside ApAdd::apply(array, array)
+Inside ~Array()
+Inside ~Array()
 Array<1> (3)
  9
  7
  5
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=3
+(2.*X)+(3*Y) = 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(scalar, array), with scalar=2
+1 Inside operator*(scalar, array), with scalar=3
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -264,7 +279,7 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-(2.*X)+(3*Y) =     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
@@ -275,7 +290,7 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -286,6 +301,7 @@ Array<1> (3)
  9
  8
  7
+Inside ~Array()
 
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
@@ -342,7 +358,10 @@ Array<1> (3)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -353,7 +372,13 @@ Array<2> (3x3)
  0 0 0
  3 2 1
  6 4 2
+Inside ~Array()
 
+1 Inside operator*(scalar, array), with scalar=2
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi1EdEE
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
@@ -362,11 +387,6 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, array), with scalar=2
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi1EdEE
 1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
   2 Inside BinExprOp constructor
@@ -378,7 +398,10 @@ Array<2> (3x3)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -389,6 +412,7 @@ Array<2> (3x3)
  0 0 0
  6 4 2
  12 8 4
+Inside ~Array()
 
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
@@ -400,11 +424,11 @@ Array<2> (3x3)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(array, expr)
@@ -423,7 +447,10 @@ Array<2> (3x3)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -434,6 +461,7 @@ Array<2> (3x3)
  0 0 0
  6 4 2
  12 8 4
+Inside ~Array()
 
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
@@ -445,20 +473,20 @@ Array<2> (3x3)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>:   2 Inside BinExprOp constructor
+<2 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(array, expr)
@@ -477,7 +505,10 @@ Array<2> (3x3)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -488,6 +519,7 @@ Array<2> (3x3)
  0 0 0
  12 8 4
  24 16 8
+Inside ~Array()
 
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
@@ -499,20 +531,20 @@ Array<2> (3x3)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar*expr, scalar), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar*expr, scalar), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>:   2 Inside BinExprOp constructor
+<2 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(array, expr)
@@ -531,7 +563,10 @@ Array<2> (3x3)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi1EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -542,9 +577,16 @@ Array<2> (3x3)
  0 0 0
  12 8 4
  24 16 8
+Inside ~Array()
 
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
  A Array<2> (3x3)
  1 2 3
  4 5 6
@@ -562,34 +604,39 @@ Inside constructor template <typename... Args> explicit Array(const Args&... arg
       4 Inside ApMul::apply(scalar, transposed array)
 <1 imp conv to d>: 
       4 Inside ApTr::apply(array&)
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <1 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
+Inside ~Array()
  Atr = A' = Array<2> (3x3)
  1 4 7
  2 5 8
  3 6 9
 
-1 Inside operator+(array, array)
+A+A: 1 Inside operator+(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi2EdEES2_NS_5ApAddEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
     type of B: N5array5ArrayILi2EdEE
-A+A: Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 
       4 Inside ApAdd::apply(array, array)
 Array<2> (3x3)
  2 4 6
  8 10 12
  14 16 18
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+A+(2.*A): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -604,7 +651,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-A+(2.*A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
@@ -615,7 +662,7 @@ A+(2.*A):     3 Inside BinExprOp::right()
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <1 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -626,8 +673,9 @@ Array<2> (3x3)
  3 6 9
  12 15 18
  21 24 27
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)+A: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -642,7 +690,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*A)+A:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
@@ -653,7 +701,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -664,8 +712,9 @@ Array<2> (3x3)
  3 6 9
  12 15 18
  21 24 27
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)+(2.*A): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -680,7 +729,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*A)+(2.*A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
@@ -691,7 +740,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -702,19 +751,21 @@ Array<2> (3x3)
  4 8 12
  16 20 24
  28 32 36
+Inside ~Array()
 
-1 Inside operator-(array, array)
+A-A: 1 Inside operator-(array, array)
   expression type: N5array9BinExprOpINS_5ArrayILi2EdEES2_NS_5ApSubEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
     type of B: N5array5ArrayILi2EdEE
-A-A: Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 Array<2> (3x3)
  0 0 0
  0 0 0
  0 0 0
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+A-(2.*A): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -723,14 +774,14 @@ Array<2> (3x3)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_NS_5ApAddEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>:     3 Inside BinExprOp::right()
-      type of right:N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=-2
+<2 imp conv to d>: 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-1 Inside operator*(scalar, array), with scalar=1
+    3 Inside BinExprOp::right()
+      type of right:N5array5ArrayILi2EdEE
+1 Inside operator*(scalar, array), with scalar=-2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -738,7 +789,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-A-(2.*A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
@@ -749,7 +800,7 @@ A-(2.*A):     3 Inside BinExprOp::right()
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <1 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -760,8 +811,9 @@ Array<2> (3x3)
  -1 -2 -3
  -4 -5 -6
  -7 -8 -9
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)-A: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -776,7 +828,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*A)-A:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
@@ -787,7 +839,7 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
     3 Inside BinExprOp::left()
@@ -798,8 +850,9 @@ Array<2> (3x3)
  1 2 3
  4 5 6
  7 8 9
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)-(2.*A): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -814,14 +867,14 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*A)-(2.*A): 
+
 *** INFO *** Applying general ApSub::apply(expr, expr)
                left: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
                right: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 <2 imp conv to d>: 
       4 Inside ApMul::apply(scalar, array)
 1 Inside operator-(array, array)
@@ -829,13 +882,16 @@ Inside constructor Array(const Array& a)
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
     type of B: N5array5ArrayILi2EdEE
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
+Inside ~Array()
+Inside ~Array()
 Array<2> (3x3)
  0 0 0
  0 0 0
  0 0 0
+Inside ~Array()
 
-1 Inside operator*(array, array)
+A*A: 1 Inside operator*(array, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEES8_S6_EE
 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
@@ -850,11 +906,14 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-A*A:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -865,8 +924,9 @@ Array<2> (3x3)
  30 36 42
  66 81 96
  102 126 150
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+A*(2.*A): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -881,11 +941,14 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-A*(2.*A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -896,8 +959,9 @@ Array<2> (3x3)
  60 72 84
  132 162 192
  204 252 300
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)*A: 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -912,11 +976,14 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*A)*A:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -927,8 +994,9 @@ Array<2> (3x3)
  60 72 84
  132 162 192
  204 252 300
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)*(2.*A): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -943,11 +1011,14 @@ Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*A)*(2.*A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -958,27 +1029,30 @@ Array<2> (3x3)
  120 144 168
  264 324 384
  408 504 600
+Inside ~Array()
 
-1 Inside operator*(array, array)
+A*X: 1 Inside operator*(array, array)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS4_ILi1EdEES6_EEEES6_EE
-1 Inside operator*(scalar, array), with scalar=1
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi1EdEE
 1 Inside operator*(scalar, array), with scalar=1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
+1 Inside operator*(scalar, array), with scalar=1
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi1EdEE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-A*X:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -989,8 +1063,9 @@ Array<1> (3)
  8
  17
  26
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+A*(2.*X): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1005,11 +1080,13 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-A*(2.*X):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1020,8 +1097,9 @@ Array<1> (3)
  16
  34
  52
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
+(2.*A)*X): 1 Inside operator*(scalar, array), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
@@ -1036,11 +1114,13 @@ Array<1> (3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-(2.*A)*X):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1051,27 +1131,30 @@ Array<1> (3)
  16
  34
  52
+Inside ~Array()
 
+(2.*A)*(3.*X): 1 Inside operator*(scalar, array), with scalar=2
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi2EdEE
 1 Inside operator*(scalar, array), with scalar=3
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi1EdEE
-1 Inside operator*(scalar, array), with scalar=2
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi2EdEE
 1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS4_ILi1EdEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi1EdEENS_5ApMulEEEEE
-(2.*A)*(3.*X):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi1EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1082,8 +1165,9 @@ Array<1> (3)
  48
  102
  156
+Inside ~Array()
 
-Inside constructor Array(const Array& a)
+Inside Array(const Array&)
 A: Array<2> (3x3)
  1 2 3
  4 5 6
@@ -1241,11 +1325,11 @@ C -= 2.*A*B = Array<2> (3x3)
     type of B: N5array5ArrayILi2EdEE
 1 Inside operator*(scalar, scalar*array), with scalar=-1
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<2 imp conv to d>:   2 Inside BinExprOp constructor
+<2 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array5ArrayILi2EdEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array5ArrayILi2EdEE
 1 Inside operator+=(any&, const any&)
@@ -1270,10 +1354,18 @@ C -= A = Array<2> (3x3)
  4 5 6
  7 8 9
 
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
-inside Array& operator=(const Array& a)
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
-inside Array& operator=(const Array& a)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
+Inside operator=(Array&& src)
+Inside ~Array()
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
+Inside operator=(Array&& src)
+Inside ~Array()
 A: Array<2> (5x3)
  1 2 3
  4 5 6
@@ -1291,7 +1383,7 @@ C: Array<2> (3x3)
  4 5 6
  7 8 9
 
-1 Inside transpose(any)
+transpose(B)*C: 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1309,13 +1401,16 @@ C: Array<2> (3x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-transpose(B)*C:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1328,8 +1423,9 @@ Array<2> (5x3)
  -114 -141 -168
  -150 -186 -222
  -186 -231 -276
+Inside ~Array()
 
-1 Inside transpose(any)
+(2.*transpose(B))*C: 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1339,11 +1435,11 @@ Array<2> (5x3)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(expr, array)
@@ -1356,13 +1452,16 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(2.*transpose(B))*C:     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1375,13 +1474,9 @@ Array<2> (5x3)
  -228 -282 -336
  -300 -372 -444
  -372 -462 -552
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=2
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi2EdEE
-1 Inside transpose(any)
+transpose(B)*(2.*C): 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1389,18 +1484,26 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+1 Inside operator*(scalar, array), with scalar=2
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi2EdEE
 1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-transpose(B)*(2.*C):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1413,13 +1516,9 @@ Array<2> (5x3)
  -228 -282 -336
  -300 -372 -444
  -372 -462 -552
+Inside ~Array()
 
-1 Inside operator*(scalar, array), with scalar=0.5
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi2EdEE
-1 Inside transpose(any)
+(4.*transpose(B))*(0.5*C): 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1429,25 +1528,33 @@ Array<2> (5x3)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=4
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+1 Inside operator*(scalar, array), with scalar=0.5
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi2EdEE
 1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS1_INS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEENS1_INS0_IS3_S5_SA_EEEESA_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
-(4.*transpose(B))*(0.5*C):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 3
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <4 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1460,8 +1567,9 @@ Array<2> (5x3)
  -228 -282 -336
  -300 -372 -444
  -372 -462 -552
+Inside ~Array()
 
-1 Inside transpose(any)
+C*transpose(A): 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1479,13 +1587,16 @@ Array<2> (5x3)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-C*transpose(A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1496,7 +1607,13 @@ Array<2> (3x5)
  14 32 50 68 86
  32 77 122 167 212
  50 122 194 266 338
+Inside ~Array()
 
+(2.*C)*transpose(A): 1 Inside operator*(scalar, array), with scalar=2
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi2EdEE
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
@@ -1505,23 +1622,21 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, array), with scalar=2
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi2EdEE
 1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-(2.*C)*transpose(A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1532,8 +1647,9 @@ Array<2> (3x5)
  28 64 100 136 172
  64 154 244 334 424
  100 244 388 532 676
+Inside ~Array()
 
-1 Inside transpose(any)
+C*(2.*transpose(A)): 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1543,11 +1659,11 @@ Array<2> (3x5)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(array, expr)
@@ -1560,13 +1676,16 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-C*(2.*transpose(A)):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1577,7 +1696,13 @@ Array<2> (3x5)
  28 64 100 136 172
  64 154 244 334 424
  100 244 388 532 676
+Inside ~Array()
 
+(4.*C)*(0.5*transpose(A)): 1 Inside operator*(scalar, array), with scalar=4
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array5ArrayILi2EdEE
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
@@ -1588,30 +1713,28 @@ Array<2> (3x5)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=0.5
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, array), with scalar=4
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEE
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
-    type of B: N5array5ArrayILi2EdEE
+    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(expr, expr)
   expression type: N5array9BinExprOpINS_4ExprINS0_INS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEENS1_INS0_IS3_NS1_INS0_IS5_NS_9EmptyTypeENS_4ApTrEEEEES6_EEEES6_EE
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS_5ArrayILi2EdEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-(4.*C)*(0.5*transpose(A)):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array5ArrayILi2EdEE
     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 3
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <4 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1622,8 +1745,9 @@ Array<2> (3x5)
  28 64 100 136 172
  64 154 244 334 424
  100 244 388 532 676
+Inside ~Array()
 
-1 Inside transpose(any)
+transpose(B)*transpose(A): 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1644,7 +1768,7 @@ Array<2> (3x5)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-transpose(B)*transpose(A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
@@ -1652,7 +1776,10 @@ transpose(B)*transpose(A):     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1665,16 +1792,9 @@ Array<2> (5x5)
  -56 -137 -218 -299 -380
  -74 -182 -290 -398 -506
  -92 -227 -362 -497 -632
+Inside ~Array()
 
-1 Inside transpose(any)
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array5ArrayILi2EdEE
-    type of B: N5array9EmptyTypeE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any)
+(2.*transpose(B))*transpose(A): 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
     type of A: N5array5ArrayILi2EdEE
@@ -1684,11 +1804,19 @@ Array<2> (5x5)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+1 Inside transpose(any)
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array5ArrayILi2EdEE
+    type of B: N5array9EmptyTypeE
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(expr, expr)
@@ -1696,7 +1824,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-(2.*transpose(B))*transpose(A):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
@@ -1704,7 +1832,10 @@ Array<2> (5x5)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <2 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1717,7 +1848,16 @@ Array<2> (5x5)
  -112 -274 -436 -598 -760
  -148 -364 -580 -796 -1012
  -184 -454 -724 -994 -1264
+Inside ~Array()
 
+transpose(B)*(2.*transpose(A)): 1 Inside transpose(any)
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array5ArrayILi2EdEE
+    type of B: N5array9EmptyTypeE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
@@ -1728,18 +1868,10 @@ Array<2> (5x5)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=2
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any)
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array5ArrayILi2EdEE
-    type of B: N5array9EmptyTypeE
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
   2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
@@ -1748,7 +1880,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-transpose(B)*(2.*transpose(A)):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
@@ -1756,7 +1888,10 @@ transpose(B)*(2.*transpose(A)):     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <1 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1769,7 +1904,25 @@ Array<2> (5x5)
  -112 -274 -436 -598 -760
  -148 -364 -580 -796 -1012
  -184 -454 -724 -994 -1264
+Inside ~Array()
 
+(4.*transpose(B))*(0.5*transpose(A)): 1 Inside transpose(any)
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array5ArrayILi2EdEE
+    type of B: N5array9EmptyTypeE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+1 Inside operator*(scalar, scalar*expr), with scalar=4
+  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
+    3 Inside BinExprOp::left()
+      type of left:N5array11ExprLiteralIdEE
+<1 imp conv to d>:     3 Inside BinExprOp::right()
+      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
+  2 Inside BinExprOp constructor
+    type of A: N5array11ExprLiteralIdEE
+    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside transpose(any)
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
   2 Inside BinExprOp constructor
@@ -1780,28 +1933,11 @@ Array<2> (5x5)
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(scalar, scalar*expr), with scalar=0.5
   expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
-      type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside transpose(any)
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-  2 Inside BinExprOp constructor
-    type of A: N5array5ArrayILi2EdEE
-    type of B: N5array9EmptyTypeE
-  2 Inside BinExprOp constructor
-    type of A: N5array11ExprLiteralIdEE
-    type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-1 Inside operator*(scalar, scalar*expr), with scalar=4
-  expression type: N5array9BinExprOpINS_11ExprLiteralIdEENS_4ExprINS0_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEE
-    3 Inside BinExprOp::right()
+<1 imp conv to d>:     3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
-    3 Inside BinExprOp::left()
-      type of left:N5array11ExprLiteralIdEE
-<1 imp conv to d>:   2 Inside BinExprOp constructor
+  2 Inside BinExprOp constructor
     type of A: N5array11ExprLiteralIdEE
     type of B: N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
 1 Inside operator*(expr, expr)
@@ -1809,7 +1945,7 @@ Array<2> (5x5)
   2 Inside BinExprOp constructor
     type of A: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
     type of B: N5array4ExprINS_9BinExprOpINS_11ExprLiteralIdEENS0_INS1_INS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEENS_5ApMulEEEEE
-(4.*transpose(B))*(0.5*transpose(A)):     3 Inside BinExprOp::right()
+    3 Inside BinExprOp::right()
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
@@ -1817,7 +1953,10 @@ Array<2> (5x5)
       type of right:N5array4ExprINS_9BinExprOpINS_5ArrayILi2EdEENS_9EmptyTypeENS_4ApTrEEEEE
     3 Inside BinExprOp::left()
       type of left:N5array5ArrayILi2EdEE
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(value_type), with value: 0
     3 Inside BinExprOp::left()
       type of left:N5array11ExprLiteralIdEE
 <4 imp conv to d>:     3 Inside BinExprOp::left()
@@ -1830,8 +1969,14 @@ Array<2> (5x5)
  -112 -274 -436 -598 -760
  -148 -364 -580 -796 -1012
  -184 -454 -724 -994 -1264
+Inside ~Array()
 
-Inside constructor template <typename... Args> explicit Array(const Args&... args)
+Inside Array(const Args&... args)
+Inside Array::init(int i, Args&&... args) with index n[0] = 5
+Inside Array::init(int i, Args&&... args) with index n[1] = 5
+Inside Array::init(int i, Args&&... args) with index n[2] = 5
+Inside Array::init(int i, Args&&... args) with index n[3] = 5
+Inside Array::init(value_type), with value: 0
 AA: Dim 4: 0, Dim 3: 0, Array<2> (5x5)
  0 5 10 15 20
  1 6 11 16 21
@@ -1983,3 +2128,10 @@ Dim 3: 4, Array<2> (5x5)
  603 608 613 618 623
  604 609 614 619 624
 
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()
+Inside ~Array()

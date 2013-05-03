@@ -1,7 +1,7 @@
 # Make sure the compiler can find include files from our Hello library. 
 include_directories (${ARRAY_SOURCE_DIR}/ARRAY) 
 
-set (ARRAY_TESTS test000 test001 test002)
+set (ARRAY_TESTS test000 test001 test002 test003 test004)
 
 # iterate over tests
 foreach (test ${ARRAY_TESTS})
