@@ -92,6 +92,10 @@ endif()
 
 include_directories(${cpp-array_INCLUDE_DIRS})
 
+set (cpp-array_INCLUDE_DIRS_TMP ${cpp-array_INCLUDE_DIRS})
+set (cpp-array_INCLUDE_DIRS ${cpp-array_INCLUDE_DIRS_TMP} CACHE INTERNAL "Include directories for cpp-array" FORCE)
+
+message (STATUS ${cpp-array_INCLUDE_DIRS})
 
 
 # enable testing
