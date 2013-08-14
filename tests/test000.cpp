@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2012 by Alejandro M. Aragón
- * Written by Alejandro M. Aragón <alejandro.aragon@gmail.com>
+ * Copyright (C) 2013 by Alejandro M. Aragón
+ * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,14 +19,11 @@
  */
 
 
-/* This function tests indexed access through operator() and operator[].
+/*! \file test000.cpp
+ *
+ * \brief This function tests indexed access through operator() and operator[].
  */
 
-#include "array-config.hpp"
-
-#ifndef ARRAY_VERBOSE
-#define ARRAY_VERBOSE 1
-#endif
 
 #include "array.hpp"
 
@@ -40,7 +37,6 @@ using array::tensor_type;
 int main() {
   
   size_t m = 16, n = 8, o = 4, p = 2;
-  
   
   double *xdata = new double[m];
   for (size_t i=0; i<m; ++i)

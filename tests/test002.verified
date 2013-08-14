@@ -1,7 +1,3 @@
-Inside Array(const Args&... args)
-Inside Array::init(int i, Args&&... args) with index n[0] = 5
-Inside Array::init(int i, Args&&... args) with index n[1] = 5
-Inside Array::init(value_type), with value: 0
  A Array<2> (5x5)
  1 2 3 4 5
  6 7 8 9 10
@@ -11,7 +7,6 @@ Inside Array::init(value_type), with value: 0
 
  1 6 11 16 21 2 7 12 17 22 3 8 13 18 23 4 9 14 19 24 5 10 15 20 25
  25 20 15 10 5 24 19 14 9 4 23 18 13 8 3 22 17 12 7 2 21 16 11 6 1
-Inside Array(const Array&)
  1 6 11 16 21 2 7 12 17 22 3 8 13 18 23 4 9 14 19 24 5 10 15 20 25
  25 20 15 10 5 24 19 14 9 4 23 18 13 8 3 22 17 12 7 2 21 16 11 6 1
 
@@ -46,5 +41,3 @@ row 1: 6 7 8 9 10
 row 2: 11 12 13 14 15
 row 3: 16 17 18 19 20
 row 4: 21 22 23 24 25
-Inside ~Array()
-Inside ~Array()

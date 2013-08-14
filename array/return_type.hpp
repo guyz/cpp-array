@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2011 by Alejandro M. Aragón
- * Written by Alejandro M. Aragón <alejandro.aragon@gmail.com>
+ * Copyright (C) 2013 by Alejandro M. Aragón
+ * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
  * This program is free software; you can redistribute it and/or modify
@@ -18,11 +18,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-//! \file  return_type.h
-//
-//  Created by Alejandro Aragón on 10/19/11.
-//  Copyright (c) 2011 University of Illinois at Urbana-Champaign. All rights reserved.
-//
+/*! \file return_type.hpp
+ *
+ * \brief This file contains forward declarations and the Return_type helper
+ * structure that is used to discern the return type of an expression.
+ */
+
 
 #ifndef ARRAY_RETURN_TYPE_HPP
 #define ARRAY_RETURN_TYPE_HPP
@@ -56,16 +57,16 @@ class ApMul;
 class ApDiv;
 class ApTr;
 
-
+//! Empty helper structure
 struct EmptyType {
   typedef void value_type;
 };
 
-
+//! Return type class template, declared but never defined (see the partial template specializatoins).
 template <typename... Params>
 struct Return_type;
 
-// return type for an arbitrary binary expression with arbitrary operation
+//! Return type for an arbitrary binary expression with arbitrary operation
 template <typename A, typename B, class Op>
 struct Return_type < Expr < BinExprOp <A, B, Op > > > {
   typedef typename Return_type<A>::result_type left_result;
@@ -73,7 +74,7 @@ struct Return_type < Expr < BinExprOp <A, B, Op > > > {
   typedef typename Return_type<left_result, right_result, Op >::result_type result_type;
 };
 
-// return type for the operation of an arbitrary object with an arbitrary expression
+//! Return type for the operation of an arbitrary object with an arbitrary expression
 template <typename A, typename B, class Op>
 struct Return_type < A, Expr < B >, Op > {
   typedef typename Return_type<typename B::left_type,
@@ -81,7 +82,7 @@ struct Return_type < A, Expr < B >, Op > {
   typedef typename Return_type<A, right_result, Op >::result_type result_type;
 };
 
-// return type for the operation of an arbitrary expression with an arbitrary object 
+//! Return type for the operation of an arbitrary expression with an arbitrary object 
 template <typename A, typename B, class Op>
 struct Return_type < Expr<A>, B, Op > {
   typedef typename Return_type<typename A::left_type,
@@ -89,7 +90,7 @@ struct Return_type < Expr<A>, B, Op > {
   typedef typename Return_type<left_result, B, Op >::result_type result_type;
 };
 
-// return type for the operation between two arbitrary expressions 
+//! Return type for the operation between two arbitrary expressions 
 template <typename A, typename B, class Op>
 struct Return_type < Expr<A>, Expr<B>, Op > {
   typedef typename Return_type<typename A::left_type,
@@ -100,67 +101,70 @@ struct Return_type < Expr<A>, Expr<B>, Op > {
 };
 
 // partial template specializations for individual cases
+
+//! Return type for operations involving objects and literals
 template <typename S, class Op>
 struct Return_type<S, ExprLiteral<S>, Op> {
   typedef S result_type;
 };
 
+//! Return type for operations involving objects and literals
 template <typename S, class Op>
 struct Return_type<ExprLiteral<S>, S, Op> {
   typedef S result_type;
 };
 
-// scalar - matrix operation
+//! Return type for scalar - matrix operations
 template <int d, typename T, class Op>
 struct Return_type<ExprLiteral<T>, Array<d, T>, Op> {
   typedef Array<d, T> result_type;
 };
 
-// vector transposition
+//! Return type for vector transposition
 template <typename T>
 struct Return_type<Array<1,T>, EmptyType, ApTr> {
   typedef BinExprOp<Array<1, T>, EmptyType, ApTr>  result_type;
 };
 
-// matrix transposition
+//! Return type for matrix transposition
 template <int d, typename T>
 struct Return_type<Array<d,T>, EmptyType, ApTr> {
   typedef Array<d,T>  result_type;
 };
 
-// transposed vector - vector multiplication
+//! Return type for transposed vector - vector multiplication
 template <typename T>
 struct Return_type<BinExprOp<Array<1,T>, EmptyType, ApTr>, Array<1,T>, ApMul> {
   typedef T result_type;
 };
 
-// vector - transposed vector multiplication
+//! Return type for vector - transposed vector multiplication
 template <typename T>
 struct Return_type<Array<1,T>, BinExprOp<Array<1,T>, EmptyType, ApTr>, ApMul> {
   typedef Array<2,T> result_type;
 };
 
-// scalar transposed vector multiplication
+//! Return type for scalar - transposed vector multiplication
 template <typename T>
 struct Return_type<ExprLiteral<T>, BinExprOp<Array<1,T>, EmptyType, ApTr>, ApMul> {
   typedef BinExprOp<Array<1, T>, EmptyType, ApTr> result_type;
 };
 
 
-// matrix - vector multiplication
+//! Return type for matrix - vector multiplication
 template <typename T>
 struct Return_type<Array<2,T>, Array<1,T>, ApMul> {
   typedef Array<1,T> result_type;
 };
 
-// operation between matrices of the same dimension
+//! Return type for operations between matrices of the same dimension
 template <int d, typename T, class Op>
 struct Return_type<Array<d, T>, Array<d, T>, Op> {
   typedef Array<d, T> result_type;
 };
 
 
-// transposed vector - matrix multiplication
+//! Return type for transposed vector - matrix multiplication
 template <typename T>
 struct Return_type<BinExprOp<Array<1,T>, EmptyType, ApTr>, Array<2, T>, ApMul> {
   typedef BinExprOp<Array<1, T>, EmptyType, ApTr> result_type;

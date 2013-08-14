@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2013 by Alejandro M. Aragón
- * Written by Alejandro M. Aragón <alejandro.aragon@gmail.com>
+ * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,18 +19,13 @@
  */
 
 
-/* This function tests array iterators.
+/*! \file test002.cpp
+ *
+ * \brief This function tests array iterators.
  */
 
 
-#include <iostream>
 #include <vector>
-
-#include "array-config.hpp"
-
-#ifndef ARRAY_VERBOSE
-#define ARRAY_VERBOSE 1
-#endif
 
 #include "array.hpp"
 

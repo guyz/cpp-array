@@ -1,12 +1,23 @@
 # Make sure the compiler can find include files from our Hello library. 
-include_directories (${ARRAY_SOURCE_DIR}/ARRAY) 
+include_directories (${cpp-array_SOURCE_DIR}/array)
 
 # Make sure the linker can find the Hello library once it is built. 
-link_directories (${ARRAY_BINARY_DIR}/ARRAY) 
+link_directories (${cpp-array_BINARY_DIR}/array)
 
-set (ARRAY_EXAMPLES
-performance
-)
+if (CUDA)
+
+  set (ARRAY_EXAMPLES
+    cuda_performance
+  )
+
+else()
+
+  set (ARRAY_EXAMPLES
+    performance
+  )
+
+endif()
+
 
 # iterate over tests
 foreach (example ${ARRAY_EXAMPLES})
@@ -16,7 +27,6 @@ foreach (example ${ARRAY_EXAMPLES})
 
   # link executable with the libraries
   target_link_libraries (${example} ${EXTERNAL_LIBS})
-#  target_link_libraries (${example} ARRAY ${EXTERNAL_LIBS})
 
 endforeach()
 

@@ -2,10 +2,10 @@
 cxx        = not-set
 prefix     = not-set
 assert     = not-set
-verbose    = not-set
 doc        = not-set
 latex      = not-set
 build      = not-set
+cuda       = not-set
 
 # Basically proxies everything to the builddir cmake.
 
@@ -22,9 +22,6 @@ endif
 ifneq ($(prefix), not-set)
     CONFIG_FLAGS += -DCMAKE_INSTALL_PREFIX=$(prefix)
 endif
-ifneq ($(verbose), not-set)
-    CONFIG_FLAGS += -DARRAY_VERBOSE=$(verbose)
-endif
 ifneq ($(cxx), not-set)
     CONFIG_FLAGS += -DCMAKE_CXX_COMPILER=$(cxx)
 endif
@@ -36,6 +33,9 @@ ifneq ($(latex), not-set)
 endif
 ifneq ($(build), not-set)
     CONFIG_FLAGS += -DCMAKE_BUILD_TYPE=$(build)
+endif
+ifneq ($(cuda), not-set)
+    CONFIG_FLAGS += -DCUDA=$(cuda)
 endif
 
 

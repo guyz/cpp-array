@@ -1,13 +1,17 @@
-# The name of our project is ARRAY. CMakeLists files in this project can 
-# refer to the root source directory of the project as ${ARRAY_SOURCE_DIR}
-# and to the root binary directory of the project as ${ARRAY_BINARY_DIR}
+# The name of our project is cpp-array. CMakeLists files in this project can 
+# refer to the root source directory of the project as ${cpp-array_SOURCE_DIR}
+# and to the root binary directory of the project as ${cpp-array_BINARY_DIR}
 
 cmake_minimum_required (VERSION 2.6)
-project (ARRAY)
+project (cpp-array)
 
 # The version number.
 set (ARRAY_VERSION_MAJOR 1)
 set (ARRAY_VERSION_MINOR 0)
+
+
+# set path for additional cmake modules
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 
 include(CheckCXXCompilerFlag)
@@ -19,7 +23,6 @@ if (HAVE_NEW_STD)
 else()
   message(WARNING "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
 endif()
-
 
 # add definitions if clang compiler
 if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
@@ -34,34 +37,12 @@ if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
 endif()
 
 
-
 find_package (Boost)
 
 if(Boost_FOUND)
   include_directories(${Boost_INCLUDE_DIRS})
   set (EXTERNAL_LIBS ${Boost_LIBRARIES})
 endif()
-
-
-option (BUILD_SHARED_LIBS "Set to OFF to build static library" ON)
-if (BUILD_SHARED_LIBS)
-  message (STATUS "Building shared library")
-  set (ARRAY_SHARED YES)
-else()
-  message (STATUS "Building static library")
-  set (ARRAY_SHARED NO)
-endif()
-set (BUILD_SHARED_LIBS "${BUILD_SHARED_LIBS}" CACHE BOOL "Set to OFF to build static libraries" FORCE)
-
-
-# verbose output
-option (VERBOSE "Verbose output in ARRAY library" OFF)
-message (STATUS "Setting ARRAY_VERBOSE variable to ${VERBOSE}")
-if (VERBOSE)
-  set (ARRAY_VERBOSE YES)
-else ()
-  set (ARRAY_VERBOSE NO)
-endif ()
 
 
 # add the binary tree to the search path for include files
@@ -74,25 +55,43 @@ set (ARRAY_USER_LIB_PATH "" CACHE PATH "User specified path for libraries")
 include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
 
-# cblas
-message (STATUS "Looking for cblas header file")
-find_path (CBLAS_INCLUDE NAMES cblas.h)
-if (NOT CBLAS_INCLUDE)
-  message (STATUS "*** WARNING *** Header file cblas.h not found.")
-else()
-  message (STATUS "*** INFO *** Path to cblas.h found:")
-  message (STATUS "             ${CBLAS_INCLUDE}")
-  set (HAVE_CBLAS_H YES)
-  include_directories(${CBLAS_INCLUDE})
-  message (STATUS "*** INFO *** Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
-  message (STATUS "Looking for cblas library")
-  find_library (CBLAS_LIB cblas)
-  if (NOT CBLAS_LIB)
-    message (STATUS "*** WARNING *** Library cblas not found.")
+
+
+option (CUDA "Use cublas implementation" OFF)
+
+if (CUDA)
+
+  message(STATUS "*** INFO *** CUDA option enabled")
+  
+  find_package(CUDA)
+  if (CUDA_FOUND)
+
+    message(STATUS "*** INFO *** Path to cublas.h")
+    message(STATUS "             ${CUDA_INCLUDE_DIRS}")
+    set (HAVE_CUBLAS_H YES)
+    include_directories(${CUDA_INCLUDE_DIRS})
+
+    message(STATUS "*** INFO *** Found cublas library:")
+    message(STATUS "             ${CUDA_CUBLAS_LIBRARIES}")
+    set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CUDA_CUBLAS_LIBRARIES} ${CUDA_LIBRARIES})
+
+  endif()
+endif()
+
+
+if (NOT CUDA_FOUND)
+
+  # find CBLAS library
+  find_package(CBLAS)
+  if(CBLAS_FOUND)
+    set (HAVE_CBLAS_H YES)
+    message (STATUS "  Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
+    include_directories(${CBLAS_INCLUDE_DIRS})
+    message (STATUS "  Adding include directories: ${CBLAS_INCLUDE_DIRS}")
+    set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIBRARIES})
+    message (STATUS "  Adding CBLAS libraries: ${CBLAS_LIBRARIES}")
   else()
-    message (STATUS "*** INFO *** Found cblas library:")
-    message (STATUS "             ${CBLAS_LIB}")
-    set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIB})
+    message (STATUS "*** WARNING *** CBLAS library not found.")
   endif()
 endif()
 
@@ -104,13 +103,14 @@ add_subdirectory (array)
 add_subdirectory (examples)
 add_subdirectory (tests)
 
+
 # Doxygen support
 #-- Add an Option to toggle the generation of the API documentation
-option(Documentation "Use Doxygen to create the HTML based API documentation" ON)
+option(DOCUMENTATION "Use Doxygen to create the HTML based API documentation" ON)
 
-if(Documentation)
+if(DOCUMENTATION)
 
-  FIND_PACKAGE(Doxygen)
+  find_package(Doxygen)
 
   option (Doxygen_verbose "Verbose output in Doxygen" OFF)
   if (Doxygen_verbose)
@@ -120,63 +120,95 @@ if(Documentation)
   endif ()
 
   if (NOT DOXYGEN_FOUND)
-    message(FATAL_ERROR 
-      "*** ERROR *** Doxygen is needed to build the documentation. Please install it correctly")
-  endif()
+    message(WARNING 
+      "*** WARNING *** Doxygen is needed to build the documentation. Please install it correctly")
+  else()
 
-  message (STATUS "*** INFO *** Documentation will be built")
+    message (STATUS "*** INFO *** Documentation enabled.")
 
-  option(LaTeX "Generate LaTeX documentation" ON)
+    option(LaTeX "Generate LaTeX documentation" OFF)
 
-  message (STATUS "*** INFO *** Documentation html directory: ${PROJECT_BINARY_DIR}/doc/html")
+    message (STATUS "*** INFO *** Documentation html directory: ${PROJECT_BINARY_DIR}/doc/html")
 
-  if (LaTeX)
-    set (DOXYFILE_GENERATE_LATEX YES)
-    message (STATUS "*** INFO *** LaTeX documentation enabled")
-    message (STATUS "*** INFO *** Documentation latex directory: ${PROJECT_BINARY_DIR}/doc/latex")
-  else ()
-    set (DOXYFILE_GENERATE_LATEX NO)
-    message (STATUS "*** INFO *** LaTeX documentation disabled")  
+    if (LaTeX)
+      set (DOXYFILE_GENERATE_LATEX YES)
+      message (STATUS "*** INFO *** LaTeX documentation enabled")
+      message (STATUS "*** INFO *** Documentation latex directory: ${PROJECT_BINARY_DIR}/doc/latex")
+    else ()
+      set (DOXYFILE_GENERATE_LATEX NO)
+      message (STATUS "*** INFO *** LaTeX documentation disabled")  
+    endif()
+  
+    set (DOXYFILE_SOURCE_DIRS ${CMAKE_SOURCE_DIR})
+    set (CMAKE_IMAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/doc/figures)
+    set (DOXYGEN_BIB_FILE ${PROJECT_SOURCE_DIR}/doc/bibliography.bib)
+    set (PROJECT_VERSION "${YAFEQ_VERSION_MAJOR}.${YAFEQ_VERSION_MINOR}.${SUBVERSION_REVISION}")
+    set (CMAKE_EXAMPLE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/examples)
+    set (DOXYFILE_PDFLATEX YES)
+    set (CMAKE_LATEX_PREAMBLE ${PROJECT_SOURCE_DIR}/cmake/LaTeX_preamble)
+    set (PROJECT_BRIEF "Yet Another Finite Element Qode")
+  
+    #-- Configure the Template Doxyfile for our specific project
+    configure_file(cmake/Doxyfile.in 
+                   ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
+    #-- Add a custom target to run Doxygen when ever the project is built 
+    if (LaTeX)
+      add_custom_target (doc 
+              ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
+                  SOURCES ${PROJECT_BINARY_DIR}/Doxyfile
+                  COMMAND make -C ${PROJECT_BINARY_DIR}/doc/latex && mv ${PROJECT_BINARY_DIR}/doc/latex/refman.pdf ${PROJECT_BINARY_DIR}/doc/cpp-array.pdf)
+    else ()
+      add_custom_target (doc 
+              ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
+              SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
+    endif()
+
+    set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${PROJECT_BINARY_DIR}/doc)
+
+    # IF you do NOT want the documentation to be generated EVERY time you build the project
+    # then leave out the 'ALL' keyword from the above command.
   endif()
   
-  set (DOXYFILE_SOURCE_DIRS ${CMAKE_SOURCE_DIR})
-  set (CMAKE_IMAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/doc/figures)
-  set (DOXYGEN_BIB_FILE ${PROJECT_SOURCE_DIR}/doc/bibliography.bib)
-  set (PROJECT_VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}.${SUBVERSION_REVISION}")
-  set (CMAKE_EXAMPLE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/examples)
-  set (DOXYFILE_PDFLATEX YES)
-  set (CMAKE_LATEX_PREAMBLE ${PROJECT_SOURCE_DIR}/cmake/LaTeX_preamble)
+else()
 
-  #-- Configure the Template Doxyfile for our specific project
-  configure_file(cmake/Doxyfile.in 
-                 ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
-  #-- Add a custom target to run Doxygen when ever the project is built 
-  if (LaTeX)
-    add_custom_target (doc 
-            ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
-                SOURCES ${PROJECT_BINARY_DIR}/Doxyfile
-                COMMAND cd ${PROJECT_BINARY_DIR}/doc/latex && make && mv refman.pdf ../array.pdf)
-  else ()
-    add_custom_target (doc 
-            ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
-            SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
-  endif()
+  message (STATUS "*** INFO *** Documentation disabled.")
 
-  set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${PROJECT_BINARY_DIR}/doc)
-
-  # IF you do NOT want the documentation to be generated EVERY time you build the project
-  # then leave out the 'ALL' keyword from the above command.
 endif()
 
 
-set(CPACK_PACKAGE_VERSION_PATCH "${ARRAY_VERSION_MAJOR}_${ARRAY_VERSION_MINOR}")
-set(CPACK_SOURCE_GENERATOR "TGZ;TZ")
+
+
+SET(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}")
+
+# cpack package module
+SET(CPACK_INSTALL_CMAKE_PROJECTS "${cpp-array_BINARY_DIR};cpp-array;ALL;/")
+SET(CPACK_NSIS_DISPLAY_NAME "cpp-array ${VERSION}")
+SET(CPACK_OUTPUT_CONFIG_FILE "${cpp-array_BINARY_DIR}/CPackConfig.cmake")
+SET(CPACK_PACKAGE_DESCRIPTION_FILE "${cpp-array_SOURCE_DIR}/README")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A C++ interface to the BLAS library using arbitrary-rank arrays")
+SET(CPACK_PACKAGE_FILE_NAME "cpp-array-${VERSION}-${CMAKE_SYSTEM_NAME}")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "cpp-array ${VERSION}")
+SET(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "cpp-array ${VERSION}")
+SET(CPACK_PACKAGE_NAME "cpp-array")
+SET(CPACK_PACKAGE_VERSION "${VERSION}")
+SET(CPACK_PACKAGE_VERSION_MAJOR "${ARRAY_VERSION_MAJOR}")
+SET(CPACK_PACKAGE_VERSION_MINOR "${ARRAY_VERSION_MINOR}")
+SET(CPACK_SOURCE_IGNORE_FILES "/build/;/.svn/;.DS_Store;.#;/#;.*~;.*xcodeproj")
+SET(CPACK_RESOURCE_FILE_README "${cpp-array_SOURCE_DIR}/README")
+SET(CPACK_RESOURCE_FILE_WELCOME "${cpp-array_SOURCE_DIR}/README")
+SET(CPACK_GENERATOR "ZIP")
+SET(CPACK_SOURCE_GENERATOR "ZIP")
+SET(CPACK_SOURCE_PACKAGE_FILE_NAME "cpp-array-${VERSION}-src")
+SET(CPACK_SOURCE_STRIP_FILES "")
+SET(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}")
+SET(CPACK_TOPLEVEL_TAG "${CMAKE_SYSTEM_NAME}")
+
 
 INCLUDE(CPack)
 
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  ${ARRAY_SOURCE_DIR}/cmake/array-config.hpp.in
-  ${ARRAY_SOURCE_DIR}/array/array-config.hpp
+  ${cpp-array_SOURCE_DIR}/cmake/array-config.hpp.in
+  ${cpp-array_SOURCE_DIR}/array/array-config.hpp
   )

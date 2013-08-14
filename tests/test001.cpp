@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2011 by Alejandro M. Aragón
- * Written by Alejandro M. Aragón <alejandro.aragon@gmail.com>
+ * Copyright (C) 2013 by Alejandro M. Aragón
+ * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,26 +19,24 @@
  */
 
 
-/* This function tests some operations with the algebraic objects.
+/*! \file test001.cpp
+ *
+ * \brief This function tests some operations with the algebraic objects.
  */
 
-
-#include <iostream>
-
-#include "array-config.hpp"
-
-#ifndef ARRAY_VERBOSE
-#define ARRAY_VERBOSE 1
-#endif
-
 #include "expr.hpp"
-
 
 using std::cout;
 using std::endl;
 
-int main() {
-        
+int main(int argc, char **argv) {
+    
+#ifdef HAVE_CUBLAS_H
+  array::CUDA::getInstance().initialize(argc, argv);  
+#endif
+  
+  
+  
     typedef array::vector_type<double> vector_type;
     typedef array::matrix_type<double> matrix_type;
     typedef array::tensor_type<double> tensor_type;

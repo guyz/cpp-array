@@ -19,6 +19,4 @@ install (FILES  ${HEADER_FILES} DESTINATION include/array)
 add_executable(a.out main.cpp)
 
 # link executable
-target_link_libraries (a.out
-${EXTERNAL_LIBS}
-)
+target_link_libraries (a.out ${EXTERNAL_LIBS})

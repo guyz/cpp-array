@@ -6,30 +6,9 @@
 #define __BEGIN_ARRAY_NAMESPACE__ namespace array {
 #define __END_ARRAY_NAMESPACE__ }
 
-// verbose flag
-#cmakedefine ARRAY_VERBOSE 1
-
-// hash map
-#cmakedefine HAVE_UNORDERED_MAP 1
-#cmakedefine HAVE_TR1_UNORDERED_MAP 1
-#cmakedefine BOOST_UNORDERED_MAP_HPP 1
-#cmakedefine HAVE_EXT_HASH_MAP 1
-#cmakedefine HAVE_BACKWARD_HASH_MAP 1
-
-// hash set
-#cmakedefine HAVE_UNORDERED_SET 1
-#cmakedefine HAVE_TR1_UNORDERED_SET 1
-#cmakedefine HAVE_BOOST_UNORDERED_SET_HPP 1
-#cmakedefine HAVE_EXT_HASH_SET 1
-#cmakedefine HAVE_BACKWARD_HASH_SET 1
-
-// tuple
-#cmakedefine HAVE_TUPLE 1
-#cmakedefine HAVE_TR1_TUPLE 1
-#cmakedefine HAVE_BOOST_TUPLE_HPP 1
-
 // blas library
 #cmakedefine HAVE_CBLAS_H 1
-#cmakedefine HAVE_GSL_CBLAS_H 1
+#cmakedefine HAVE_CUBLAS_H 1 
+#cmakedefine CBLAS_HEADER "${CBLAS_HEADER}"
 
 #endif
