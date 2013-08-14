@@ -61,10 +61,6 @@ using std::cout;
 using std::endl;
 
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-function"
-
-
 // check for BLAS implementation used
 #ifdef HAVE_CUBLAS_H
 
@@ -149,6 +145,11 @@ public:
 
 ////////////////////////////////////////////////////////////////////////////////
 // cublas functions
+
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+
 
 static cublasStatus_t cublasXscal(cublasHandle_t handle, int n, const float *alpha,
                                   float *x, int incx) {
@@ -706,8 +707,14 @@ void cblas_gemm(cublasOperation_t transa, cublasOperation_t transb, int m, int n
   cudaFree(d_C);
 }
 
+#pragma GCC diagnostic pop
+
 
 #elif defined HAVE_CBLAS_H
+
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -883,10 +890,10 @@ void cblas_gemm(const enum CBLAS_TRANSPOSE TransA,
   cblas_xgemm(TransA, TransB, M, N, K, alpha, A, lda, B, ldb, beta, C, ldc);
 }
 
+#pragma GCC diagnostic pop
+
 #endif /* HAVE_CUBLAS_H */
 
-
-#pragma GCC diagnostic pop
 
 
 __END_ARRAY_NAMESPACE__
