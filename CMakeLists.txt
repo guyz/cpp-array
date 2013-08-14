@@ -9,7 +9,7 @@ project (cpp-array)
 set (ARRAY_VERSION_MAJOR 1)
 set (ARRAY_VERSION_MINOR 0)
 
-set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/array)
+set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
 
 
 # set path for additional cmake modules
