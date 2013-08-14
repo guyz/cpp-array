@@ -1016,7 +1016,7 @@ Expr< BinExprOp< ExprLiteral<typename A::value_type>, A, ApMul> >
 transpose(const Expr< BinExprOp< ExprLiteral<typename A::value_type>, Expr<BinExprOp<A, EmptyType, ApTr> >, ApMul> >& a) {
   
   typedef typename A::value_type value_type;
-  typedef BinExprOp< ExprLiteral<typename A::value_type>, A, ApMul> ExprT;
+  typedef BinExprOp< ExprLiteral<value_type>, A, ApMul> ExprT;
   
   return Expr<ExprT>(ExprT(a.left(), a.right().left()));
 }

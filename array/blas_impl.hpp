@@ -61,6 +61,10 @@ using std::cout;
 using std::endl;
 
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused"
+
+
 // check for BLAS implementation used
 #ifdef HAVE_CUBLAS_H
 
@@ -882,6 +886,7 @@ void cblas_gemm(const enum CBLAS_TRANSPOSE TransA,
 #endif /* HAVE_CUBLAS_H */
 
 
+#pragma GCC diagnostic pop
 
 
 __END_ARRAY_NAMESPACE__
