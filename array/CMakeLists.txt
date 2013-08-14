@@ -15,8 +15,14 @@ list(REMOVE_ITEM ARRAY_LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 file(GLOB HEADER_FILES ${PROJECT_CURRENT_SOURCE_DIR} "*.hpp")
 install (FILES  ${HEADER_FILES} DESTINATION include/array)
 
-# add executable
-add_executable(a.out main.cpp)
+option(cpp-array_DEV "Compile main.cpp within array directory for development" OFF)
 
-# link executable
-target_link_libraries (a.out ${EXTERNAL_LIBS})
+if (cpp-array_DEV)
+
+  # add executable
+  add_executable(dev.out main.cpp)
+
+  # link executable
+  target_link_libraries (dev.out ${EXTERNAL_LIBS})
+
+endif()

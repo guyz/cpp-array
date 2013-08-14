@@ -9,9 +9,11 @@ project (cpp-array)
 set (ARRAY_VERSION_MAJOR 1)
 set (ARRAY_VERSION_MINOR 0)
 
+set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/array)
+
 
 # set path for additional cmake modules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
 
 
 include(CheckCXXCompilerFlag)
@@ -37,16 +39,8 @@ if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
 endif()
 
 
-find_package (Boost)
-
-if(Boost_FOUND)
-  include_directories(${Boost_INCLUDE_DIRS})
-  set (EXTERNAL_LIBS ${Boost_LIBRARIES})
-endif()
-
-
 # add the binary tree to the search path for include files
-include_directories(${PROJECT_BINARY_DIR})
+list (APPEND cpp-array_INCLUDE_DIRS ${PROJECT_BINARY_DIR})
 
 # variable used to specify a user defined path for libraries
 # and header files
@@ -69,7 +63,7 @@ if (CUDA)
     message(STATUS "*** INFO *** Path to cublas.h")
     message(STATUS "             ${CUDA_INCLUDE_DIRS}")
     set (HAVE_CUBLAS_H YES)
-    include_directories(${CUDA_INCLUDE_DIRS})
+    list (APPEND cpp-array_INCLUDE_DIRS ${CUDA_INCLUDE_DIRS})
 
     message(STATUS "*** INFO *** Found cublas library:")
     message(STATUS "             ${CUDA_CUBLAS_LIBRARIES}")
@@ -86,7 +80,7 @@ if (NOT CUDA_FOUND)
   if(CBLAS_FOUND)
     set (HAVE_CBLAS_H YES)
     message (STATUS "  Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
-    include_directories(${CBLAS_INCLUDE_DIRS})
+    list (APPEND cpp-array_INCLUDE_DIRS ${CBLAS_INCLUDE_DIRS})
     message (STATUS "  Adding include directories: ${CBLAS_INCLUDE_DIRS}")
     set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIBRARIES})
     message (STATUS "  Adding CBLAS libraries: ${CBLAS_LIBRARIES}")
@@ -94,6 +88,10 @@ if (NOT CUDA_FOUND)
     message (STATUS "*** WARNING *** CBLAS library not found.")
   endif()
 endif()
+
+
+include_directories(${cpp-array_INCLUDE_DIRS})
+
 
 
 # enable testing
@@ -106,9 +104,9 @@ add_subdirectory (tests)
 
 # Doxygen support
 #-- Add an Option to toggle the generation of the API documentation
-option(DOCUMENTATION "Use Doxygen to create the HTML based API documentation" ON)
+option(cpp-array_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
 
-if(DOCUMENTATION)
+if(cpp-array_DOCUMENTATION)
 
   find_package(Doxygen)
 
@@ -139,7 +137,7 @@ if(DOCUMENTATION)
       message (STATUS "*** INFO *** LaTeX documentation disabled")  
     endif()
   
-    set (DOXYFILE_SOURCE_DIRS ${CMAKE_SOURCE_DIR})
+    set (DOXYFILE_SOURCE_DIRS ${PROJECT_SOURCE_DIR})
     set (CMAKE_IMAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/doc/figures)
     set (DOXYGEN_BIB_FILE ${PROJECT_SOURCE_DIR}/doc/bibliography.bib)
     set (PROJECT_VERSION "${YAFEQ_VERSION_MAJOR}.${YAFEQ_VERSION_MINOR}.${SUBVERSION_REVISION}")
