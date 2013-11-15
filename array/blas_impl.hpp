@@ -414,7 +414,7 @@ static void cblas_ger(const int M, const int N,
   T *d_A, *d_X, *d_Y;
   
   cudaStat = cudaMalloc((void**)&d_A, M*N*sizeof(T));
-  if (stat != cudaSuccess) {
+  if (cudaStat != cudaSuccess) {
     cout<<"*** ERROR *** cudaMalloc d_A returned error code "<<cudaStat<<", line "<<__LINE__<<endl;
   }
   
@@ -425,12 +425,12 @@ static void cblas_ger(const int M, const int N,
   }
   
   cudaStat = cudaMalloc((void**)&d_X, M*sizeof(T));
-  if (stat != cudaSuccess) {
+  if (cudaStat != cudaSuccess) {
     cout<<"*** ERROR *** cudaMalloc d_X returned error code "<<cudaStat<<", line "<<__LINE__<<endl;
   }
   
   stat = cublasSetVector(M, sizeof(T), X, incX, d_X, 1);
-  if (stat != cudaSuccess) {
+  if (stat != CUBLAS_STATUS_SUCCESS) {
     cout<<"*** ERROR *** cublasSetVector returned error code "<<stat<<", line "<<__LINE__<<endl;
     exit(EXIT_FAILURE);
   }
@@ -442,7 +442,7 @@ static void cblas_ger(const int M, const int N,
   }
   
   stat = cublasSetVector(N, sizeof(T), Y, incY, d_Y, 1);
-  if (stat != cudaSuccess) {
+  if (stat != CUBLAS_STATUS_SUCCESS) {
     cout<<"*** ERROR *** cublasSetVector returned error code "<<stat<<", line "<<__LINE__<<endl;
     exit(EXIT_FAILURE);
   }
@@ -515,7 +515,7 @@ static void cblas_gemv(cublasOperation_t trans, int m, int n, T alpha,
   T *d_A, *d_X, *d_Y;
   
   cudaStat = cudaMalloc((void**)&d_A, m*n*sizeof(T));
-  if (stat != cudaSuccess) {
+  if (cudaStat != cudaSuccess) {
     cout<<"*** ERROR *** cudaMalloc d_A returned error code "<<cudaStat<<", line "<<__LINE__<<endl;
   }
   
@@ -526,12 +526,12 @@ static void cblas_gemv(cublasOperation_t trans, int m, int n, T alpha,
   }
   
   cudaStat = cudaMalloc((void**)&d_X, n*sizeof(T));
-  if (stat != cudaSuccess) {
+  if (cudaStat != cudaSuccess) {
     cout<<"*** ERROR *** cudaMalloc d_X returned error code "<<cudaStat<<", line "<<__LINE__<<endl;
   }
   
   stat = cublasSetVector(n, sizeof(T), x, incx, d_X, 1);
-  if (stat != cudaSuccess) {
+  if (stat != CUBLAS_STATUS_SUCCESS) {
     cout<<"*** ERROR *** cublasSetVector returned error code "<<stat<<", line "<<__LINE__<<endl;
     exit(EXIT_FAILURE);
   }
