@@ -71,7 +71,7 @@ class CUDA {
   int devID_;
   bool init_;
   
-public:
+  public:
   
   static CUDA& getInstance() {
     static CUDA instance;
@@ -81,14 +81,14 @@ public:
   int devID() const
   { return devID_; }
   
-private:
+  private:
   
   CUDA() : devID_(), init_() {}
   CUDA(CUDA const&) = delete;
   void operator=(CUDA const&) = delete;
   ~CUDA() { cudaDeviceReset(); }
   
-public:
+  public:
   
   bool initialized()
   { return init_; }
@@ -97,7 +97,7 @@ public:
   {
     
     if (init_)
-      return;
+    return;
     
     // by default, we use device 0, otherwise we override the device ID based on what is provided at the command line
     cudaError_t error;
@@ -544,7 +544,7 @@ static void cblas_gemv(cublasOperation_t trans, int m, int n, T alpha,
   
   cublasOperation_t op = CUBLAS_OP_N;
   if (trans == 'T')
-    op = CUBLAS_OP_T;
+  op = CUBLAS_OP_T;
   
   stat = cublasXgemv(handle, op, m, n, &alpha, d_A, m, d_X, 1, &beta, d_Y, 1);
   if (stat != CUBLAS_STATUS_SUCCESS) {
@@ -599,7 +599,7 @@ static cublasStatus_t cublasXgemm(cublasHandle_t& handle, cublasOperation_t tran
 static cublasStatus_t cublasXgemm(cublasHandle_t& handle, cublasOperation_t transa, cublasOperation_t transb, int m, int n, int k,
                                   double alpha, const double *A, int lda,
                                   const double *B, int ldb, double beta, double *C,
-                                  int ldc) {  
+                                  int ldc) {
   return cublasDgemm(handle, transa, transb, m, n, k, &alpha, A, lda, B, ldb, &beta, C, m);
 }
 
@@ -607,7 +607,7 @@ static cublasStatus_t cublasXgemm(cublasHandle_t& handle, cublasOperation_t tran
 template <class T>
 void cblas_gemm(cublasOperation_t transa, cublasOperation_t transb, int m, int n, int k,
                 T alpha, const T *A, int lda, const T *B, int ldb, T beta, T *C, int ldc) {
-    
+  
   cudaDeviceProp deviceProp;
   cudaError_t error;
   
@@ -645,7 +645,7 @@ void cblas_gemm(cublasOperation_t transa, cublasOperation_t transb, int m, int n
   if (error != cudaSuccess) {
     cout<<"*** ERROR *** cudaMalloc d_B returned error code "<<error<<", line "<<__LINE__<<endl;
     exit(EXIT_FAILURE);
-  }  
+  }
   
   // copy host memory to device
   error = cudaMemcpy(d_A, A, mem_size_A, cudaMemcpyHostToDevice);
@@ -671,7 +671,7 @@ void cblas_gemm(cublasOperation_t transa, cublasOperation_t transb, int m, int n
   if (error != cudaSuccess) {
     cout<<"*** ERROR *** cudaMemcpy d_B B returned error code "<<error<<", line "<<__LINE__<<endl;
     exit(EXIT_FAILURE);
-  }  
+  }
   
   // setup execution parameters
   dim3 threads(block_size, block_size);
@@ -686,7 +686,7 @@ void cblas_gemm(cublasOperation_t transa, cublasOperation_t transb, int m, int n
     if (ret != CUBLAS_STATUS_SUCCESS) {
       cout<<"*** ERROR *** cublasCreate returned error code "<<ret<<", line "<<__LINE__<<endl;
       exit(EXIT_FAILURE);
-    }    
+    }
     
     ret = cublasXgemm(handle, transa, transb, m, n, k, alpha, d_A, lda, d_B, ldb, beta, d_C, m);
     if (ret != CUBLAS_STATUS_SUCCESS) {
