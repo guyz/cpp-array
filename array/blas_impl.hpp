@@ -28,6 +28,12 @@
 #ifndef BLAS_IMPL_HPP
 #define BLAS_IMPL_HPP
 
+#ifdef __GNUC__
+#define MAY_NOT_BE_USED __attribute__ ((unused))
+#else
+#define MAY_NOT_BE_USED
+#endif
+
 
 #include <cassert>
 
@@ -67,7 +73,6 @@ using std::endl;
 
 class CUDA {
   
-  cudaDeviceProp deviceProp;
   int devID_;
   bool init_;
   
@@ -146,9 +151,6 @@ class CUDA {
 ////////////////////////////////////////////////////////////////////////////////
 // cublas functions
 
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-function"
 
 
 static cublasStatus_t cublasXscal(cublasHandle_t handle, int n, const float *alpha,
@@ -542,11 +544,7 @@ static void cblas_gemv(cublasOperation_t trans, int m, int n, T alpha,
     exit(EXIT_FAILURE);
   }
   
-  cublasOperation_t op = CUBLAS_OP_N;
-  if (trans == 'T')
-  op = CUBLAS_OP_T;
-  
-  stat = cublasXgemv(handle, op, m, n, &alpha, d_A, m, d_X, 1, &beta, d_Y, 1);
+  stat = cublasXgemv(handle, trans, m, n, &alpha, d_A, m, d_X, 1, &beta, d_Y, 1);
   if (stat != CUBLAS_STATUS_SUCCESS) {
     cout<<"*** ERROR *** cublasXdot failed"<<endl;
     exit(EXIT_FAILURE);
@@ -707,24 +705,20 @@ void cblas_gemm(cublasOperation_t transa, cublasOperation_t transb, int m, int n
   cudaFree(d_C);
 }
 
-#pragma GCC diagnostic pop
-
 
 #elif defined HAVE_CBLAS_H
 
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-function"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // blas functions
 
 // level 1 blas xSCAL function: x <- alpha*x
-static void cblas_Xscal(const int N, const float alpha, float *X, const int incX)
-{ cblas_sscal(N, alpha, X, incX); }
+static void MAY_NOT_BE_USED cblas_Xscal(const int N, const float alpha, float *X, const int incX)
+{ cblas_sscal(N, alpha, X, incX); } 
 
-static void cblas_Xscal(const int N, const double alpha, double *X, const int incX)
+static void MAY_NOT_BE_USED cblas_Xscal(const int N, const double alpha, double *X, const int incX)
 { cblas_dscal(N, alpha, X, incX); }
 
 
@@ -735,17 +729,17 @@ static void cblas_scal(const int N, const T alpha, T *X, const int incX)
 
 
 // level 1 blas xAXPY function: y <- alpha*x + y
-static void cblas_xaxpy(const int N, const float alpha, const float *X,
+static void MAY_NOT_BE_USED cblas_xaxpy(const int N, const float alpha, const float *X,
                         const int incX, float *Y, const int incY)
 { cblas_saxpy(N, alpha, X, incX, Y, incY); }
 
-static void cblas_xaxpy(const int N, const double alpha, const double *X,
+static void MAY_NOT_BE_USED cblas_xaxpy(const int N, const double alpha, const double *X,
                         const int incX, double *Y, const int incY)
 { cblas_daxpy(N, alpha, X, incX, Y, incY); }
 
 
 template <typename T>
-static void cblas_axpy(const int N, const T alpha, const T *X,
+static void MAY_NOT_BE_USED cblas_axpy(const int N, const T alpha, const T *X,
                        const int incX, T *Y, const int incY)
 { cblas_xaxpy(N, alpha, X, incX, Y, incY); }
 
@@ -753,29 +747,29 @@ static void cblas_axpy(const int N, const T alpha, const T *X,
 
 
 // level 1 blas xDOT function: dot <- x'*y
-static float cblas_xdot(const int N, const float  *X, const int incX,
+static float MAY_NOT_BE_USED cblas_xdot(const int N, const float  *X, const int incX,
                         const float  *Y, const int incY)
 { return cblas_sdot(N, X, incX, Y, incY); }
 
-static double cblas_xdot(const int N, const double *X, const int incX,
+static double MAY_NOT_BE_USED cblas_xdot(const int N, const double *X, const int incX,
                          const double *Y, const int incY)
 { return cblas_ddot(N, X, incX, Y, incY); }
 
 
 template <typename T>
-static double cblas_dot(const int N, const T *X, const int incX,
+static double MAY_NOT_BE_USED cblas_dot(const int N, const T *X, const int incX,
                         const T *Y, const int incY)
 { return cblas_xdot(N, X, incX, Y, incY); }
 
 
 
 // level 2 blas xGER function: A <- alpha*x*y' + A
-static void cblas_xger(const int M, const int N,
+static void MAY_NOT_BE_USED cblas_xger(const int M, const int N,
                        const double alpha, const double *X, const int incX,
                        const double *Y, const int incY, double *A, const int lda)
 { cblas_dger(CblasColMajor, M, N, alpha, X, incX, Y, incY, A, lda); }
 
-static void cblas_xger(const int M, const int N,
+static void MAY_NOT_BE_USED cblas_xger(const int M, const int N,
                        const float alpha, const float *X, const int incX,
                        const float *Y, const int incY, float *A, const int lda)
 { cblas_sger(CblasColMajor, M, N, alpha, X, incX, Y, incY, A, lda); }
@@ -783,7 +777,7 @@ static void cblas_xger(const int M, const int N,
 
 
 template <typename T>
-static void cblas_ger(const int M, const int N,
+static void MAY_NOT_BE_USED cblas_ger(const int M, const int N,
                       const T alpha, const T *X, const int incX,
                       const T *Y, const int incY, T *A, const int lda)
 { cblas_xger(M, N, alpha, X, incX, Y, incY, A, lda); }
@@ -793,7 +787,7 @@ static void cblas_ger(const int M, const int N,
 
 
 // level 2 blas xGEMV function: Y <- alpha*A*x + beta*y
-static void cblas_xgemv(const enum CBLAS_TRANSPOSE TransA,
+static void MAY_NOT_BE_USED cblas_xgemv(const enum CBLAS_TRANSPOSE TransA,
                         const int M, const int N,
                         const double alpha,
                         const double *A,
@@ -806,7 +800,7 @@ static void cblas_xgemv(const enum CBLAS_TRANSPOSE TransA,
 { cblas_dgemv(CblasColMajor, TransA, M, N,
               alpha, A, lda, X, incX, beta, Y, incY); }
 
-static void cblas_xgemv(const enum CBLAS_TRANSPOSE TransA,
+static void MAY_NOT_BE_USED cblas_xgemv(const enum CBLAS_TRANSPOSE TransA,
                         const int M,
                         const int N,
                         const float alpha,
@@ -822,7 +816,7 @@ static void cblas_xgemv(const enum CBLAS_TRANSPOSE TransA,
 
 
 template <typename T>
-static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
+static void MAY_NOT_BE_USED cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
                        const int M,
                        const int N,
                        const T alpha,
@@ -859,7 +853,7 @@ static void cblas_gemv(const enum CBLAS_TRANSPOSE TransA,
  *    ldc      the first dimension of array C
  */
 
-static void cblas_xgemm(const enum CBLAS_TRANSPOSE TransA,
+static void MAY_NOT_BE_USED cblas_xgemm(const enum CBLAS_TRANSPOSE TransA,
                         const enum CBLAS_TRANSPOSE TransB, const int M, const int N,
                         const int K, const float alpha, const float *A,
                         const int lda, const float *B, const int ldb,
@@ -870,7 +864,7 @@ static void cblas_xgemm(const enum CBLAS_TRANSPOSE TransA,
 }
 
 
-static void cblas_xgemm(const enum CBLAS_TRANSPOSE TransA,
+static void MAY_NOT_BE_USED cblas_xgemm(const enum CBLAS_TRANSPOSE TransA,
                         const enum CBLAS_TRANSPOSE TransB, const int M, const int N,
                         const int K, const double alpha, const double *A,
                         const int lda, const double *B, const int ldb,
@@ -881,7 +875,7 @@ static void cblas_xgemm(const enum CBLAS_TRANSPOSE TransA,
 }
 
 template <class T>
-void cblas_gemm(const enum CBLAS_TRANSPOSE TransA,
+void MAY_NOT_BE_USED cblas_gemm(const enum CBLAS_TRANSPOSE TransA,
                 const enum CBLAS_TRANSPOSE TransB, const int M, const int N,
                 const int K, const T alpha, const T *A,
                 const int lda, const T *B, const int ldb,
@@ -890,7 +884,6 @@ void cblas_gemm(const enum CBLAS_TRANSPOSE TransA,
   cblas_xgemm(TransA, TransB, M, N, K, alpha, A, lda, B, ldb, beta, C, ldc);
 }
 
-#pragma GCC diagnostic pop
 
 #endif /* HAVE_CUBLAS_H */
 

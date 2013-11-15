@@ -535,7 +535,7 @@ public:
   typedef typename Initializer_list<k,T>::list_type initializer_type;
   
   //! Initializer list constructor
-  Array(initializer_type l) : wrapped_(), data_(nullptr) {
+  Array(initializer_type l) : data_(nullptr), wrapped_() {
     
     Initializer_list<k, T>::process(l, *this, 1, 0);
   }
@@ -788,7 +788,7 @@ public:
   friend class Array_traits<k,T, Array>;
   
   template <int dim, class array_type>
-  friend class Array_proxy;
+  friend struct Array_proxy;
   
   friend Array_proxy_traits<k,Array>;
   friend class ApAdd;

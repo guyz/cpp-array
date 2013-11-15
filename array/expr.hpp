@@ -626,7 +626,9 @@ public:
 
 
 //! ApTr -- transpose
-struct ApTr {
+class ApTr {
+  
+  public:
   
   // this function should never be called
   template <typename T>

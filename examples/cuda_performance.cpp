@@ -117,7 +117,6 @@ int main(int argc, char **argv) {
       high_resolution_clock::time_point t2 = high_resolution_clock::now();
       
       // compute elapsed time
-      duration<T> time_array = duration_cast<duration<T>>(t2 - t1);
       time += (t2-t1);
       
       error = cudaEventRecord(stop, NULL);

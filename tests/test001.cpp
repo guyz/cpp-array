@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     
     vector_type X(m), Y(m);
     
-    for (int i=0; i<m; ++i) {
+    for (size_t i=0; i<m; ++i) {
         X(i) = i;
         Y(i) = m-i;
     }
@@ -77,8 +77,8 @@ int main(int argc, char **argv) {
     
     int k=0;
     int l=-1;
-    for (int i=0; i<m; ++i)
-        for (int j=0; j<m; ++j) {
+    for (size_t i=0; i<m; ++i)
+        for (size_t j=0; j<m; ++j) {
             A(i,j) = ++k;
             B(i,j) = --l;
         }
@@ -139,8 +139,8 @@ int main(int argc, char **argv) {
     B = matrix_type(n,m);
     k=0;
     l=-1;
-    for (int i=0; i<m; ++i)
-        for (int j=0; j<n; ++j) {
+    for (size_t i=0; i<m; ++i)
+        for (size_t j=0; j<n; ++j) {
             A(i,j) = ++k;
             B(j,i) = --l;
         }

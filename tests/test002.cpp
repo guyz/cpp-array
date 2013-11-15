@@ -40,9 +40,8 @@ int main() {
   matrix_type<double> A(m,m);
   
   int k=0;
-  int l=-1;
-  for (int i=0; i<m; ++i)
-    for (int j=0; j<m; ++j)
+  for (size_t i=0; i<m; ++i)
+    for (size_t j=0; j<m; ++j)
       A(i,j) = ++k;
   
   cout<<" A "<<A<<endl;
