@@ -97,7 +97,7 @@ struct Array_proxy_traits {
   static reference get_reference(Array& a, size_t i)
   { return reference(a,i); }
   
-  static value_type value(Array& a, size_t i)
+  static value_type value(const Array& a, size_t i)
   { return value_type(a,i); }
 };
 
@@ -116,7 +116,7 @@ struct Array_proxy_traits<1,Array> {
   static reference get_reference(Array& a, size_t i)
   { return a.data_[i]; }
   
-  static value_type value(Array& a, size_t i)
+  static value_type value(const Array& a, size_t i)
   { return a.data_[i]; }
 };
 
@@ -284,11 +284,8 @@ public:
   /*! This function calls a helper function depending on the type
    * stored in the vector.
    */
-  value_type norm() const {
-    const array_type &a = static_cast<const array_type&>(*this);
-    assert(a.n_[0] > 0);
-    return norm(Type2Type<value_type>());
-  }
+  value_type norm() const
+  { return norm(Type2Type<value_type>()); }
   
 private:
   
@@ -297,6 +294,7 @@ private:
   inline U norm(Type2Type<U>) const {
     U norm = U();
     array_type &a = static_cast<array_type&>(*this);
+    assert(a.n_[0] > 0);
     for (size_t i=0; i<a.n_[0]; ++i)
       norm += std::pow(a.data_[i],2);
     norm = std::sqrt(norm);

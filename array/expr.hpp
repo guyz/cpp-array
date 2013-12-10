@@ -348,7 +348,7 @@ public:
   //! array -- expr addition
   template<int d, typename T, class B>
   static Array<d,T>& apply(Array<d,T>& a, const Expr<B>& b) {
-    return a =+ b();
+    return a += b();
   }
   
   

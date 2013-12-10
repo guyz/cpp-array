@@ -24,9 +24,8 @@
 using std::cout;
 using std::endl;
 
-
 int main(int argc, char **argv) {
-    
+  
   // create 10x10 identity matrix
   array::matrix_type<double> A(10, [=](int i, int j) {return i == j ? 1 : 0;});
   cout<<"A: "<<A<<endl;

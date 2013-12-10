@@ -7,13 +7,17 @@ link_directories (${cpp-array_BINARY_DIR}/array)
 if (CUDA)
 
   set (ARRAY_EXAMPLES
-    cuda_performance
+    cuda_gemm_performance
+    cuda_gemv_performance
+    cuda_dot_performance
   )
-
+  
 else()
 
   set (ARRAY_EXAMPLES
-    performance
+    gemm_performance
+    gemv_performance
+    dot_performance
   )
 
 endif()

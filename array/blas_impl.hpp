@@ -313,8 +313,8 @@ static cublasStatus_t cublasXdot(cublasHandle_t handle, int n,
 
 
 template <typename T>
-static T cblas_dot(const int N, const double *X, const int incX,
-                   const double *Y, const int incY)
+static T cblas_dot(const int N, const T *X, const int incX,
+                   const T *Y, const int incY)
 {
   cudaError_t cudaStat;
   cublasStatus_t stat;
