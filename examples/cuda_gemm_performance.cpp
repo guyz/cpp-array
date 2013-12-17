@@ -18,7 +18,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-//! \file cuda_performance.cpp
+//! \file cuda_gemm_performance.cpp
 //
 // This file can be used to test the performance of the array in the
 // context of matrix-matrix multiplication by using the NVIDIA CUBLAS
@@ -45,6 +45,8 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   
   typedef double T;
+  typedef steady_clock clock_type;
+
   size_t niter = 10;
   
   array::CUDA::getInstance().initialize(argc, argv);
@@ -67,25 +69,17 @@ int main(int argc, char **argv) {
     }
     
     float gpu_time = 0;
-    high_resolution_clock::time_point start = high_resolution_clock::now();
-    high_resolution_clock::time_point time = high_resolution_clock::now();
+    clock_type::time_point start = clock_type::now();
+    clock_type::time_point time = clock_type::now();
     
     for (size_t i=0; i<niter; ++i) {
       
       cout<<"."<<std::flush;
       
       // create matrices
-      array::matrix_type<T> A(m,m);
-      array::matrix_type<T> B(m,m);
-      
-      int k = 0;
-      int l = 0;
-      for (size_t i=0; i<m; ++i)
-        for (size_t j=0; j<m; ++j) {
-          A(i,j) = ++k;
-          B(i,j) = --l;
-        }
-      
+      array::matrix_type<T> A(m,m,1.);
+      array::matrix_type<T> B(m,m,1.);
+            
       // timing events
       cudaEvent_t start;
       cudaError_t error = cudaEventCreate(&start);
@@ -107,14 +101,14 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
       }
       
-      high_resolution_clock::time_point t1 = high_resolution_clock::now();
+      clock_type::time_point t1 = clock_type::now();
       
       // carry out matrix-matrix multiplication
       array::matrix_type<T> C = A*B;
       
       
       // timing events after the operation
-      high_resolution_clock::time_point t2 = high_resolution_clock::now();
+      clock_type::time_point t2 = clock_type::now();
       
       // compute elapsed time
       time += (t2-t1);
@@ -145,11 +139,11 @@ int main(int argc, char **argv) {
     
     
     // compute elapsed time
-    duration<T> time_array = duration_cast<duration<T>>(time - start);
+    auto time_array = duration_cast<microseconds>(time - start);
     
     // print results
     cout<<setw(17)<<gpu_time/niter;
-    cout<<" ms"<<setw(18)<<time_array.count()/niter<<" s"<<endl;
+    cout<<" ms"<<setw(18)<<time_array.count()/niter<<" μs"<<endl;
     
   } // loop over matrix sizes
   
