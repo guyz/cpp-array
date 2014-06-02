@@ -1,9 +1,33 @@
-# The name of our project is cpp-array. CMakeLists files in this project can 
+#===============================================================================
+#
+# Copyright (©) 2014 EPFL Alejandro M. Aragón
+# Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
+# All Rights Reserved
+#
+# cpp-array is free  software: you can redistribute it and/or  modify it under
+# the terms  of the  GNU Lesser  General Public  License as  published by  the 
+# Free Software Foundation, either version 3 of the License, or (at your option)
+# any later version.
+#
+# cpp-array is  distributed in the  hope that it  will be useful, but  WITHOUT 
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A  PARTICULAR PURPOSE. See  the GNU  Lesser General  Public License  for 
+# more details.
+#
+# You should  have received  a copy  of the GNU  Lesser General  Public License
+# along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
+#
+#===============================================================================
+
+
+# The name of our project is cpp-array. CMakeLists files in this project can
 # refer to the root source directory of the project as ${cpp-array_SOURCE_DIR}
 # and to the root binary directory of the project as ${cpp-array_BINARY_DIR}
 
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 2.8)
 project (cpp-array)
+enable_language(CXX)
+
 
 # The version number.
 set (ARRAY_VERSION_MAJOR 1)
@@ -46,7 +70,7 @@ list (APPEND cpp-array_INCLUDE_DIRS ${PROJECT_BINARY_DIR})
 # and header files
 set (ARRAY_USER_LIB_PATH "" CACHE PATH "User specified path for libraries")
 
-include(CheckIncludeFile)
+#include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
 
 
@@ -97,13 +121,18 @@ set (cpp-array_INCLUDE_DIRS ${cpp-array_INCLUDE_DIRS_TMP} CACHE INTERNAL "Includ
 
 message (STATUS ${cpp-array_INCLUDE_DIRS})
 
-
-# enable testing
-enable_testing ()
-
 add_subdirectory (array)
 add_subdirectory (examples)
-add_subdirectory (tests)
+
+option (cpp-array_TESTS "cpparray tests" ON)
+
+if (cpp-array_TESTS)
+
+  # enable testing
+  enable_testing ()
+  add_subdirectory (tests)
+
+endif()
 
 
 # Doxygen support
@@ -207,6 +236,27 @@ SET(CPACK_TOPLEVEL_TAG "${CMAKE_SYSTEM_NAME}")
 
 
 INCLUDE(CPack)
+
+
+
+# swig module creation for python
+#FIND_PACKAGE(SWIG REQUIRED)
+#INCLUDE(${SWIG_USE_FILE})
+
+#FIND_PACKAGE(PythonLibs)
+#INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
+#INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/array)
+
+##SET(CMAKE_SWIG_FLAGS "-c++")
+#SET(CMAKE_SWIG_FLAGS "")
+
+#SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/array/array.i PROPERTIES CPLUSPLUS ON)
+#SET_SOURCE_FILES_PROPERTIES(array.i PROPERTIES SWIG_FLAGS "-includeall")
+#SWIG_ADD_MODULE(array python ${CMAKE_CURRENT_SOURCE_DIR}/array/array.i)
+#SWIG_LINK_LIBRARIES(array ${PYTHON_LIBRARIES})
+
+
+
 
 # configure a header file to pass some of the CMake settings
 # to the source code

@@ -1,22 +1,23 @@
 /*
- * Copyright (C) 2013 by Alejandro M. Aragón
+ * Copyright (©) 2014 EPFL Alejandro M. Aragón
  * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * cpp-array is free  software: you can redistribute it and/or  modify it under
+ * the terms  of the  GNU Lesser  General Public  License as  published by  the 
+ * Free Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * cpp-array is  distributed in the  hope that it  will be useful, but  WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A  PARTICULAR PURPOSE. See  the GNU  Lesser General  Public License  for 
+ * more details.
  *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * You should  have received  a copy  of the GNU  Lesser General  Public License
+ * along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 
 /*! \file array.hpp
  *
@@ -40,10 +41,8 @@
 
 __BEGIN_ARRAY_NAMESPACE__
 
-
 using std::cout;
 using std::endl;
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // forward declarations
@@ -142,7 +141,7 @@ public:
   typedef P pointer;
   
   //! Iterator dimension
-  constexpr static int dim()
+  static int dim()
   { return d; }
   
   //! Pointer and stride parameter constructor

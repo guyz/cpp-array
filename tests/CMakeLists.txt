@@ -1,4 +1,25 @@
-# Make sure the compiler can find include files from our Hello library. 
+#===============================================================================
+#
+# Copyright (©) 2014 EPFL Alejandro M. Aragón
+# Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
+# All Rights Reserved
+#
+# cpp-array is free  software: you can redistribute it and/or  modify it under
+# the terms  of the  GNU Lesser  General Public  License as  published by  the 
+# Free Software Foundation, either version 3 of the License, or (at your option)
+# any later version.
+#
+# cpp-array is  distributed in the  hope that it  will be useful, but  WITHOUT 
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A  PARTICULAR PURPOSE. See  the GNU  Lesser General  Public License  for 
+# more details.
+#
+# You should  have received  a copy  of the GNU  Lesser General  Public License
+# along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
+#
+#===============================================================================
+
+# Make sure the compiler can find include files from our Hello library.
 include_directories (${cpp-array_SOURCE_DIR}/array)
 
  file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/script.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR} FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
