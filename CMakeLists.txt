@@ -37,8 +37,7 @@ set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
 
 
 # set path for additional cmake modules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
-
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag (-std=c++0x HAVE_NEW_STD)
@@ -104,6 +103,7 @@ if (NOT CUDA_FOUND)
   if(CBLAS_FOUND)
     set (HAVE_CBLAS_H YES)
     message (STATUS "  Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
+    message (STATUS "  Setting CBLAS_HEADER: ${CBLAS_HEADER}")
     list (APPEND cpp-array_INCLUDE_DIRS ${CBLAS_INCLUDE_DIRS})
     message (STATUS "  Adding include directories: ${CBLAS_INCLUDE_DIRS}")
     set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIBRARIES})
