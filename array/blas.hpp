@@ -17,19 +17,32 @@
  * along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
  *
  */
- 
-#ifndef ARRAY_CONFIG_H
-#define ARRAY_CONFIG_H
 
-#define ARRAY_REVISION "${ARRAY_VERSION_MAJOR}_${ARRAY_VERSION_MINOR}"
+/*! \file blas.hpp
+ *
+ * \brief This file defines the cublas interface.
+ */
 
-#define __BEGIN_ARRAY_NAMESPACE__ namespace array {
-#define __END_ARRAY_NAMESPACE__ }
 
-// blas library
-#cmakedefine HAVE_BLAS_H
-#cmakedefine HAVE_CBLAS_H
-#cmakedefine HAVE_CUBLAS_H
-#cmakedefine CBLAS_HEADER "${CBLAS_HEADER}"
+#ifndef BLAS_HPP
+#define BLAS_HPP
 
+#ifdef __GNUC__
+#define MAY_NOT_BE_USED __attribute__ ((unused))
+#else
+#define MAY_NOT_BE_USED
 #endif
+
+
+#ifdef HAVE_CUBLAS_H
+#include "cublas_impl.hpp"
+#elif defined(HAVE_BLAS_H)
+#include "blas_impl.hpp"
+#elif defined(HAVE_CBLAS_H)
+#include "cblas_impl.hpp"
+#else
+#error "No blas implementation found."
+#endif
+
+
+#endif /* BLAS_HPP */

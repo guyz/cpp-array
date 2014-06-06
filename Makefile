@@ -1,5 +1,6 @@
 # Configuration options.
 cxx        = not-set
+fortran    = not-set
 prefix     = not-set
 assert     = not-set
 doc        = not-set
@@ -24,6 +25,9 @@ ifneq ($(prefix), not-set)
 endif
 ifneq ($(cxx), not-set)
     CONFIG_FLAGS += -DCMAKE_CXX_COMPILER=$(cxx)
+endif
+ifneq ($(fortran), not-set)
+    CONFIG_FLAGS += -DCMAKE_Fortran_COMPILER=$(fortran)
 endif
 ifneq ($(doc), not-set)
     CONFIG_FLAGS += -DDOCUMENTATION=$(doc)

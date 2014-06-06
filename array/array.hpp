@@ -37,7 +37,7 @@
 
 
 #include "return_type.hpp"
-#include "blas_impl.hpp"
+#include "blas.hpp"
 
 __BEGIN_ARRAY_NAMESPACE__
 
@@ -1086,13 +1086,18 @@ __END_ARRAY_NAMESPACE__
  will try to find the libraries \c cpp-array relies on.
  The following options can be given to configure the library:
  
- - cxx=[compiler]    The C++ compiler to use, default: g++
- - prefix=[path]     Installation path, default: /usr/local
- - assert=[bool]     Enable the assert macro, default: true
- - doc=[bool]        Configure to build the documentation, default: true
- - latex=[bool]      Enable LaTeX documentation, default: false
- - build=[string]    Build types: Debug, Release, RelWithDebInfo,
- MinSizeRel, default: None
+ - cxx=[compiler]        The C++ compiler to use, default: g++
+ - fortran=[compiler]    The Fortran compiler to use, there is no
+                         default as the library can be built without
+                         Fortran support
+ - cuda=[bool]           Enable GPU computing
+ - prefix=[path]         Installation path, default: /usr/local
+ - assert=[bool]         Enable the assert macro, default: true
+ - doc=[bool]            Configure to build the documentation, default:
+                         true
+ - latex=[bool]          Enable LaTeX documentation, default: false
+ - build=[string]        Build types: Debug, Release, RelWithDebInfo,
+                         MinSizeRel, default: None
  
  The variables result of the configuration can be edited direcly by typing
  \verbatim $ make edit_cache \endverbatim

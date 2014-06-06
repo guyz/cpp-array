@@ -28,17 +28,6 @@ cmake_minimum_required (VERSION 2.8)
 project (cpp-array)
 enable_language(CXX)
 
-
-# The version number.
-set (ARRAY_VERSION_MAJOR 1)
-set (ARRAY_VERSION_MINOR 0)
-
-set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
-
-
-# set path for additional cmake modules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
-
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag (-std=c++0x HAVE_NEW_STD)
 
@@ -51,15 +40,36 @@ endif()
 
 # add definitions if clang compiler
 if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
-  message (STATUS "*** INFO *** Adding -stdlib=libc++ to Clang compiler")
+  message (STATUS "Adding -stdlib=libc++ to Clang compiler")
   add_definitions(-stdlib=libc++)
   set(CMAKE_EXE_LINKER_FLAGS "-stdlib=libc++")
-  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-stdlib=libc++")
-  set(CMAKE_EXE_LINKER_FLAGS_MINSIZE "-stdlib=libc++")
-  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-stdlib=libc++")
-  set(CMAKE_EXE_LINKER_FLAGS_RELWITH "-stdlib=libc++")
+#  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-stdlib=libc++")
+#  set(CMAKE_EXE_LINKER_FLAGS_MINSIZE "-stdlib=libc++")
+#  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-stdlib=libc++")
+#  set(CMAKE_EXE_LINKER_FLAGS_RELWITH "-stdlib=libc++")
   set(CMAKE_REQUIRED_FLAGS "-stdlib=libc++") # added to search for unordered set and map
 endif()
+
+
+
+# check for Fortran compiler
+include(CMakeDetermineCompiler)
+if (NOT CMAKE_Fortran_COMPILER)
+  message(STATUS "Fortran compiler not found.")
+else()
+  message(STATUS "Fortran compiler found: ${CMAKE_Fortran_COMPILER}")
+  enable_language(Fortran)
+endif()
+
+
+# The version number.
+set (ARRAY_VERSION_MAJOR 1)
+set (ARRAY_VERSION_MINOR 0)
+
+set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
+
+# set path for additional cmake modules
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
 
 # add the binary tree to the search path for include files
@@ -78,38 +88,53 @@ option (CUDA "Use cublas implementation" OFF)
 
 if (CUDA)
 
-  message(STATUS "*** INFO *** CUDA option enabled")
+  message(STATUS "CUDA option enabled")
   
   find_package(CUDA)
   if (CUDA_FOUND)
 
-    message(STATUS "*** INFO *** Path to cublas.h")
+    message(STATUS "Path to cublas.h")
     message(STATUS "             ${CUDA_INCLUDE_DIRS}")
     set (HAVE_CUBLAS_H YES)
     list (APPEND cpp-array_INCLUDE_DIRS ${CUDA_INCLUDE_DIRS})
 
-    message(STATUS "*** INFO *** Found cublas library:")
+    message(STATUS "Found cublas library:")
     message(STATUS "             ${CUDA_CUBLAS_LIBRARIES}")
     set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CUDA_CUBLAS_LIBRARIES} ${CUDA_LIBRARIES})
 
   endif()
 endif()
 
-
+# use blas or cblas if not working with cuda
 if (NOT CUDA_FOUND)
 
-  # find CBLAS library
-  find_package(CBLAS)
-  if(CBLAS_FOUND)
-    set (HAVE_CBLAS_H YES)
-    message (STATUS "  Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
-    message (STATUS "  Setting CBLAS_HEADER: ${CBLAS_HEADER}")
-    list (APPEND cpp-array_INCLUDE_DIRS ${CBLAS_INCLUDE_DIRS})
-    message (STATUS "  Adding include directories: ${CBLAS_INCLUDE_DIRS}")
-    set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIBRARIES})
-    message (STATUS "  Adding CBLAS libraries: ${CBLAS_LIBRARIES}")
+
+  find_package(BLAS)
+  if (BLAS_FOUND AND CMAKE_Fortran_COMPILER)
+
+    set (HAVE_BLAS_H YES)
+    message (STATUS "  Setting HAVE_BLAS_H: ${HAVE_BLAS_H}")
+    include(FortranCInterface)
+    FortranCInterface_HEADER(${CMAKE_CURRENT_BINARY_DIR}/fortran_mangling.hh MACRO_NAMESPACE "CPPARRAY_FC_")
+    
+    set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${BLAS_LIBRARIES})
+    message (STATUS "  Adding BLAS libraries: ${BLAS_LIBRARIES}")
+
   else()
-    message (STATUS "*** WARNING *** CBLAS library not found.")
+
+    # find CBLAS library
+    find_package(CBLAS)
+    if(CBLAS_FOUND)
+      set (HAVE_CBLAS_H YES)
+      message (STATUS "  Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
+      message (STATUS "  Setting CBLAS_HEADER: ${CBLAS_HEADER}")
+      list (APPEND cpp-array_INCLUDE_DIRS ${CBLAS_INCLUDE_DIRS})
+      message (STATUS "  Adding include directories: ${CBLAS_INCLUDE_DIRS}")
+      set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIBRARIES})
+      message (STATUS "  Adding CBLAS libraries: ${CBLAS_LIBRARIES}")
+    else()
+      message (STATUS "*** WARNING *** CBLAS library not found.")
+    endif()
   endif()
 endif()
 
@@ -155,19 +180,19 @@ if(cpp-array_DOCUMENTATION)
       "*** WARNING *** Doxygen is needed to build the documentation. Please install it correctly")
   else()
 
-    message (STATUS "*** INFO *** Documentation enabled.")
+    message (STATUS "Documentation enabled.")
 
     option(LaTeX "Generate LaTeX documentation" OFF)
 
-    message (STATUS "*** INFO *** Documentation html directory: ${PROJECT_BINARY_DIR}/doc/html")
+    message (STATUS "Documentation html directory: ${PROJECT_BINARY_DIR}/doc/html")
 
     if (LaTeX)
       set (DOXYFILE_GENERATE_LATEX YES)
-      message (STATUS "*** INFO *** LaTeX documentation enabled")
-      message (STATUS "*** INFO *** Documentation latex directory: ${PROJECT_BINARY_DIR}/doc/latex")
+      message (STATUS "LaTeX documentation enabled")
+      message (STATUS "Documentation latex directory: ${PROJECT_BINARY_DIR}/doc/latex")
     else ()
       set (DOXYFILE_GENERATE_LATEX NO)
-      message (STATUS "*** INFO *** LaTeX documentation disabled")  
+      message (STATUS "LaTeX documentation disabled")  
     endif()
   
     set (DOXYFILE_SOURCE_DIRS ${PROJECT_SOURCE_DIR})
@@ -202,7 +227,7 @@ if(cpp-array_DOCUMENTATION)
   
 else()
 
-  message (STATUS "*** INFO *** Documentation disabled.")
+  message (STATUS "Documentation disabled.")
 
 endif()
 

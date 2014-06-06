@@ -33,14 +33,13 @@ find_path (CBLAS_INCLUDE_DIR NAMES cblas.h gsl_cblas.h
 PATH_SUFFIXES gsl
 )
 
-
 if (CBLAS_INCLUDE_DIR)  
   if (EXISTS ${CBLAS_INCLUDE_DIR}/cblas.h)
     set (CBLAS_HEADER ${CBLAS_INCLUDE_DIR}/cblas.h)
   elseif (EXISTS ${CBLAS_INCLUDE_DIR}/gsl_cblas.h)
     set (CBLAS_HEADER ${CBLAS_INCLUDE_DIR}/gsl_cblas.h)
   endif()
-endif(CBLAS_INCLUDE_DIR) 
+endif(CBLAS_INCLUDE_DIR)
 
 # find library
 find_library (CBLAS_LIBRARY NAMES cblas gslcblas PATHS ${USER_LIB_PATH}/lib $ENV{SUPERLUDIR}/lib ${CMAKE_INSTALL_PREFIX}/lib ${CMAKE_SOURCE_DIR}/../lib)

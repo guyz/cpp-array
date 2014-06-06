@@ -34,6 +34,7 @@
 
 #include "array-config.hpp"
 #include "array.hpp"
+#include "blas.hpp"
 
 
 __BEGIN_ARRAY_NAMESPACE__
