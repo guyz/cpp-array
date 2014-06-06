@@ -36,6 +36,20 @@ __BEGIN_ARRAY_NAMESPACE__
 ////////////////////////////////////////////////////////////////////////////////
 // blas functions
 
+// level 1 blas xNRM2
+static float MAY_NOT_BE_USED cblas_Xnrm2(const int N, const float *X, const int incX) {
+	return cblas_snrm2(N, X, incX);
+}
+
+static double MAY_NOT_BE_USED cblas_Xnrm2(const int N, const double *X, const int incX) {
+	return cblas_dnrm2(N, X, incX);
+}
+
+template <typename T>
+static T cblas_nrm2(const int N, const T *X, const int incX) {
+	return cblas_Xnrm2(N, X, incX);
+}
+
 // level 1 blas xSCAL function: x <- alpha*x
 static void MAY_NOT_BE_USED cblas_Xscal(const int N, const float alpha, float *X, const int incX)
 { cblas_sscal(N, alpha, X, incX); } 
