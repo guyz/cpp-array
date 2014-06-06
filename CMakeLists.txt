@@ -51,7 +51,6 @@ if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
 endif()
 
 
-
 # check for Fortran compiler
 include(CMakeDetermineCompiler)
 if (NOT CMAKE_Fortran_COMPILER)

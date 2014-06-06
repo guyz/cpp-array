@@ -36,6 +36,13 @@ __BEGIN_ARRAY_NAMESPACE__
 #define CblasNoTrans 'N'
 
 extern "C" {
+  
+// level 1 blas xNRM2
+float CPPARRAY_FC_GLOBAL(snrm2, SNRM2)(int *, float *, int *);
+
+double CPPARRAY_FC_GLOBAL(dnrm2, DNRM2)(int *, double *, int *);
+
+
 // level 1 blas xSCAL function: x <- alpha*x
 void CPPARRAY_FC_GLOBAL(sscal, SSCAL)(int *,  float *, float *, int *);
 
@@ -77,6 +84,21 @@ void CPPARRAY_FC_GLOBAL(sgemm, SGEMM)(char *, char *, int *, int *, int *, float
 
 void CPPARRAY_FC_GLOBAL(dgemm, DGEMM)(char *, char *, int *, int *, int *, double *,
                                       double *, int *, double *, int *, double *, double *, int *);
+}
+
+
+// level 1 blas xNRM2
+static float MAY_NOT_BE_USED cblas_Xnrm2(int *N, float *X, int *incX) {
+	return CPPARRAY_FC_GLOBAL(snrm2, SNRM2)(N, X, incX);
+}
+
+static double MAY_NOT_BE_USED cblas_Xnrm2(int *N, double *X, int *incX) {
+	return CPPARRAY_FC_GLOBAL(dnrm2, DNRM2)(N, X, incX);
+}
+
+template <typename T>
+static T cblas_nrm2(int N, T *X, int incX) {
+	return cblas_Xnrm2(&N, X, &incX);
 }
 
 

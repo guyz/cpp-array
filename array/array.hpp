@@ -304,7 +304,7 @@ private:
   inline double norm(Type2Type<double>) const {
     // call to blas routine
     const array_type &a = static_cast<const array_type&>(*this);
-    return cblas_dnrm2(a.n_[0], a.data_, 1);
+    return cblas_nrm2(a.n_[0], a.data_, 1);
   }
 };
 
@@ -649,13 +649,13 @@ public:
   
   //! Multiplication compound assignment operator
   Array& operator*=(value_type s) {
-    cblas_dscal(size(), s, data_, 1);
+    cblas_scal(size(), s, data_, 1);
     return *this;
   }
   
   //! Division compound assignment operator
   Array& operator/=(value_type s) {
-    cblas_dscal(size(), value_type(1)/s, data_, 1);
+    cblas_scal(size(), value_type(1)/s, data_, 1);
     return *this;
   }
   
