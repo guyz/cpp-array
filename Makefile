@@ -80,4 +80,4 @@ remake:
 dist:
 	utils/mkdist.sh $(PKGNAME)
 
-.PHONY: config distclean all clean install uninstall remake dist doc check examples package package_source depend edit_cache install/local install/strip list_install_components rebuild_cache a.out
+.PHONY: config distclean all clean install uninstall remake dist doc check examples package package_source depend edit_cache install/local install/strip list_install_components rebuild_cache test a.out

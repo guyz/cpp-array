@@ -880,7 +880,7 @@ Array<k,T>& Array<k,T>::operator=(Array<k,T>&& src) {
     
     if (this != &src) {
       
-      if (!wrapped_) delete data_;
+      if (!wrapped_) delete[] data_;
       
       std::copy_n(src.n_, k, n_);
       wrapped_ = src.wrapped_;
