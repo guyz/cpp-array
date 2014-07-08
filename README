@@ -1,16 +1,18 @@
-                  ___ _ __  _ __ ______ __ _ _ __ _ __ __ _ _   _
-                 / __| '_ \| '_ \______/ _` | '__| '__/ _` | | | |
-                | (__| |_) | |_) |    | (_| | |  | | | (_| | |_| |
-                 \___| .__/| .__/      \__,_|_|  |_|  \__,_|\__, |
-                     | |   | |                               __/ |
-                     |_|   |_|                              |___/
+
+
+    _/_/_/  _/_/_/    _/_/_/                  _/_/_/  _/  _/_/  _/  _/_/    _/_/_/  _/    _/
+ _/        _/    _/  _/    _/  _/_/_/_/_/  _/    _/  _/_/      _/_/      _/    _/  _/    _/    
+_/        _/    _/  _/    _/              _/    _/  _/        _/        _/    _/  _/    _/     
+ _/_/_/  _/_/_/    _/_/_/                  _/_/_/  _/        _/          _/_/_/    _/_/_/      
+        _/        _/                                                                  _/       
+       _/        _/                                                              _/_/
 
         A C++ interface to the BLAS library using arbitrary-rank arrays
                         Alejandro Marcos Aragón, Ph.D.
 
 
 
-Version   1.0
+Version   1.1
 Preprint  http://arxiv.org/abs/1209.1003
 Language  C++11
 License   GNU Lesser GPL
@@ -19,15 +21,13 @@ License   GNU Lesser GPL
 ________
 OVERVIEW
 
- The cpp-array project aims at creating a library of algebraic objects
- that interface to the BLAS set of functions to maintain high performance.
- The main aim of the library is to provide the end user with an easy to 
- use syntax, where mathematical expressions can be used and the library
- takes care of calling the BLAS routines behind the scenes. This is done
- through the use of expression templates and features provided by the new
- standard library (C++11) so performance is not affected at all.
- Because cpp-array is an interface to the BLAS set of routines, a working
- BLAS implmenentation is needed.
+ The cpp-array project aims at creating a library of algebraic objects that interfaces to
+ the BLAS set of functions to maintain high performance. The main aim of the library is to
+ provide the end user with an easy to use syntax, where mathematical expressions can be used
+ and the library takes care of calling the BLAS routines behind the scenes. This is done 
+ through the use of expression templates and features provided by the new standard library
+ (C++11) so performance is not affected at all. Because cpp-array is an interface to the
+ BLAS set of routines, a working BLAS implmenentation is needed.
 
 _____________
 PREREQUISITES
@@ -36,100 +36,103 @@ The compilation of cpp-array requires the following packages:
 
    - CMake build system,
    - GNU make,
-   - a C++ compiler that supports the C++11 set of requirements (tested
-     on gcc 4.7 onwards and clang 4.2),
-   - An implementation of the CBLAS set of routines (tested GSL on Ubuntu
-     Linux),
+   - a C++ compiler that supports the C++11 set of requirements (tested on gcc 4.7 and 
+     clang 4.2, or newer versions of them),
+   - An implementation of the BLAS set of routines (Fortran compiler needed) or its C
+     interface (CBLAS),
    - Doxygen (for the documentation).
 
 _____________
 CONFIGURATION
  
- Unzip the cpp-array-1.0-src.zip file. Change to the unzipped directory and
- type
+ Unzip the cpp-array .zip package file. Change to the unzipped directory and typing
+
      $ make config 
 
- This would configure the library with default options. The CMake build
- system will try to find the libraries cpp-array relies on.
- The following options can be given to configure the library:
+ would configure the library with default options. The CMake build system will try to find
+ the libraries cpp-array relies on. The following options can be given to configure the
+ library:
  
-   - cxx=[compiler]        The C++ compiler to use, default: g++
-   - fortran=[compiler]    The Fortran compiler to use, there is no 
-                           default as the library can be built without 
-                           Fortran support
+   - cxx=[compiler]        The C++ compiler to use, default: c++
+   - fc=[compiler]         The Fortran compiler to use, there is no default as the library
+                           can be built without Fortran support
    - cuda=[bool]           Enable GPU computing
    - prefix=[path]         Installation path, default: /usr/local
-   - assert=[bool]         Enable the assert macro, default: true
-   - doc=[bool]            Configure to build the documentation, default:
-                           true
+   - doc=[bool]            Configure to build the documentation, default: true
    - latex=[bool]          Enable LaTeX documentation, default: false
-   - build=[string]        Build types: Debug, Release, RelWithDebInfo,
-                           MinSizeRel, default: None
+   - build=[string]        Build types: Debug, Release, RelWithDebInfo, MinSizeRel, 
+                           default: None
 
-The variables result of the configuration can be edited direcly by typing
+ The variables resulting from the configuration can be edited direcly by typing
      $ make edit_cache
 
-This may prove useful, e.g., in the case CMake fails to find the CBLAS
-library because it is located on a non-standard directory.
+ This may prove useful, e.g., in the case CMake fails to find the CBLAS library because it
+ is located on a non-standard directory.
 
 ___________
 COMPILATION
 
  To compile the library once the configuration has taken place, type
+
      $ make
 
- All programs are stored within the directory build/<architecture>/, where
- <architecture> is machine dependent (e.g., Linux-x86_64, or Darwin-x86_64).
+ All programs are stored within the directory build/<architecture>/, where <architecture> is
+ machine dependent (e.g., Linux-x86_64, or Darwin-x86_64).
 
 ____________
 INSTALLATION
  
- Install the library by typing 
+ Install the library by typing
+
      $ make install 
  
 _____
 OTHER
  
- To remove the files, type 
+ To remove the installed files, type
+
      $ make uninstall 
  
- To remove all object files while retaining the configuration, type    
+ To remove all object files while retaining the configuration, type
+
      $ make clean 
  
  To remove the build directory, type
+
      $ make distclean 
  
  The documentation for the library can be built by running
+
      $ make doc
      
- assuming that doxygen is installed in the system. The documentation is
- also generated within the directory build/<architecture>/.
+ assuming that doxygen is installed in the system. The documentation is also generated
+ within the directory build/<architecture>/.
  
  
- The examples/ folder shows how to use the library with a set of examples.
- Check the source files in this folder for a correct usage of the library.
- To build the examples, type
+ The examples/ folder shows how to use the library with a set of examples. Check the source
+ files in this folder for a correct usage of the library. To build the examples, type
+
      $ make examples
   
- To run the examples, change to the directory build/<architecture>/examples
- and execute the corresponding program.
+ To run the examples, change to the directory build/<architecture>/examples and execute the
+ corresponding program.
  
- The tests in the tests/ directory are run to make sure that the library is 
- built correctly. If any of the tests fails, check the difference between the
- .lastout and the .verified files for that particular test in order to find
- the problem. The tests are done using the ctest framework, by typing
+ The tests in the tests/ directory are run to make sure that the library is built correctly.
+ If any of the tests fails, check the difference between the .lastout and the .verified 
+ files for that particular test in order to find the problem. The tests are executed by the
+ CTest framework, by typing
+
      $ make check
   
 ______________
 FOR DEVELOPERS
  
- The CMake build system can be accessed directly from within the build 
- directory to have better control on the build options.
- By running the command
-     $ make edit_cache 
- from within the build directory, the user can customize many more options
- than those presented above.
- 
+ The CMake build system can be accessed directly to have better control on the build
+ options. By running the command
+  
+     $ make edit_cache
+
+ the user can customize many more options than those presented above.
 _______
 CONTACT
 

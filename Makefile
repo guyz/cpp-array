@@ -1,8 +1,21 @@
+###############################################################################################
+#
+#
+#
+#     _/_/_/  _/_/_/    _/_/_/                  _/_/_/  _/  _/_/  _/  _/_/    _/_/_/  _/    _/
+#  _/        _/    _/  _/    _/  _/_/_/_/_/  _/    _/  _/_/      _/_/      _/    _/  _/    _/
+# _/        _/    _/  _/    _/              _/    _/  _/        _/        _/    _/  _/    _/
+#  _/_/_/  _/_/_/    _/_/_/                  _/_/_/  _/        _/          _/_/_/    _/_/_/
+#         _/        _/                                                                  _/
+#        _/        _/                                                              _/_/
+#
+###############################################################################################
+
+
 # Configuration options.
 cxx        = not-set
-fortran    = not-set
+fc         = not-set
 prefix     = not-set
-assert     = not-set
 doc        = not-set
 latex      = not-set
 build      = not-set
@@ -17,20 +30,17 @@ BUILDDIR = build/$(systype)-$(cputype)
 
 # Process configuration options.
 CONFIG_FLAGS = -DCMAKE_VERBOSE_MAKEFILE=0
-ifneq ($(assert), not-set)
-    CONFIG_FLAGS += -DNDEGUB=$(assert)
-endif
 ifneq ($(prefix), not-set)
     CONFIG_FLAGS += -DCMAKE_INSTALL_PREFIX=$(prefix)
 endif
 ifneq ($(cxx), not-set)
     CONFIG_FLAGS += -DCMAKE_CXX_COMPILER=$(cxx)
 endif
-ifneq ($(fortran), not-set)
-    CONFIG_FLAGS += -DCMAKE_Fortran_COMPILER=$(fortran)
+ifneq ($(fc), not-set)
+    CONFIG_FLAGS += -DCMAKE_Fortran_COMPILER=$(fc)
 endif
 ifneq ($(doc), not-set)
-    CONFIG_FLAGS += -DDOCUMENTATION=$(doc)
+    CONFIG_FLAGS += -DCPP-ARRAY_DOCUMENTATION=$(doc)
 endif
 ifneq ($(latex), not-set)
     CONFIG_FLAGS += -DLaTeX=$(latex)
@@ -42,9 +52,6 @@ ifneq ($(cuda), not-set)
     CONFIG_FLAGS += -DCUDA=$(cuda)
 endif
 
-
-VERNUM=1.0
-PKGNAME=cpparray-$(VERNUM)
 
 define run-config
 mkdir -p $(BUILDDIR)

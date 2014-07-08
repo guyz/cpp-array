@@ -1,5 +1,5 @@
 /*
- * Copyright (©) 2014 EPFL Alejandro M. Aragón
+ * Copyright (©) 2014 Alejandro M. Aragón
  * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
@@ -1041,68 +1041,81 @@ __END_ARRAY_NAMESPACE__
 ////////////////////////////////////////////////////////////////////////////////
 // documentation
   
-/*! \mainpage A C++ interface to the BLAS library using arbitrary-rank arrays
+/*! 
+ 
+ \verbatim
+                                                                                               
+    _/_/_/  _/_/_/    _/_/_/                  _/_/_/  _/  _/_/  _/  _/_/    _/_/_/  _/    _/   
+ _/        _/    _/  _/    _/  _/_/_/_/_/  _/    _/  _/_/      _/_/      _/    _/  _/    _/    
+_/        _/    _/  _/    _/              _/    _/  _/        _/        _/    _/  _/    _/     
+ _/_/_/  _/_/_/    _/_/_/                  _/_/_/  _/        _/          _/_/_/    _/_/_/      
+        _/        _/                                                                  _/       
+       _/        _/                                                              _/_/          
+ 
+ \endverbatim
+
+ * \mainpage A C++ interface to the BLAS library using arbitrary-rank arrays
  * \author Alejandro Marcos Aragón, Ph.D.
  * \n Email: alejandro.aragon@fulbrightmail.org
  *
- * \version 1.0
- * \n Preprint  <a href="http://arxiv.org/abs/1209.1003">arXiv:1209.1003</a>
  * \date 06/05/2013
+ * \note Preprint  <a href="http://arxiv.org/abs/1209.1003">arXiv:1209.1003</a>
  
  
  \section intro_sec Introduction
  
  
  The \c cpp-array project aims at creating a library of algebraic objects
- that interface to the \c BLAS set of functions to maintain high performance.
+ that interfaces to the \c BLAS set of functions to maintain high performance.
  The main aim of the library is to provide the end user with an easy to
  use syntax, where mathematical expressions can be used and the library
  takes care of calling the \c BLAS routines behind the scenes. This is done
  through the use of expression templates and features provided by the new
  standard library (C++11) so performance is not affected at all.
- Because cpp-array is an interface to the \c BLAS set of routines, a working
+ Because \c cpp-array is an interface to the \c BLAS set of routines, a working
  \c BLAS implmenentation is needed.
  
  
  \section prereq Prerequisites
   
- The compilation of cpp-array requires the following packages:
+ The compilation of \c cpp-array requires the following packages:
  
  - \c CMake build system,
  - \c GNU \c make,
  - a C++ compiler that supports the C++11 set of requirements (tested
- on gcc 4.7 onwards and clang 4.2),
- - An implementation of the \c CBLAS set of routines (tested \c GSL on Ubuntu
- Linux),
+ on gcc 4.7 and clang 4.2, or newer versions of them),
+ - An implementation of the \c BLAS set of routines (Fortran compiler needed) or
+ its C interface (\c CBLAS),
  - \c Doxygen (for the documentation).
  
  \section config Configuration
  
- Unzip the \c cpp-array-1.0-src.zip file. Change to the unzipped directory
- and type
+ Unzip the \c cpp-array .zip package file. Change to the unzipped directory
+ and typing
  \verbatim $ make config \endverbatim
  
  would configure the library with default options. The \c CMake build system
  will try to find the libraries \c cpp-array relies on.
  The following options can be given to configure the library:
  
- - cxx=[compiler]        The C++ compiler to use, default: g++
- - fortran=[compiler]    The Fortran compiler to use, there is no
-                         default as the library can be built without
-                         Fortran support
- - cuda=[bool]           Enable GPU computing
- - prefix=[path]         Installation path, default: /usr/local
- - assert=[bool]         Enable the assert macro, default: true
- - doc=[bool]            Configure to build the documentation, default:
-                         true
- - latex=[bool]          Enable LaTeX documentation, default: false
- - build=[string]        Build types: Debug, Release, RelWithDebInfo,
-                         MinSizeRel, default: None
+ option               | default       | description
+ ----------------     | ------------- | ------------
+ \c cxx=[compiler]    | c++           | The C++ compiler to use
+ \c fc=[compiler]     | None          | The Fortran compiler to use
+ \c cuda=[bool]       | false         | Enable GPU computing
+ \c prefix=[path]     | /usr/local    | Installation path
+ \c doc=[bool]        | true          | Build the documentation
+ \c latex=[bool]      | false         | Enable LaTeX documentation
+ \c build=[string]    | None          | Build type (Debug, Release, etc.)
+
  
- The variables result of the configuration can be edited direcly by typing
+ \note There is no default as the library can be built without Fortran support.
+ 
+ 
+ The variables resulting from the configuration can be edited direcly by typing
  \verbatim $ make edit_cache \endverbatim
  
- This may prove useful, e.g., in the case \c CMake fails to find the \c CBLAS
+ This may prove useful, \e e.g., in the case \c CMake fails to find the \c CBLAS
  library because it is located on a non-standard directory.
 
  \section compil Compilation
@@ -1112,7 +1125,7 @@ __END_ARRAY_NAMESPACE__
  \verbatim $ make \endverbatim
  
  All programs are stored within the directory build/<architecture>/, where
- <architecture> is machine dependent (e.g., Linux-x86_64, or Darwin-x86_64).
+ <architecture> is machine dependent (\e e.g., Linux-x86_64, or Darwin-x86_64).
 
  \section install Installation
  
@@ -1122,7 +1135,7 @@ __END_ARRAY_NAMESPACE__
  
  \section other Other
  
- To remove the files, type
+ To remove the installed files, type
  \verbatim $ make uninstall \endverbatim
  
  To remove all object files while retaining the configuration, type
@@ -1136,7 +1149,7 @@ __END_ARRAY_NAMESPACE__
  assuming that \c Doxygen is installed in the system. The documentation is
  also generated within the directory build/<architecture>/.
  
- The examples/ folder shows how to use the library with a set of examples.
+ The \c examples/ folder shows how to use the library with a set of examples.
  Check the source files in this folder for a correct usage of the library.
  To build the examples, type
  \verbatim $ make examples \endverbatim
@@ -1144,20 +1157,18 @@ __END_ARRAY_NAMESPACE__
  To run the examples, change to the directory build/<architecture>/examples
  and execute the corresponding program.
  
- The tests in the tests/ directory are run to make sure that the library is
+ The tests in the \c tests/ directory are run to make sure that the library is
  built correctly. If any of the tests fails, check the difference between the
- .lastout and the .verified files for that particular test in order to find
- the problem. The tests are done using the ctest framework, by typing
+ .\c lastout and the .\c verified files for that particular test in order to find
+ the problem. The tests are executed by the \c CTest framework, by typing
  \verbatim $ make check \endverbatim
  
  \section devel For developers
  
  
- The \c CMake build system can be accessed directly from within the build
- directory to have better control on the build options.
- By running the command
+ The \c CMake build system can be accessed directly to have better control on the
+ build options. By running the command
  \verbatim $ make edit_cache \endverbatim
- from within the build directory, the user can customize many more options
- than those presented above.
+ the user can customize many more options than those presented above.
  
  */

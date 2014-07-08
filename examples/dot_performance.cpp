@@ -1,5 +1,5 @@
 /*
- * Copyright (©) 2014 EPFL Alejandro M. Aragón
+ * Copyright (©) 2014 Alejandro M. Aragón
  * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
@@ -18,7 +18,7 @@
  *
  */
 
-//! \file dot_performance.cpp
+//! \example dot_performance.cpp
 //
 // This file can be used to test the performance of the array in the
 // context of scalar product. The comparison is carried out directly by
@@ -87,11 +87,11 @@ int main() {
     milliseconds msec2 = duration_cast<milliseconds>(ms2 % seconds(1));
     
 //    std::stringstream sstr;
-//    sstr<<mm1.count()<<"m "<<ss1.count()<<"s "<<msec1.count()<<"ms "<<(ms1 % milliseconds(1)).count()<<"μs";
+//    sstr<<mm1.count()<<"m "<<ss1.count()<<"s "<<msec1.count()<<"ms "<<(ms1 % milliseconds(1)).count()<<"microseconds";
 //    cout<<setw(w1)<<m<<setw(w2)<<sstr.str();
 //    
 //    sstr.str("");
-//    sstr<<mm2.count()<<"m "<<ss2.count()<<"s "<<msec2.count()<<"ms "<<(ms2 % milliseconds(1)).count()<<"μs";
+//    sstr<<mm2.count()<<"m "<<ss2.count()<<"s "<<msec2.count()<<"ms "<<(ms2 % milliseconds(1)).count()<<"microseconds";
 //    cout<<setw(w2)<<sstr.str()<<endl;
     
     std::stringstream sstr;

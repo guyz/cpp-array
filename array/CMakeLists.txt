@@ -1,6 +1,6 @@
-#===============================================================================
+################################################################################
 #
-# Copyright (©) 2014 EPFL Alejandro M. Aragón
+# Copyright (©) 2014 Alejandro M. Aragón
 # Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
 # All Rights Reserved
 #
@@ -17,7 +17,7 @@
 # You should  have received  a copy  of the GNU  Lesser General  Public License
 # along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
 #
-#===============================================================================
+################################################################################
 
 
 # find all source files to build the library
@@ -35,11 +35,20 @@ list(REMOVE_ITEM ARRAY_LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
 
 # header files to install
 file(GLOB HEADER_FILES ${PROJECT_CURRENT_SOURCE_DIR} "*.hpp")
+list(APPEND HEADER_FILES ${PROJECT_BINARY_DIR}/array-config.hpp)
 install (FILES  ${HEADER_FILES} DESTINATION include/array)
 
-option(cpp-array_DEV "Compile main.cpp within array directory for development" OFF)
+# also install cuda directory
+if (CUDA)
+  install (DIRECTORY ${PROJECT_CURRENT_SOURCE_DIR}cuda DESTINATION include/array)
+endif ()
 
-if (cpp-array_DEV)
+
+
+# dev option for development
+option(CPP-ARRAY_DEV "Compile main.cpp within array directory for development" OFF)
+
+if (CPP-ARRAY_DEV)
 
   # add executable
   add_executable(dev.out main.cpp)

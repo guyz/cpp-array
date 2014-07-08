@@ -1,5 +1,5 @@
 /*
- * Copyright (©) 2014 EPFL Alejandro M. Aragón
+ * Copyright (©) 2014 Alejandro M. Aragón
  * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
@@ -18,7 +18,7 @@
  *
  */
 
-//! \file cuda_dot_performance.cpp
+//! \example cuda_dot_performance.cpp
 //
 // This file can be used to test the performance of the array in the
 // context of the scalar product by using the NVIDIA CUBLAS library.
@@ -143,7 +143,7 @@ int main(int argc, char **argv) {
     
     // print results
     cout<<setw(17)<<gpu_time/niter;
-    cout<<" ms"<<setw(18)<<time_array.count()/niter<<" μs"<<endl;
+    cout<<" ms"<<setw(17)<<time_array.count()/niter<<" μs"<<endl;
     
   } // loop over matrix sizes
   

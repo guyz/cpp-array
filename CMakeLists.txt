@@ -1,6 +1,6 @@
-#===============================================================================
+################################################################################
 #
-# Copyright (©) 2014 EPFL Alejandro M. Aragón
+# Copyright (©) 2014 Alejandro M. Aragón
 # Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
 # All Rights Reserved
 #
@@ -17,15 +17,15 @@
 # You should  have received  a copy  of the GNU  Lesser General  Public License
 # along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
 #
-#===============================================================================
+################################################################################
 
 
 # The name of our project is cpp-array. CMakeLists files in this project can
-# refer to the root source directory of the project as ${cpp-array_SOURCE_DIR}
-# and to the root binary directory of the project as ${cpp-array_BINARY_DIR}
+# refer to the root source directory of the project as ${CPP-ARRAY_SOURCE_DIR}
+# and to the root binary directory of the project as ${CPP-ARRAY_BINARY_DIR}
 
 cmake_minimum_required (VERSION 2.8)
-project (cpp-array)
+project (CPP-ARRAY)
 enable_language(CXX)
 
 include(CheckCXXCompilerFlag)
@@ -36,18 +36,6 @@ if (HAVE_NEW_STD)
   add_definitions(-std=c++0x)
 else()
   message(WARNING "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
-endif()
-
-# add definitions if clang compiler
-if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
-  message (STATUS "Adding -stdlib=libc++ to Clang compiler")
-  add_definitions(-stdlib=libc++)
-  set(CMAKE_EXE_LINKER_FLAGS "-stdlib=libc++")
-#  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-stdlib=libc++")
-#  set(CMAKE_EXE_LINKER_FLAGS_MINSIZE "-stdlib=libc++")
-#  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-stdlib=libc++")
-#  set(CMAKE_EXE_LINKER_FLAGS_RELWITH "-stdlib=libc++")
-  set(CMAKE_REQUIRED_FLAGS "-stdlib=libc++") # added to search for unordered set and map
 endif()
 
 
@@ -63,16 +51,33 @@ endif()
 
 # The version number.
 set (ARRAY_VERSION_MAJOR 1)
-set (ARRAY_VERSION_MINOR 0)
+set (ARRAY_VERSION_MINOR 1)
 
-set (cpp-array_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
+# check if there is a working copy of the repository
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.svn")
+
+  # Subversion
+  find_package(Subversion)
+  if(Subversion_FOUND)
+    Subversion_WC_INFO(${CMAKE_CURRENT_SOURCE_DIR} ER)
+    set(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}.${ER_WC_REVISION}")
+  endif(Subversion_FOUND)
+  
+else()
+  set(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}")
+endif()
+
+
+
+
+set (CPP-ARRAY_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
 
 # set path for additional cmake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
 
 # add the binary tree to the search path for include files
-list (APPEND cpp-array_INCLUDE_DIRS ${PROJECT_BINARY_DIR})
+list (APPEND CPP-ARRAY_INCLUDE_DIRS ${PROJECT_BINARY_DIR})
 
 # variable used to specify a user defined path for libraries
 # and header files
@@ -92,14 +97,12 @@ if (CUDA)
   find_package(CUDA)
   if (CUDA_FOUND)
 
-    message(STATUS "Path to cublas.h")
-    message(STATUS "             ${CUDA_INCLUDE_DIRS}")
+    message(STATUS "Path to cublas.h: ${CUDA_INCLUDE_DIRS}")
     set (HAVE_CUBLAS_H YES)
-    list (APPEND cpp-array_INCLUDE_DIRS ${CUDA_INCLUDE_DIRS})
-
-    message(STATUS "Found cublas library:")
-    message(STATUS "             ${CUDA_CUBLAS_LIBRARIES}")
+    list (APPEND CPP-ARRAY_INCLUDE_DIRS ${CUDA_INCLUDE_DIRS})
+    message(STATUS "Found cublas library: ${CUDA_CUBLAS_LIBRARIES}")
     set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CUDA_CUBLAS_LIBRARIES} ${CUDA_LIBRARIES})
+    message ("*** INFO *** When compiling your program after installation, add the compilation flags required by CUDA.")
 
   endif()
 endif()
@@ -127,7 +130,7 @@ if (NOT CUDA_FOUND)
       set (HAVE_CBLAS_H YES)
       message (STATUS "  Setting HAVE_CBLAS_H: ${HAVE_CBLAS_H}")
       message (STATUS "  Setting CBLAS_HEADER: ${CBLAS_HEADER}")
-      list (APPEND cpp-array_INCLUDE_DIRS ${CBLAS_INCLUDE_DIRS})
+      list (APPEND CPP-ARRAY_INCLUDE_DIRS ${CBLAS_INCLUDE_DIRS})
       message (STATUS "  Adding include directories: ${CBLAS_INCLUDE_DIRS}")
       set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CBLAS_LIBRARIES})
       message (STATUS "  Adding CBLAS libraries: ${CBLAS_LIBRARIES}")
@@ -138,19 +141,22 @@ if (NOT CUDA_FOUND)
 endif()
 
 
-include_directories(${cpp-array_INCLUDE_DIRS})
+include_directories(${CPP-ARRAY_INCLUDE_DIRS})
 
-set (cpp-array_INCLUDE_DIRS_TMP ${cpp-array_INCLUDE_DIRS})
-set (cpp-array_INCLUDE_DIRS ${cpp-array_INCLUDE_DIRS_TMP} CACHE INTERNAL "Include directories for cpp-array" FORCE)
+set (CPP-ARRAY_INCLUDE_DIRS_TMP ${CPP-ARRAY_INCLUDE_DIRS})
+set (CPP-ARRAY_INCLUDE_DIRS ${CPP-ARRAY_INCLUDE_DIRS_TMP} CACHE INTERNAL "Include directories for cpp-array" FORCE)
 
-message (STATUS ${cpp-array_INCLUDE_DIRS})
+# set external libraries
+set (CPP-ARRAY_LIBRARIES ${EXTERNAL_LIBS} CACHE INTERNAL "Libraries for cpp-array" FORCE)
+
+message (STATUS ${CPP-ARRAY_INCLUDE_DIRS})
 
 add_subdirectory (array)
 add_subdirectory (examples)
 
-option (cpp-array_TESTS "cpparray tests" ON)
+option (CPP-ARRAY_TESTS "cpparray tests" ON)
 
-if (cpp-array_TESTS)
+if (CPP-ARRAY_TESTS)
 
   # enable testing
   enable_testing ()
@@ -161,30 +167,25 @@ endif()
 
 # Doxygen support
 #-- Add an Option to toggle the generation of the API documentation
-option(cpp-array_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" OFF)
+option(CPP-ARRAY_DOCUMENTATION "Use Doxygen to create the HTML based API documentation" ON)
 
-if(cpp-array_DOCUMENTATION)
+if(CPP-ARRAY_DOCUMENTATION)
 
   find_package(Doxygen)
-
-  option (Doxygen_verbose "Verbose output in Doxygen" OFF)
-  if (Doxygen_verbose)
-    set (DOXYGEN_WARNING YES)
-  else ()
-    set (DOXYGEN_WARNING NO)
-  endif ()
 
   if (NOT DOXYGEN_FOUND)
     message(WARNING 
       "*** WARNING *** Doxygen is needed to build the documentation. Please install it correctly")
   else()
 
-    message (STATUS "Documentation enabled.")
 
-    option(LaTeX "Generate LaTeX documentation" OFF)
+    set (DOXYGEN_WARNING YES)
+    message (STATUS "Documentation enabled.")
+    message (STATUS "Found Doxygen: ${DOXYGEN_EXECUTABLE}")
+
+    option (LaTeX "Generate LaTeX documentation" OFF)
 
     message (STATUS "Documentation html directory: ${PROJECT_BINARY_DIR}/doc/html")
-
     if (LaTeX)
       set (DOXYFILE_GENERATE_LATEX YES)
       message (STATUS "LaTeX documentation enabled")
@@ -195,19 +196,18 @@ if(cpp-array_DOCUMENTATION)
     endif()
   
     set (DOXYFILE_SOURCE_DIRS ${PROJECT_SOURCE_DIR})
-    set (CMAKE_IMAGE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/doc/figures)
-    set (DOXYGEN_BIB_FILE ${PROJECT_SOURCE_DIR}/doc/bibliography.bib)
-    set (PROJECT_VERSION "${YAFEQ_VERSION_MAJOR}.${YAFEQ_VERSION_MINOR}.${SUBVERSION_REVISION}")
+    set (PROJECT_VERSION "${VERSION}")
     set (CMAKE_EXAMPLE_SOURCE_DIR ${PROJECT_SOURCE_DIR}/examples)
     set (DOXYFILE_PDFLATEX YES)
     set (CMAKE_LATEX_PREAMBLE ${PROJECT_SOURCE_DIR}/cmake/LaTeX_preamble)
-    set (PROJECT_BRIEF "Yet Another Finite Element Qode")
+    set (PROJECT_BRIEF "A C++ interface to the BLAS library using arbitrary-rank arrays")
   
     #-- Configure the Template Doxyfile for our specific project
     configure_file(cmake/Doxyfile.in 
                    ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
     #-- Add a custom target to run Doxygen when ever the project is built 
     if (LaTeX)
+    
       add_custom_target (doc 
               ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
                   SOURCES ${PROJECT_BINARY_DIR}/Doxyfile
@@ -231,15 +231,11 @@ else()
 endif()
 
 
-
-
-SET(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}")
-
 # cpack package module
-SET(CPACK_INSTALL_CMAKE_PROJECTS "${cpp-array_BINARY_DIR};cpp-array;ALL;/")
+SET(CPACK_INSTALL_CMAKE_PROJECTS "${PROJECT_BINARY_DIR};cpp-array;ALL;/")
 SET(CPACK_NSIS_DISPLAY_NAME "cpp-array ${VERSION}")
-SET(CPACK_OUTPUT_CONFIG_FILE "${cpp-array_BINARY_DIR}/CPackConfig.cmake")
-SET(CPACK_PACKAGE_DESCRIPTION_FILE "${cpp-array_SOURCE_DIR}/README")
+SET(CPACK_OUTPUT_CONFIG_FILE "${PROJECT_BINARY_DIR}/CPackConfig.cmake")
+SET(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A C++ interface to the BLAS library using arbitrary-rank arrays")
 SET(CPACK_PACKAGE_FILE_NAME "cpp-array-${VERSION}-${CMAKE_SYSTEM_NAME}")
 SET(CPACK_PACKAGE_INSTALL_DIRECTORY "cpp-array ${VERSION}")
@@ -248,15 +244,16 @@ SET(CPACK_PACKAGE_NAME "cpp-array")
 SET(CPACK_PACKAGE_VERSION "${VERSION}")
 SET(CPACK_PACKAGE_VERSION_MAJOR "${ARRAY_VERSION_MAJOR}")
 SET(CPACK_PACKAGE_VERSION_MINOR "${ARRAY_VERSION_MINOR}")
-SET(CPACK_SOURCE_IGNORE_FILES "/build/;/.svn/;.DS_Store;.#;/#;.*~;.*xcodeproj")
-SET(CPACK_RESOURCE_FILE_README "${cpp-array_SOURCE_DIR}/README")
-SET(CPACK_RESOURCE_FILE_WELCOME "${cpp-array_SOURCE_DIR}/README")
+SET(CPACK_SOURCE_IGNORE_FILES "/build/;/.svn/;.DS_Store;.#;/#;.*~;.*xcodeproj;project.*;xcuserdata")
+SET(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README")
+SET(CPACK_RESOURCE_FILE_WELCOME "${PROJECT_SOURCE_DIR}/README")
 SET(CPACK_GENERATOR "ZIP")
 SET(CPACK_SOURCE_GENERATOR "ZIP")
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME "cpp-array-${VERSION}-src")
 SET(CPACK_SOURCE_STRIP_FILES "")
 SET(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}")
 SET(CPACK_TOPLEVEL_TAG "${CMAKE_SYSTEM_NAME}")
+
 
 
 INCLUDE(CPack)
@@ -280,11 +277,18 @@ INCLUDE(CPack)
 #SWIG_LINK_LIBRARIES(array ${PYTHON_LIBRARIES})
 
 
-
-
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  ${cpp-array_SOURCE_DIR}/cmake/array-config.hpp.in
-  ${cpp-array_SOURCE_DIR}/array/array-config.hpp
-  )
+  ${PROJECT_SOURCE_DIR}/cmake/array-config.hpp.in
+  ${PROJECT_BINARY_DIR}/array-config.hpp
+)
+
+# configure file to use when find_package is used with cpp-array
+configure_file (
+  ${PROJECT_SOURCE_DIR}/cmake/cpp-array-config.cmake.in
+  ${PROJECT_BINARY_DIR}/cpp-array-config.cmake
+  @ONLY
+)
+
+install (FILES ${PROJECT_BINARY_DIR}/cpp-array-config.cmake DESTINATION include/array)

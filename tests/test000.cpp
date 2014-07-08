@@ -1,5 +1,5 @@
 /*
- * Copyright (©) 2014 EPFL Alejandro M. Aragón
+ * Copyright (©) 2014 Alejandro M. Aragón
  * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *

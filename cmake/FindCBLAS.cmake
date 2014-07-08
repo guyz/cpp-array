@@ -1,6 +1,6 @@
-#===============================================================================
+################################################################################
 #
-# Copyright (©) 2014 EPFL Alejandro M. Aragón
+# Copyright (©) 2014 Alejandro M. Aragón
 # Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
 # All Rights Reserved
 #
@@ -17,7 +17,7 @@
 # You should  have received  a copy  of the GNU  Lesser General  Public License
 # along with cpp-array. If not, see <http://www.gnu.org/licenses/>.
 #
-#===============================================================================
+################################################################################
 
 # - Find CBLAS
 # Find the native CBLAS headers and libraries.

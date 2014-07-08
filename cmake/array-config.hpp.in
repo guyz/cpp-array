@@ -1,5 +1,5 @@
 /*
- * Copyright (©) 2014 EPFL Alejandro M. Aragón
+ * Copyright (©) 2014 Alejandro M. Aragón
  * Written by Alejandro M. Aragón <alejandro.aragon@fulbrightmail.org>
  * All Rights Reserved
  *
@@ -21,7 +21,7 @@
 #ifndef ARRAY_CONFIG_H
 #define ARRAY_CONFIG_H
 
-#define ARRAY_REVISION "${ARRAY_VERSION_MAJOR}_${ARRAY_VERSION_MINOR}"
+#define ARRAY_REVISION "${VERSION}"
 
 #define __BEGIN_ARRAY_NAMESPACE__ namespace array {
 #define __END_ARRAY_NAMESPACE__ }

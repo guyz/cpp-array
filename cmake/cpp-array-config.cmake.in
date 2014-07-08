@@ -1,0 +1,23 @@
+
+# check what's the path of the CPP-ARRAYConfig.cmake file
+# done only to check if we're in the build directory or not
+get_filename_component(CPP-ARRAY_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+
+# set the include directory
+# if we're in the build tree
+if(EXISTS "${CPP-ARRAY_CMAKE_DIR}/CMakeCache.txt")
+   set(CPP-ARRAY_INCLUDE_DIR @CPP-ARRAY_SOURCE_DIR@/array ${CPP-ARRAY_CMAKE_DIR})
+# otherwise (for example in the install directory)
+else()
+   set(CPP-ARRAY_INCLUDE_DIR "${CPP-ARRAY_CMAKE_DIR}")
+endif()
+
+# add definition for c++11 support
+add_definitions(-std=c++0x)
+
+# set external libraries needed by cpp-array
+set (CPP-ARRAY_LIBRARIES @CPP-ARRAY_LIBRARIES@)
+
+# set external include directories for the libraries needed by cpp-array
+list(APPEND CPP-ARRAY_INCLUDE_DIR @CPP-ARRAY_INCLUDE_DIRS@)
