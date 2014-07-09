@@ -28,6 +28,10 @@ cmake_minimum_required (VERSION 2.8)
 project (CPP-ARRAY)
 enable_language(CXX)
 
+# set path for additional cmake modules
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag (-std=c++0x HAVE_NEW_STD)
 
@@ -63,17 +67,24 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.svn")
     set(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}.${ER_WC_REVISION}")
   endif(Subversion_FOUND)
   
+elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+
+  include(GetGitRevisionDescription)
+  git_describe(VERSION --tags --dirty=-dirty)
+
+  #parse the version information into pieces.
+  string(REGEX REPLACE "^v([0-9]+)\\..*" "\\1" VERSION_MAJOR "${VERSION}")
+  string(REGEX REPLACE "^v[0-9]+\\.([0-9]+).*" "\\1" VERSION_MINOR "${VERSION}")
+  string(REGEX REPLACE "^v[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" VERSION_PATCH "${VERSION}")
+  string(REGEX REPLACE "^v[0-9]+\\.[0-9]+\\.[0-9]+(.*)" "\\1" VERSION_SHA1 "${VERSION}")
+  set(VERSION_SHORT "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
 else()
   set(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}")
 endif()
 
 
-
-
 set (CPP-ARRAY_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
-
-# set path for additional cmake modules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
 
 # add the binary tree to the search path for include files
@@ -87,7 +98,7 @@ set (ARRAY_USER_LIB_PATH "" CACHE PATH "User specified path for libraries")
 include(CheckIncludeFileCXX)
 
 
-
+# enable GPU computing through the CUDA library
 option (CUDA "Use cublas implementation" OFF)
 
 if (CUDA)
