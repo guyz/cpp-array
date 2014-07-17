@@ -105,6 +105,7 @@ int main(int argc, char **argv) {
       
       // carry out matrix-matrix multiplication
       T z = transpose(x)*y;
+      z = 0; // to suppress compiler warning: unused variable
       
       
       // timing events after the operation

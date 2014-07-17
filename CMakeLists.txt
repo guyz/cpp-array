@@ -70,7 +70,7 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.svn")
 elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 
   include(GetGitRevisionDescription)
-  git_describe(VERSION --tags --dirty=-dirty)
+  git_describe(VERSION --tags)
 
   #parse the version information into pieces.
   string(REGEX REPLACE "^v([0-9]+)\\..*" "\\1" VERSION_MAJOR "${VERSION}")
@@ -113,7 +113,6 @@ if (CUDA)
     list (APPEND CPP-ARRAY_INCLUDE_DIRS ${CUDA_INCLUDE_DIRS})
     message(STATUS "Found cublas library: ${CUDA_CUBLAS_LIBRARIES}")
     set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CUDA_CUBLAS_LIBRARIES} ${CUDA_LIBRARIES})
-    message ("*** INFO *** When compiling your program after installation, add the compilation flags required by CUDA.")
 
   endif()
 endif()

@@ -21,6 +21,7 @@
 #ifndef ARRAY_CONFIG_H
 #define ARRAY_CONFIG_H
 
+#define ARRAY_VERSION "${VERSION_SHORT}"
 #define ARRAY_REVISION "${VERSION}"
 
 #define __BEGIN_ARRAY_NAMESPACE__ namespace array {

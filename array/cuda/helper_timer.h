@@ -371,7 +371,7 @@ StopWatchLinux::getDiffTime()
 ////////////////////////////////////////////////////////////////////////////////
 //! Create a new timer
 //! @return true if a time has been created, otherwise false
-//! @param  name of the new timer, 0 if the creation failed
+//! @param timer_interface name of the new timer, 0 if the creation failed
 ////////////////////////////////////////////////////////////////////////////////
 inline bool
 sdkCreateTimer(StopWatchInterface **timer_interface)
@@ -389,7 +389,7 @@ sdkCreateTimer(StopWatchInterface **timer_interface)
 ////////////////////////////////////////////////////////////////////////////////
 //! Delete a timer
 //! @return true if a time has been deleted, otherwise false
-//! @param  name of the timer to delete
+//! @param timer_interface name of the timer to delete
 ////////////////////////////////////////////////////////////////////////////////
 inline bool
 sdkDeleteTimer(StopWatchInterface **timer_interface)
@@ -406,7 +406,7 @@ sdkDeleteTimer(StopWatchInterface **timer_interface)
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Start the time with name \a name
-//! @param name  name of the timer to start
+//! @param timer_interface name of the timer to start
 ////////////////////////////////////////////////////////////////////////////////
 inline bool
 sdkStartTimer(StopWatchInterface **timer_interface)
@@ -422,7 +422,7 @@ sdkStartTimer(StopWatchInterface **timer_interface)
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Stop the time with name \a name. Does not reset.
-//! @param name  name of the timer to stop
+//! @param timer_interface name of the timer to stop
 ////////////////////////////////////////////////////////////////////////////////
 inline bool
 sdkStopTimer(StopWatchInterface **timer_interface)
@@ -438,7 +438,7 @@ sdkStopTimer(StopWatchInterface **timer_interface)
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Resets the timer's counter.
-//! @param name  name of the timer to reset.
+//! @param timer_interface name of the timer to reset.
 ////////////////////////////////////////////////////////////////////////////////
 inline bool
 sdkResetTimer(StopWatchInterface **timer_interface)
@@ -457,7 +457,7 @@ sdkResetTimer(StopWatchInterface **timer_interface)
 //! for the timer dividied by the number of completed (stopped) runs the timer
 //! has made.
 //! Excludes the current running time if the timer is currently running.
-//! @param name  name of the timer to return the time of
+//! @param timer_interface name of the timer to return the time of
 ////////////////////////////////////////////////////////////////////////////////
 inline float
 sdkGetAverageTimerValue(StopWatchInterface **timer_interface)
@@ -476,7 +476,7 @@ sdkGetAverageTimerValue(StopWatchInterface **timer_interface)
 ////////////////////////////////////////////////////////////////////////////////
 //! Total execution time for the timer over all runs since the last reset
 //! or timer creation.
-//! @param name  name of the timer to obtain the value of.
+//! @param timer_interface name of the timer to obtain the value of.
 ////////////////////////////////////////////////////////////////////////////////
 inline float
 sdkGetTimerValue(StopWatchInterface **timer_interface)

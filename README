@@ -44,15 +44,26 @@ The compilation of cpp-array requires the following packages:
 
 _____________
 CONFIGURATION
- 
- Unzip the cpp-array .zip package file. Change to the unzipped directory and typing
 
-     $ make config 
-
- would configure the library with default options. The CMake build system will try to find
- the libraries cpp-array relies on. The following options can be given to configure the
- library:
+ Unzip the cpp-array .zip package file. Change to the unzipped directory using the command
+ cd. The library can be configured in three different ways from the command line. If a 
+ Fortran compiler is given by using the fc parameter, the code tries to find a working 
+ Fortran BLAS implementation: 
  
+     $ make config fc=gfortran
+
+ If the user wants to use the Nvidia CUBLAS implementation instead to run the code in GPUs,
+ the library can be configured as follows:
+
+     $ make config cuda=1
+
+ If none of these parameters are given, the configure program will try to find a C 
+ interface to the BLAS library:
+
+     $ make config
+
+ The following table lists all the parameters that can be used to configure the library:
+
    - cxx=[compiler]        The C++ compiler to use, default: c++
    - fc=[compiler]         The Fortran compiler to use, there is no default as the library
                            can be built without Fortran support

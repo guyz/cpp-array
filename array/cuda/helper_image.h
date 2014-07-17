@@ -375,12 +375,13 @@ sdkSavePPM4ub(const char *file, unsigned char *data,
 
 
 //////////////////////////////////////////////////////////////////////////////
-//! Read file \filename and return the data
+//! Read file \c filename and return the data
 //! @return bool if reading the file succeeded, otherwise false
 //! @param filename name of the source file
-//! @param data  uninitialized pointer, returned initialized and pointing to
-//!        the data read
-//! @param len  number of data elements in data, -1 on error
+//! @param data     uninitialized pointer, returned initialized and pointing to
+//!                 the data read
+//! @param len      number of data elements in data, -1 on error
+//! @param verbose  verbose flag
 //////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline bool
@@ -441,12 +442,15 @@ sdkReadFile(const char *filename, T **data, unsigned int *len, bool verbose)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-//! Read file \filename and return the data
+//! Read file filename and return the data
 //! @return bool if reading the file succeeded, otherwise false
-//! @param filename name of the source file
-//! @param data  uninitialized pointer, returned initialized and pointing to
-//!        the data read
-//! @param len  number of data elements in data, -1 on error
+//! @param filename   name of the source file
+//! @param data       uninitialized pointer, returned initialized and pointing
+//                    to the data read
+//! @param len        number of data elements in data, -1 on error
+//! @param block_num  Number of blocks
+//! @param block_size Block size
+//! @param verbose    verbose flag
 //////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline bool
@@ -479,12 +483,14 @@ sdkReadFileBlocks(const char *filename, T **data, unsigned int *len, unsigned in
 }
 
 //////////////////////////////////////////////////////////////////////////////
-//! Write a data file \filename
+//! Write a data file \c filename
 //! @return true if writing the file succeeded, otherwise false
 //! @param filename name of the source file
-//! @param data  data to write
-//! @param len  number of data elements in data, -1 on error
+//! @param data     data to write
+//! @param len      number of data elements in data, -1 on error
 //! @param epsilon  epsilon for comparison
+//! @param verbose  verbose flag
+//! @param append   append flag
 //////////////////////////////////////////////////////////////////////////////
 template<class T, class S>
 inline bool
@@ -555,6 +561,7 @@ sdkWriteFile(const char *filename, const T *data, unsigned int len,
 //! @param data       handle to the computed data
 //! @param len        number of elements in reference and data
 //! @param epsilon    epsilon to use for the comparison
+//! @param threshold  threshold % of (# of bytes) for pass/fail
 //////////////////////////////////////////////////////////////////////////////
 template<class T, class S>
 inline bool
@@ -613,7 +620,7 @@ compareData(const T *reference, const T *data, const unsigned int len,
 //! @param data       handle to the computed data
 //! @param len        number of elements in reference and data
 //! @param epsilon    epsilon to use for the comparison
-//! @param epsilon    threshold % of (# of bytes) for pass/fail
+//! @param threshold  threshold % of (# of bytes) for pass/fail
 //////////////////////////////////////////////////////////////////////////////
 template<class T, class S>
 inline bool

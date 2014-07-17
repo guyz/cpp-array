@@ -93,11 +93,13 @@ handleException(const Exception_Typ &ex)
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Static construction interface.
-//! @param  Exception causing code fragment (file and line) and detailed infos.
+//! Exception causing code fragment (file and line) and detailed infos.
+//! @param  file     filename.
+//! @param  line     line number.
+//! @param  detailed detailed description.
 ////////////////////////////////////////////////////////////////////////////////
 /*static*/ template<class Std_Exception>
-void
-Exception<Std_Exception>::
+void Exception<Std_Exception>::
 throw_it(const char *file, const int line, const char *detailed)
 {
     std::stringstream s;
@@ -112,7 +114,10 @@ throw_it(const char *file, const int line, const char *detailed)
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Static construction interface.
-//! @param  Exception causing code fragment (file and line) and detailed infos.
+//! Exception causing code fragment (file and line) and detailed infos.
+//! @param  file     filename.
+//! @param  line     line number.
+//! @param  msg      description.
 ////////////////////////////////////////////////////////////////////////////////
 /*static*/ template<class Std_Exception>
 void
