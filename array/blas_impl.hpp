@@ -26,8 +26,8 @@
  * calls take into account the mangling of symbols of the BLAS library.
  */
 
-#ifndef cpp_array_blas_impl_hpp
-#define cpp_array_blas_impl_hpp
+#ifndef BLAS_IMPL_HPP
+#define BLAS_IMPL_HPP
 
 #include "fortran_mangling.hh"
 
@@ -51,6 +51,18 @@ float CPPARRAY_FC_GLOBAL(snrm2, SNRM2)(int *, float *, int *);
  * precision type taking into account the Fortran mangling
  */
 double CPPARRAY_FC_GLOBAL(dnrm2, DNRM2)(int *, double *, int *);
+
+// level 1 blas xASUM
+
+/*! \brief Level 1 blas used to sum the absolute values of the elements of a
+ * vector of single precision type taking into account the Fortran mangling
+ */
+double CPPARRAY_FC_GLOBAL(sasum, SASUM)(int *, float *, int *);
+
+/*! \brief Level 1 blas used to sum the absolute values of the elements of a
+ * vector of double precision type taking into account the Fortran mangling
+ */
+double CPPARRAY_FC_GLOBAL(dasum, DASUM)(int *, double *, int *);
 
 // level 1 blas xSCAL function: x <- alpha*x
 
@@ -164,10 +176,44 @@ static double MAY_NOT_BE_USED cblas_Xnrm2(int *N, double *X, int *incX) {
  * vector
  * \param N - The size of vector \f$ x \f$
  * \param x - A one-dimensional array used to store \f$ x \f$
- * \param incX - Increment step used in array \f$ x \f$
+ * \param incX - Increment step used in vector \f$ x \f$
  */
 template <typename T> static T cblas_nrm2(int N, T *x, int incX) {
   return cblas_Xnrm2(&N, x, &incX);
+}
+
+// level 1 blas xASUM
+
+/*! \brief Level 1 blas concrete function used to compute the sum the absolute
+ * values of the elements of a vector of single precision type
+ */
+static float MAY_NOT_BE_USED cblas_Xasum(int *N, float *X, int *incX) {
+  return CPPARRAY_FC_GLOBAL(sasum, SASUM)(N, X, incX);
+}
+
+/*! \brief Level 1 blas concrete function used to compute the sum the absolute
+ * values of the elements of a vector of double precision type
+ */
+static double MAY_NOT_BE_USED cblas_Xasum(int *N, double *X, int *incX) {
+  return CPPARRAY_FC_GLOBAL(dasum, DASUM)(N, X, incX);
+}
+
+// level 1 blas xASUM function: asum <- |x|_1
+/*! \brief Level 1 blas template function used to compute the sum the absolute
+ * values of the elements of a vector
+ *
+ * This funciton is used to evaluate \f$ r \leftarrow \left\Vert x \right\Vert_1
+ * \f$. The funciton is a function template, and the implementation calls the
+ * function \c cblas_Xasum for the correct type.
+ *
+ * \tparam T - Template parameter that defines the type of elements in the
+ * vector
+ * \param N - The size of vector \f$ x \f$
+ * \param x - A one-dimensional array used to store \f$ x \f$
+ * \param incX - Increment step used in vector \f$ x \f$
+ */
+template <typename T> static T cblas_asum(int N, T *x, int incX) {
+  return cblas_Xasum(&N, x, &incX);
 }
 
 // level 1 blas xSCAL function: x <- alpha*x
@@ -449,4 +495,4 @@ cblas_gemm(char TransA, char TransB, int M, int N, int K, T alpha, T *A,
 
 __END_ARRAY_NAMESPACE__
 
-#endif
+#endif /* BLAS_IMPL_HPP */

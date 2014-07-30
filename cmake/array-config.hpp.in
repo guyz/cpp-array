@@ -33,4 +33,12 @@
 #cmakedefine HAVE_CUBLAS_H
 #cmakedefine CBLAS_HEADER "${CBLAS_HEADER}"
 
+// lapack library
+#cmakedefine HAVE_LAPACK
+#cmakedefine HAVE_CLAPACK
+#cmakedefine CLAPACK_APPLE
+#cmakedefine CLAPACK_ATLAS
+#cmakedefine CLAPACK_MKL
+#cmakedefine CLAPACK_HEADER "${CLAPACK_HEADER}"
+
 #endif

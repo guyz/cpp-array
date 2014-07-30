@@ -6,8 +6,7 @@
  * cpp-array is free  software: you can redistribute it and/or  modify it under
  * the terms  of the  GNU Lesser  General Public  License as  published by  the
  * Free Software Foundation, either version 3 of the License, or (at your
- *option)
- * any later version.
+ * option) any later version.
  *
  * cpp-array is  distributed in the  hope that it  will be useful, but  WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -51,6 +50,42 @@ cblas_Xnrm2(const int N, const double *X, const int incX) {
 template <typename T>
 static T cblas_nrm2(const int N, const T *X, const int incX) {
   return cblas_Xnrm2(N, X, incX);
+}
+
+// level 1 blas xASUM
+
+/*! \brief Level 1 blas concrete function used to compute the sum the absolute
+ * values of the elements of a vector of single precision type
+ */
+static float MAY_NOT_BE_USED
+cblas_Xasum(const int N, const float *X, const int incX) {
+  return cblas_sasum(N, X, incX);
+}
+
+/*! \brief Level 1 blas concrete function used to compute the sum the absolute
+ * values of the elements of a vector of double precision type
+ */
+static double MAY_NOT_BE_USED
+cblas_Xasum(const int N, const double *X, const int incX) {
+  return cblas_dasum(N, X, incX);
+}
+
+// level 1 blas xASUM function: asum <- |x|_1
+/*! \brief Level 1 blas template function used to compute the sum the absolute
+ * values of the elements of a vector
+ *
+ * This funciton is used to evaluate \f$ r \leftarrow \left\Vert x \right\Vert_1
+ * \f$. The funciton is a function template, and the implementation calls the
+ * function \c cblas_Xasum for the correct type.
+ *
+ * \tparam T - Template parameter that defines the type of elements in the
+ * vector
+ * \param N - The size of vector \f$ x \f$
+ * \param x - A one-dimensional array used to store \f$ x \f$
+ * \param incX - Increment step used in vector \f$ x \f$
+ */
+template <typename T> static T cblas_asum(int N, T *x, int incX) {
+  return cblas_Xasum(N, x, incX);
 }
 
 // level 1 blas xSCAL function: x <- alpha*x
@@ -133,8 +168,8 @@ static double MAY_NOT_BE_USED cblas_xdot(const int N, const double *X,
   return cblas_ddot(N, X, incX, Y, incY);
 }
 
-
-/*! \brief Level 1 blas template function used to compute the dot product between two vectors
+/*! \brief Level 1 blas template function used to compute the dot product
+ *between two vectors
  *
  * This funciton is used to evaluate \f$ r \leftarrow x^\top  y  \f$.
  * The funciton is a function template, and the implementation calls the

@@ -5,8 +5,8 @@
  *
  * cpp-array is free  software: you can redistribute it and/or  modify it under
  * the terms  of the  GNU Lesser  General Public  License as  published by  the
- * Free Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  *
  * cpp-array is  distributed in the  hope that it  will be useful, but  WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -18,51 +18,31 @@
  *
  */
 
-
-/*! \file test003.cpp
+/*! \file test_functions.cpp
  *
- * \brief This function tests all constructors and move semantics.
+ * \brief This file tests the functions in functions.hpp.
  */
-
-
-#include <vector>
-
 
 #include "array.hpp"
 
 using std::cout;
 using std::endl;
 
-typedef array::Array<2, double> array_type;
+int main(int argc, char **argv) {
 
+  // identity tensors
+  array::Array<2, double> I = array::identity<2>(3);
+  cout << "Identity matrix I:\n  " << I << endl;
 
-array_type create_empty() {
-  return array_type(2);
-}
+  array::Array<4, double> II = array::identity<4>(3);
+  cout << "Identity tensor II:\n  " << II << endl;
 
+  // vec function
 
-int main() {
-  
-  array_type a(2,3,1.);
-  cout<<"a -> "<<a<<endl;
-  
-  array_type b(a);
-  cout<<"b -> "<<b<<endl;
-  
-  array_type c;
-  c = b;
-  cout<<"c -> "<<c<<endl;
-  
-  array_type d(static_cast<array_type&&>(create_empty()));
-  cout<<"d -> "<<d<<endl;
-  
-  c = create_empty();
-  cout<<"moved c -> "<<c<<endl;
-    
-  std::vector<double> v(4,10.);
-  
-  array_type e(2, &v[0]);
-  cout<<"e -> "<<e<<endl;
-  
+  array::matrix_type<double> A = { { 1, 2, 3 }, { 4, 5, 4 }, { 3, 2, 1 } };
+  cout << "List constructed matrix {{1,2},{3,4}}:\n" << A << endl;
+  cout << "Stack columns into a vector (both member and non-member " << endl;
+  cout << "vec functions can be used):\n  " << A.vec() << endl;
+
   return 0;
 }

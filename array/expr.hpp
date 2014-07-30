@@ -34,7 +34,7 @@
 
 #include "array-config.hpp"
 #include "array.hpp"
-#include "blas.hpp"
+//#include "blas.hpp"
 
 
 __BEGIN_ARRAY_NAMESPACE__
@@ -242,6 +242,10 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 // alias templates
 
+//! array -- array addition
+template <int d, typename T>
+using AAa = Expr<BinExprOp<Array<d, T>, Array<d, T>, ApAdd> >;
+
 //! scalar -- array multiplication
 template <int d, typename T>
 using SAm = Expr<BinExprOp< ExprLiteral<T>, Array<d,T>, ApMul> >;
@@ -280,6 +284,11 @@ using SVtm = Expr<BinExprOp<ExprLiteral<T>, Vt<T>, ApMul> >;
 //! scalar*transposed matrix multiplication
 template <typename T>
 using SMtm = Expr< BinExprOp< ExprLiteral<T>, Expr< BinExprOp< matrix_type<T>, EmptyType, ApTr> >, ApMul> >;
+
+//! scalar expression multiplication
+template <class T, class B>
+using SEm = Expr< BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> >;
+
 
 
 //! scalar*transposed vector -- scalar matrix multiplication
@@ -389,7 +398,7 @@ public:
 class ApSub {
 public:
   
-  //! array -- array addition
+  //! array -- array subtraction
   template <int d, typename T>
   static Array<d,T> apply(const Array<d,T>& a, const Array<d,T>& b) {
     
@@ -402,7 +411,7 @@ public:
     return r;
   }
   
-  //! expr -- expr addition
+  //! expr -- expr subtraction
   template<class A, class B>
   static typename Return_type<Expr<A>, Expr<B>, ApSub>::result_type
   apply(const Expr<A>& a, const Expr<B>& b) {
@@ -418,7 +427,7 @@ public:
   template <typename T>
   static ExprLiteral<T> apply(const ExprLiteral<T>& a, const ExprLiteral<T>& b)
   { return ExprLiteral<T>(a*b); }
-  
+
   //! scalar -- array multiplication
   template <int d, typename T>
   static Array<d,T> apply(const ExprLiteral<T>& a, const Array<d,T>& b) {
@@ -427,6 +436,29 @@ public:
     // initialization using the scalar
     Array<d,T> r(b);
     cblas_scal<T>(b.size(), a, r.data_, 1);
+    return r;
+  }
+
+  //! expression -- scalar multiplication
+  template <typename T, class A>
+  static auto apply(const Expr<A> &a, const ExprLiteral<T> &b)
+  -> decltype(a()) {
+    return a()*b();
+  }
+
+  //! scalar -- expression multiplication
+  template <typename T, class B>
+  static auto apply(const ExprLiteral<T> &a, const Expr<B> &b)
+  -> decltype(b()) {
+    return a()*b();
+  }
+
+  //! scalar -- array addition multiplication
+  template <int d, typename T>
+  static Array<d,T> apply(const ExprLiteral<T> &a, const AAa<d, T> &b) {
+    
+    Array<d, T> r = b();
+    cblas_scal<T>(r.size(), a, r.data_, 1);
     return r;
   }
   
@@ -487,6 +519,24 @@ public:
     return r;
   }
   
+  //! (scalar -- vector multiplication) -- (scalar -- matrix multiplication) multiplication
+  template <typename T>
+  static matrix_type<T> apply(const SVm<T>& x, const SMm<T>& y) {
+    
+    // get matrix refernces
+    const vector_type<T>& a = x.right();
+    const matrix_type<T>& b = y.right();
+    
+    // check size
+    assert(b.rows() == 1);
+    
+    matrix_type<T> r(a.size(), b.columns());
+    cblas_gemm<T>(CblasNoTrans, CblasNoTrans, r.rows(), r.columns(), 1,
+                  x.left() * y.left(), a.data_, a.size(), b.data_, b.rows(),
+                  0.0, r.data_, r.rows());
+    return r;
+  }
+  
   //! (scalar -- matrix multiplication) -- (scalar -- matrix multiplication) multiplication
   template <typename T>
   static matrix_type<T> apply(const SMm<T>& x, const SMm<T>& y) {
@@ -540,6 +590,24 @@ public:
     return r;
   }
   
+  //! scalar*matrix -- scalar*transposed vector multiplication
+  template <typename T>
+  static matrix_type<T> apply(const SMm<T> &x, const SVtm<T> &y) {
+    
+    // get matrix refernces
+    const matrix_type<T>& a = x.right();
+    const vector_type<T>& b = y.right().left();
+    
+    // check size
+    assert(a.columns() == 1);
+    
+    matrix_type<T> r(a.rows(), b.size());
+    cblas_gemm(CblasNoTrans, CblasTrans, r.rows(), r.columns(),
+               a.columns(), x.left()*y.left(),
+               a.data_, a.rows(), b.data_, b.size(), 1.0, r.data_, r.rows());
+    return r;
+  }
+
   
   //! scalar*matrix -- scalar*transposed matrix multiplication
   template <typename T>
@@ -667,14 +735,18 @@ operator+(const A& a)
 ////////////////////////////////////////////////////////////////////////////////
 // unary operator-
 
-//! unary operator-(any)
-template <class A>
-typename std::enable_if<!is_arithmetic<A>::value, Expr<BinExprOp<ExprLiteral<typename A::value_type>, A, ApMul> > >::type
-operator-(const A& a) {
-  
-  typedef typename A::value_type value_type;
-  return value_type(-1) * a;
+//! operator+(array, array)
+template <int d, typename T>
+Array<d,T> operator-(const Array<d,T>& a) {
+  return -1*a;
 }
+
+//! unary operator-(expr)
+template <class A>
+auto operator-(const Expr<A>& a) -> decltype(a()) {
+  return -1 * a();
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // operator+
@@ -745,54 +817,36 @@ operator-(const Expr<A>& a, const Expr<B>& b) {
 //! operator-(array, array)
 template <int d, typename T>
 Expr<BinExprOp<Array<d,T>, Array<d,T>, ApSub> >
-operator-(const Array<d,T>& a, const Array<d,T>& b) {
+operator-(const Array<d,T>& a, const Array<d,T>& b)
+{
   
   typedef BinExprOp<Array<d,T>, Array<d,T>, ApSub> ExprT;
   return Expr<ExprT>(ExprT(a,b));
 }
 
 //! operator-(expr, array)
-template<int d, typename T, class A>
-Expr< BinExprOp<
-Expr<A>,
-SAm<d,T>,
-ApAdd> >
-operator-(const Expr<A>& a, const Array<d,T>& b) {
-  
-  typedef BinExprOp<
-  Expr<A>,
-  SAm<d,T>,
-  ApAdd> ExprT;
-  return Expr<ExprT>(ExprT(a, T(-1)*b));
-}
+template <int d, typename T, class A>
+Expr<BinExprOp<Expr<A>, SAm<d, T>, ApAdd> > operator-(const Expr<A> &a,
+                                                      const Array<d, T> &b) {
 
+  typedef BinExprOp<Expr<A>, SAm<d, T>, ApAdd> ExprT;
+  return Expr<ExprT>(ExprT(a, T(-1) * b));
+}
 
 //! operator-(array, expr)
-template<int d, typename T, class B>
-Expr<BinExprOp<Expr<BinExprOp<ExprLiteral<T>,Array<d,T>,ApMul> >,Expr<B>, ApAdd> >
-operator-(const Array<d,T>& a, const Expr<B>& b) {
-  return (a + (T(-1)*b));
-}
+template <int d, typename T, class B>
+Expr<BinExprOp<SAm<d, T>, Expr<B>, ApSub> > operator-(const Array<d, T> &a,
+                                                      const Expr<B> &b) {
 
-
-//! operator-(array, scalar*array)
-template <int d, class T>
-Expr<
-BinExprOp<
-SAm<d,T>,
-SAm<d,T>,
-ApAdd>
->
-operator-(const Array<d,T>& a, const SAm<d,T>& b) {
-  
-  typedef BinExprOp< SAm<d,T>, SAm<d,T>, ApAdd> ExprT;
-  T factor = T(-1) * b.left();
-  return Expr<ExprT>(ExprT(T(1)*a, factor*b.right()));
+  typedef BinExprOp<SAm<d, T>, Expr<B>, ApSub> ExprT;
+  return Expr<ExprT>(ExprT(T(1) * a, b));
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // operator*
+
+
 
 //! operator*(expr, expr)
 template<class A, class B>
@@ -820,22 +874,29 @@ operator*(const Array<d1,T>& a, const Array<d2,T>& b) {
 
 //! operator*(scalar, expr)
 template <typename S, class B>
-typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<typename Expr<B>::value_type >, Expr<B>, ApMul> > >::type
+typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<S>, Expr<B>, ApMul> > >::type
 operator*(S a, const Expr<B>& b) {
   
-  typedef typename Expr<B>::value_type value_type;
-  typedef BinExprOp< ExprLiteral<value_type>, Expr<B>, ApMul> ExprT;
-  return Expr<ExprT>(ExprT(ExprLiteral<value_type>(a),b));
+  typedef BinExprOp< ExprLiteral<S>, Expr<B>, ApMul> ExprT;
+  return Expr<ExprT>(ExprT(ExprLiteral<S>(a),b));
 }
 
 //! operator*(expr, scalar)
-template <typename S, class B>
-typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<typename Expr<B>::value_type >, Expr<B>, ApMul> > >::type
-operator*(const Expr<B>& b, S a) {
+template <typename S, class A>
+typename std::enable_if<is_arithmetic<S>::value, Expr<BinExprOp< ExprLiteral<S>, Expr<A>, ApMul> > >::type
+operator*(const Expr<A>& a, S b) {
   
-  typedef typename Expr<B>::value_type value_type;
-  typedef BinExprOp< ExprLiteral<value_type>, Expr<B>, ApMul> ExprT;
-  return Expr<ExprT>(ExprT(ExprLiteral<value_type>(a),b));
+  typedef BinExprOp< ExprLiteral<S>, Expr<A>, ApMul> ExprT;
+  return Expr<ExprT>(ExprT(ExprLiteral<S>(b),a));
+}
+
+//! operator*(scalar, array addition)
+template <int d, typename S, typename T>
+typename std::enable_if<is_arithmetic<S>::value && is_arithmetic<T>::value, Array<d, T>>::type
+operator*(S a, const AAa<d,T>& b) {
+
+  typedef BinExprOp< ExprLiteral<T>, AAa<d,T>, ApMul> ExprT;
+  return Expr<ExprT>(ExprT(ExprLiteral<T>(a),b));
 }
 
 //! operator*(scalar, scalar*expr)
@@ -846,7 +907,6 @@ operator*(S a, const Expr<BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> >& b) {
   typedef BinExprOp< ExprLiteral<T>, Expr<B>, ApMul> ExprT;
   return Expr<ExprT>(ExprT(ExprLiteral<T>(a*b.left()),b.right()));
 }
-
 
 //! operator*(scalar, scalar*expr*expr)
 template <typename S, class T, class A, class B>

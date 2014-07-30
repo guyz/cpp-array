@@ -1,0 +1,79 @@
+_______________________________________ 
+Vector x (double precision):
+  Array<1> (1)
+ 1
+
+Matrix A (double precision):
+  Array<2> (1x1)
+ 1
+
+Tensor TT (double precision):
+  Dim 4: 0, Dim 3: 0, Array<2> (1x1)
+ 1
+
+_______________________________________ 
+Cast vector to scalar: 1
+Cast matrix to scalar: 1
+Cast tensor to scalar: 1
+_______________________________________ 
+Cast back scalar to vector:
+  Array<1> (1)
+ 1
+
+Cast back scalar to matrix:
+  Array<2> (1x1)
+ 1
+
+Cast back scalar to tensor:
+  Dim 4: 0, Dim 3: 0, Array<2> (1x1)
+ 1
+
+_______________________________________ 
+Vector y (double precision):
+  Array<1> (3)
+ 1
+ 2
+ 3
+
+Cast vector to matrix:
+  Array<2> (3x1)
+ 1
+ 2
+ 3
+
+Cast vector to tensor:
+  Dim 4: 0, Dim 3: 0, Array<2> (3x1)
+ 1
+ 2
+ 3
+
+_______________________________________ 
+Cast back matrix to vector:
+  Array<1> (3)
+ 1
+ 2
+ 3
+
+Cast back tensor to vector:
+  Array<1> (3)
+ 1
+ 2
+ 3
+
+_______________________________________ 
+Matrix C (double precision):
+  Array<2> (2x3)
+ 1 2 3
+ 4 5 6
+
+Cast matrix to tensor:
+  Dim 4: 0, Dim 3: 0, Array<2> (2x3)
+ 1 2 3
+ 4 5 6
+
+_______________________________________ 
+Cast back tensor to matrix:
+  Array<2> (2x3)
+ 1 2 3
+ 4 5 6
+

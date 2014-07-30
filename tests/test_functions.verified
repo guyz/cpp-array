@@ -1,0 +1,63 @@
+Identity matrix I:
+  Array<2> (3x3)
+ 1 0 0
+ 0 1 0
+ 0 0 1
+
+Identity tensor II:
+  Dim 4: 0, Dim 3: 0, Array<2> (3x3)
+ 1 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 1, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 2, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 4: 1, Dim 3: 0, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 1, Array<2> (3x3)
+ 0 0 0
+ 0 1 0
+ 0 0 0
+Dim 3: 2, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 4: 2, Dim 3: 0, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 1, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 2, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 1
+
+List constructed matrix {{1,2},{3,4}}:
+Array<2> (3x3)
+ 1 2 3
+ 4 5 4
+ 3 2 1
+
+Stack columns into a vector (both member and non-member 
+vec functions can be used):
+  Wrapped Array<1> (9)
+ 1
+ 4
+ 3
+ 2
+ 5
+ 2
+ 3
+ 4
+ 1
+

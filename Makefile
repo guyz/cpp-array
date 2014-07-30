@@ -14,12 +14,16 @@
 
 # Configuration options.
 cxx        = not-set
+CXX        = not-set
 fc         = not-set
+FC         = not-set
 prefix     = not-set
 doc        = not-set
 latex      = not-set
 build      = not-set
 cuda       = not-set
+dev        = not-set
+
 
 # Basically proxies everything to the builddir cmake.
 
@@ -36,8 +40,14 @@ endif
 ifneq ($(cxx), not-set)
     CONFIG_FLAGS += -DCMAKE_CXX_COMPILER=$(cxx)
 endif
+ifneq ($(CXX), not-set)
+    CONFIG_FLAGS += -DCMAKE_CXX_COMPILER=$(CXX)
+endif
 ifneq ($(fc), not-set)
     CONFIG_FLAGS += -DCMAKE_Fortran_COMPILER=$(fc)
+endif
+ifneq ($(FC), not-set)
+    CONFIG_FLAGS += -DCMAKE_Fortran_COMPILER=$(FC)
 endif
 ifneq ($(doc), not-set)
     CONFIG_FLAGS += -DCPP-ARRAY_DOCUMENTATION=$(doc)
@@ -51,6 +61,10 @@ endif
 ifneq ($(cuda), not-set)
     CONFIG_FLAGS += -DCUDA=$(cuda)
 endif
+ifneq ($(dev), not-set)
+    CONFIG_FLAGS += -DCPP-ARRAY_DEV=$(dev)
+endif
+
 
 
 define run-config

@@ -1,0 +1,20 @@
+List constructed matrix {{1,2,3},{4,5,4},{3,2,1}}:
+Array<2> (3x3)
+ 1 2 3
+ 4 5 4
+ 3 2 1
+
+Inverse matrix
+:  Array<2> (3x3)
+ 0.375 -0.5 0.875
+ -1 1 -1
+ 0.875 -0.5 0.375
+
+List constructed singular matrix {{1,2},{2,4}}:
+Array<2> (2x2)
+ 1 2
+ 2 4
+
+Inverting matrix B
+Problem encountered factorizing matrix.
+Zero factor found in upper triangular matrix: u(2,2) = 0

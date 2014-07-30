@@ -25,7 +25,13 @@ include_directories (${cpp-array_SOURCE_DIR}/array)
 
  file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/script.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR} FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
 
-set (ARRAY_TESTS test000 test001 test002 test003 test004)
+set (ARRAY_TESTS test_access test_blas test_functions test_iterators test_constructors test_norms test_algebraic_cast)
+
+if (HAVE_LAPACK OR HAVE_CLAPACK)
+  list (APPEND ARRAY_TESTS test_lapack)
+endif()
+
+
 
 # iterate over tests
 foreach (test ${ARRAY_TESTS})

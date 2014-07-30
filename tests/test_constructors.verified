@@ -1,0 +1,158 @@
+Wrapped vector x:
+  Wrapped Array<1> (16)
+ 0
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+
+Wrapped matrix X:
+  Wrapped Array<2> (4x4)
+ 0 4 8 12
+ 1 5 9 13
+ 2 6 10 14
+ 3 7 11 15
+
+Wrapped tensor XX:
+  Wrapped Dim 4: 0, Dim 3: 0, Array<2> (2x2)
+ 0 2
+ 1 3
+Dim 3: 1, Array<2> (2x2)
+ 4 6
+ 5 7
+Dim 4: 1, Dim 3: 0, Array<2> (2x2)
+ 8 10
+ 9 11
+Dim 3: 1, Array<2> (2x2)
+ 12 14
+ 13 15
+
+Intercalated vector (lambda i: i % 2 == 0):
+  a -> Array<1> (5)
+ 1
+ 0
+ 1
+ 0
+ 1
+
+Identity matrix (lambda i,j: i == j):
+  A -> Array<2> (5x5)
+ 1 0 0 0 0
+ 0 1 0 0 0
+ 0 0 1 0 0
+ 0 0 0 1 0
+ 0 0 0 0 1
+
+Matrix (lambda i,j: i*j % 2 == 0):
+  B -> Array<2> (5x5)
+ 1 1 1 1 1
+ 1 0 1 0 1
+ 1 1 1 1 1
+ 1 0 1 0 1
+ 1 1 1 1 1
+
+Matrix (lambda i,j,k,l: i == j == k == l):
+  II -> Dim 4: 0, Dim 3: 0, Array<2> (3x3)
+ 1 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 1, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 2, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 4: 1, Dim 3: 0, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 1, Array<2> (3x3)
+ 0 0 0
+ 0 1 0
+ 0 0 0
+Dim 3: 2, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 4: 2, Dim 3: 0, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 1, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 0
+Dim 3: 2, Array<2> (3x3)
+ 0 0 0
+ 0 0 0
+ 0 0 1
+
+Initializer list vector {1,2,3,4}:
+  y -> Array<1> (4)
+ 1
+ 2
+ 3
+ 4
+
+Initializer list matrix {{1,2,3},{4,5,6}}:
+  C -> Array<2> (2x3)
+ 1 2 3
+ 4 5 6
+
+Initializer list tensor:
+  TT -> Dim 4: 0, Dim 3: 0, Array<2> (2x3)
+ 1 2 3
+ 4 5 6
+Dim 3: 1, Array<2> (2x3)
+ 7 8 9
+ 10 11 12
+Dim 3: 2, Array<2> (2x3)
+ 13 14 15
+ 16 17 18
+Dim 3: 3, Array<2> (2x3)
+ 19 20 21
+ 22 23 24
+
+Default constructed matrix D:
+  Array<2> (2x3)
+ 0 0 0
+ 0 0 0
+
+Parameter constructed matrix E:
+  Array<2> (2x3)
+ 1 1 1
+ 1 1 1
+
+Copy constructed matrix F:
+  Array<2> (2x3)
+ 1 1 1
+ 1 1 1
+
+Assigned matrix G=C:
+  Array<2> (2x3)
+ 1 2 3
+ 4 5 6
+
+Move constructed H:
+  Array<2> (2x3)
+ 6 5 4
+ 3 2 1
+
+Pointer constructed matrix I:
+  Wrapped Array<2> (2x2)
+ 10 10
+ 10 10
+

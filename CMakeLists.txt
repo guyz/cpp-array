@@ -28,29 +28,9 @@ cmake_minimum_required (VERSION 2.8)
 project (CPP-ARRAY)
 enable_language(CXX)
 
+
 # set path for additional cmake modules
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
-
-
-include(CheckCXXCompilerFlag)
-check_cxx_compiler_flag (-std=c++0x HAVE_NEW_STD)
-
-if (HAVE_NEW_STD)
-  message (STATUS "Compiler supports C++11 set of requirements.")
-  add_definitions(-std=c++0x)
-else()
-  message(WARNING "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
-endif()
-
-
-# check for Fortran compiler
-include(CMakeDetermineCompiler)
-if (NOT CMAKE_Fortran_COMPILER)
-  message(STATUS "Fortran compiler not found.")
-else()
-  message(STATUS "Fortran compiler found: ${CMAKE_Fortran_COMPILER}")
-  enable_language(Fortran)
-endif()
 
 
 # The version number.
@@ -82,6 +62,35 @@ elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
 else()
   set(VERSION "${ARRAY_VERSION_MAJOR}.${ARRAY_VERSION_MINOR}")
 endif()
+
+message (STATUS "Configuring cpp-array ${VERSION}")
+
+
+# check if Fortran compiler in the environment
+if (DEFINED ENV{fc} OR DEFINED ENV{FC})
+  message(STATUS "Fortran compiler given: $ENV{fc}$ENV{FC}")
+  enable_language(Fortran)
+else()
+  message(STATUS "Fortran compiler not provided:")
+  if (DEFINED ENV{cuda})
+    message(STATUS "  Configuring the library with CUDA support")
+  else()
+    message(STATUS "  Configuring the library with the C interfaces to BLAS and LAPACK")
+  endif()
+endif()
+
+# check for compiler supporting C++11
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag (-std=c++0x HAVE_NEW_STD)
+
+if (HAVE_NEW_STD)
+  message (STATUS "Compiler supports C++11 set of requirements.")
+  add_definitions(-std=c++0x)
+#  add_definitions(-std=c++11)
+else()
+  message(WARNING "*** ERROR *** Compiler supporting the flag -std=c++0x is required to use the array library.")
+endif()
+
 
 
 set (CPP-ARRAY_INCLUDE_DIRS ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/array)
@@ -120,12 +129,13 @@ endif()
 # use blas or cblas if not working with cuda
 if (NOT CUDA_FOUND)
 
-
   find_package(BLAS)
   if (BLAS_FOUND AND CMAKE_Fortran_COMPILER)
 
     set (HAVE_BLAS_H YES)
     message (STATUS "  Setting HAVE_BLAS_H: ${HAVE_BLAS_H}")
+    enable_language(Fortran)
+
     include(FortranCInterface)
     FortranCInterface_HEADER(${CMAKE_CURRENT_BINARY_DIR}/fortran_mangling.hh MACRO_NAMESPACE "CPPARRAY_FC_")
     
@@ -151,6 +161,48 @@ if (NOT CUDA_FOUND)
 endif()
 
 
+# find lapack library
+if (CMAKE_Fortran_COMPILER)
+
+  find_package(LAPACK)
+  if(LAPACK_FOUND OR LAPACK95_FOUND)
+    set (HAVE_LAPACK YES)
+    message (STATUS "  Setting HAVE_LAPACK: ${HAVE_LAPACK}")
+
+    enable_language(Fortran)
+    include(FortranCInterface)
+    FortranCInterface_HEADER(${CMAKE_CURRENT_BINARY_DIR}/fortran_mangling.hh MACRO_NAMESPACE "CPPARRAY_FC_")
+
+    if(LAPACK_FOUND)
+      set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${LAPACK_LIBRARIES})
+      message (STATUS "  Adding LAPACK libraries: ${LAPACK_LIBRARIES}")
+    elseif (LAPACK95_FOUND)
+      set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${LAPACK95_LIBRARIES})
+      message (STATUS "  Adding LAPACK libraries: ${LAPACK95_LIBRARIES}")
+    endif()
+  else()
+    message (STATUS "  LAPACK library not found")
+  endif()
+  
+else(CMAKE_Fortran_COMPILER)
+
+  # find CLAPACK library
+  find_package(CLAPACK)
+  if(CLAPACK_FOUND)
+    set (HAVE_CLAPACK YES)
+    message (STATUS "  Setting HAVE_CLAPACK: ${HAVE_CLAPACK}")
+
+    message (STATUS "  Setting CLAPACK_HEADER: ${CLAPACK_HEADER}")
+    list (APPEND CPP-ARRAY_INCLUDE_DIRS ${CLAPACK_INCLUDE_DIRS})
+    message (STATUS "  Adding include directories: ${CLAPACK_INCLUDE_DIRS}")
+    set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${CLAPACK_LIBRARIES})
+    message (STATUS "  Adding CLAPACK libraries: ${CLAPACK_LIBRARIES}")
+  else()
+    message (STATUS "*** WARNING *** LAPACK library not found.")
+  endif()
+endif (CMAKE_Fortran_COMPILER)
+
+
 include_directories(${CPP-ARRAY_INCLUDE_DIRS})
 
 set (CPP-ARRAY_INCLUDE_DIRS_TMP ${CPP-ARRAY_INCLUDE_DIRS})
@@ -162,16 +214,20 @@ set (CPP-ARRAY_LIBRARIES ${EXTERNAL_LIBS} CACHE INTERNAL "Libraries for cpp-arra
 message (STATUS ${CPP-ARRAY_INCLUDE_DIRS})
 
 add_subdirectory (array)
-add_subdirectory (examples)
+
+option (CPP-ARRAY_EXAMPLES "cpparray examples" ON)
+
+if (CPP-ARRAY_EXAMPLES)
+  # enable examples
+  add_subdirectory (examples)
+endif()
 
 option (CPP-ARRAY_TESTS "cpparray tests" ON)
 
 if (CPP-ARRAY_TESTS)
-
   # enable testing
   enable_testing ()
   add_subdirectory (tests)
-
 endif()
 
 
@@ -242,49 +298,61 @@ endif()
 
 
 # cpack package module
-SET(CPACK_INSTALL_CMAKE_PROJECTS "${PROJECT_BINARY_DIR};cpp-array;ALL;/")
-SET(CPACK_NSIS_DISPLAY_NAME "cpp-array ${VERSION}")
-SET(CPACK_OUTPUT_CONFIG_FILE "${PROJECT_BINARY_DIR}/CPackConfig.cmake")
-SET(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README")
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A C++ interface to the BLAS library using arbitrary-rank arrays")
-SET(CPACK_PACKAGE_FILE_NAME "cpp-array-${VERSION}-${CMAKE_SYSTEM_NAME}")
-SET(CPACK_PACKAGE_INSTALL_DIRECTORY "cpp-array ${VERSION}")
-SET(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "cpp-array ${VERSION}")
-SET(CPACK_PACKAGE_NAME "cpp-array")
-SET(CPACK_PACKAGE_VERSION "${VERSION}")
-SET(CPACK_PACKAGE_VERSION_MAJOR "${ARRAY_VERSION_MAJOR}")
-SET(CPACK_PACKAGE_VERSION_MINOR "${ARRAY_VERSION_MINOR}")
-SET(CPACK_SOURCE_IGNORE_FILES "/build/;/.svn/;.DS_Store;.#;/#;.*~;.*xcodeproj;project.*;xcuserdata")
-SET(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README")
-SET(CPACK_RESOURCE_FILE_WELCOME "${PROJECT_SOURCE_DIR}/README")
-SET(CPACK_GENERATOR "ZIP")
-SET(CPACK_SOURCE_GENERATOR "ZIP")
-SET(CPACK_SOURCE_PACKAGE_FILE_NAME "cpp-array-${VERSION}-src")
-SET(CPACK_SOURCE_STRIP_FILES "")
-SET(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}")
-SET(CPACK_TOPLEVEL_TAG "${CMAKE_SYSTEM_NAME}")
+set(CPACK_INSTALL_CMAKE_PROJECTS "${PROJECT_BINARY_DIR};cpp-array;ALL;/")
+set(CPACK_NSIS_DISPLAY_NAME "cpp-array ${VERSION_SHORT}")
+set(CPACK_OUTPUT_CONFIG_FILE "${PROJECT_BINARY_DIR}/CPackConfig.cmake")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${PROJECT_SOURCE_DIR}/README")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A C++ interface to the BLAS library using arbitrary-rank arrays")
+set(CPACK_PACKAGE_FILE_NAME "cpp-array-${VERSION_SHORT}-${CMAKE_SYSTEM_NAME}")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "cpp-array ${VERSION_SHORT}")
+set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "cpp-array ${VERSION_SHORT}")
+set(CPACK_PACKAGE_NAME "cpp-array")
+set(CPACK_PACKAGE_VERSION "${VERSION_SHORT}")
+set(CPACK_PACKAGE_VERSION_MAJOR "${ARRAY_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${ARRAY_VERSION_MINOR}")
+set(CPACK_SOURCE_IGNORE_FILES "/build/;/.svn/;.git/;.gitignore;.DS_Store;.#;/#;.*~;.*xcodeproj;project.*;xcuserdata")
+set(CPACK_RESOURCE_FILE_README "${PROJECT_SOURCE_DIR}/README")
+set(CPACK_RESOURCE_FILE_WELCOME "${PROJECT_SOURCE_DIR}/README")
+set(CPACK_GENERATOR "ZIP")
+set(CPACK_SOURCE_GENERATOR "ZIP;TGZ")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "cpp-array-${VERSION_SHORT}-src")
+set(CPACK_SOURCE_STRIP_FILES "")
+set(CPACK_SYSTEM_NAME "${CMAKE_SYSTEM_NAME}")
+set(CPACK_TOPLEVEL_TAG "${CMAKE_SYSTEM_NAME}")
+include(CPack)
 
-
-
-INCLUDE(CPack)
 
 
 
 # swig module creation for python
-#FIND_PACKAGE(SWIG REQUIRED)
-#INCLUDE(${SWIG_USE_FILE})
 
-#FIND_PACKAGE(PythonLibs)
-#INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
-#INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/array)
+# hard-code 3.4 for the time being
+#set(PYTHON_INCLUDE_PATH /Library/Frameworks/Python.framework/Versions/3.4/include/python3.4m)
+#set(PYTHON_LIBRARIES /Library/Frameworks/Python.framework/Versions/3.4/lib/libpython3.4.dylib)
+#set(PYTHON_EXECUTABLE /usr/local/bin/python3)
+#set(PYTHON_INCLUDE_DIR  /Library/Frameworks/Python.framework/Versions/3.4/include/python3.4m)
 
-##SET(CMAKE_SWIG_FLAGS "-c++")
-#SET(CMAKE_SWIG_FLAGS "")
 
-#SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/array/array.i PROPERTIES CPLUSPLUS ON)
-#SET_SOURCE_FILES_PROPERTIES(array.i PROPERTIES SWIG_FLAGS "-includeall")
-#SWIG_ADD_MODULE(array python ${CMAKE_CURRENT_SOURCE_DIR}/array/array.i)
-#SWIG_LINK_LIBRARIES(array ${PYTHON_LIBRARIES})
+#find_package(SWIG)
+if(SWIG_FOUND)
+  
+  include(${SWIG_USE_FILE})
+
+#  find_package(PythonLibs 3)
+  include_directories(${PYTHON_INCLUDE_PATH})
+  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/array)
+  
+  message(STATUS "PYTHON LIBS: ${PYTHON_LIBRARIES}")
+
+  ##set(CMAKE_SWIG_FLAGS "-c++ -shadow")
+  set(CMAKE_SWIG_FLAGS "-c++;-shadow")
+
+
+  SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/array/array.i PROPERTIES CPLUSPLUS ON)
+  SET_SOURCE_FILES_PROPERTIES(array.i PROPERTIES SWIG_FLAGS "-includeall")
+  SWIG_ADD_MODULE(cpparray python ${CMAKE_CURRENT_SOURCE_DIR}/array/array.i)
+  SWIG_LINK_LIBRARIES(cpparray ${PYTHON_LIBRARIES} ${EXTERNAL_LIBS})
+endif()
 
 
 # configure a header file to pass some of the CMake settings

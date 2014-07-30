@@ -22,8 +22,9 @@
 # - Find CBLAS
 # Find the native CBLAS headers and libraries.
 #
-#  CBLAS_LIBRARIES    - List of libraries when using cblas.
 #  CBLAS_FOUND        - True if cblas found.
+#  CBLAS_INCLUDE_DIR  - Directory of cblas header files
+#  CBLAS_LIBRARIES    - List of libraries when using cblas.
 #
 
 message (STATUS "Looking for cblas library")
@@ -42,7 +43,7 @@ if (CBLAS_INCLUDE_DIR)
 endif(CBLAS_INCLUDE_DIR)
 
 # find library
-find_library (CBLAS_LIBRARY NAMES cblas gslcblas PATHS ${USER_LIB_PATH}/lib $ENV{SUPERLUDIR}/lib ${CMAKE_INSTALL_PREFIX}/lib ${CMAKE_SOURCE_DIR}/../lib)
+find_library (CBLAS_LIBRARY NAMES cblas gslcblas PATHS ${USER_LIB_PATH}/lib ${CMAKE_INSTALL_PREFIX}/lib ${CMAKE_SOURCE_DIR}/../lib)
 
 set(CBLAS_LIBRARIES ${CBLAS_LIBRARY})
 set(CBLAS_INCLUDE_DIRS ${CBLAS_INCLUDE_DIR})
