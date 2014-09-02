@@ -31,6 +31,9 @@
 #include <sstream>
 #include "expr.hpp"
 
+#include <stdexcept>
+
+
 __BEGIN_ARRAY_NAMESPACE__
 
 /*! Creates an identity tensor
@@ -60,7 +63,7 @@ template <int k, typename T> Array<1, T> vec(const Array<k, T> &m) {
 
 //! Cast scalar into an Array
 template <class S, typename T>
-typename std::enable_if<is_arithmetic<T>::value && !std::is_same<S, T>::value,
+typename std::enable_if<std::is_arithmetic<T>::value && !std::is_same<S, T>::value,
                         S>::type
 algebraic_cast(T v) {
   S s(1);
@@ -70,14 +73,14 @@ algebraic_cast(T v) {
 
 //! Cast Array into a scalar
 template <class S, int k, typename T>
-typename std::enable_if<is_arithmetic<S>::value, S>::type
+typename std::enable_if<std::is_arithmetic<S>::value, S>::type
 algebraic_cast(const Array<k, T> &a) {
   return a.template algebraic_cast<S>();
 }
 
 //! Provide casting between arrays
 template <class S, int k, typename T>
-typename std::enable_if<!is_arithmetic<S>::value, S>::type
+typename std::enable_if<!std::is_arithmetic<S>::value, S>::type
 algebraic_cast(const Array<k, T> &m) {
   static_assert(
       S::rank() != Array<k, T>::rank(),
