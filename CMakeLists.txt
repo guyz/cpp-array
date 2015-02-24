@@ -138,7 +138,7 @@ if (NOT CUDA_FOUND)
 
     include(FortranCInterface)
     FortranCInterface_HEADER(${CMAKE_CURRENT_BINARY_DIR}/fortran_mangling.hh MACRO_NAMESPACE "CPPARRAY_FC_")
-    
+
     set (EXTERNAL_LIBS ${EXTERNAL_LIBS} ${BLAS_LIBRARIES})
     message (STATUS "  Adding BLAS libraries: ${BLAS_LIBRARIES}")
 
@@ -183,7 +183,7 @@ if (CMAKE_Fortran_COMPILER)
   else()
     message (STATUS "  LAPACK library not found")
   endif()
-  
+
 else(CMAKE_Fortran_COMPILER)
 
   # find CLAPACK library
@@ -370,3 +370,7 @@ configure_file (
 )
 
 install (FILES ${PROJECT_BINARY_DIR}/cpp-array-config.cmake DESTINATION include/array)
+
+if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/fortran_mangling.hh)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/fortran_mangling.hh DESTINATION include)
+endif()
