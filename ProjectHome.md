@@ -1,0 +1,2 @@
+The array++ open source project aims at creating a library of algebraic objects that interface to the BLAS set of functions to maintain high performance.
+The main aim of the library is to provide the end user with an easy to use syntax, where mathematical expressions can be used and the library takes care of calling the BLAS routines behind the scenes. This is done through the use of expression templates and features provided by the new standard library (C++11) so performance is not affected at all.
